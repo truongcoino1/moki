@@ -1,3 +1,66 @@
 <resources>
     <string name="app_name">Moki</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="bo_qua">Bỏ qua</string>
+    <string name="so_dien_thoai">Số điện thoại</string>
+    <string name="dang_nhap">Đăng nhập</string>
+    <string name="mat_khau">Mật khẩu</string>
+    <string name="dang_ky">Đăng ký</string>
+
+    <string name="quen_mat_khau"><u>Quên mật khẩu?</u></string>
+    <string name="title_activity_main">MainActivity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="chao_mung">Chào mừng bạn đến với MOKI</string>
+    <string name="trang_chu">Trang chủ</string>
+    <string name="tin_tuc">Tin tức</string>
+    <string name="danh_sach_yeu_thich">Danh sách yêu thích</string>
+    <string name="danh_sach_ban">Danh sách bán</string>
+    <string name="danh_sach_mua">Danh sách mua</string>
+    <string name="tu_thien">Từ thiện</string>
+    <string name="thiet_lap">Thiết lập</string>
+    <string name="trung_tam_ho_tro">Trung tâm hỗ trợ</string>
+    <string name="gioi_thieu_moki">Giới thiệu MOKI</string>
+    <string name="sap_xep">Sắp xếp</string>
+    <string name="loc">Lọc</string>
+    <string name="Xung_quanh">Xung quanh</string>
+    <string name="huy">Hủy</string>
+    <string name="ap_dung">Áp dụng</string>
+    <string name="xoa_het">Xóa hết</string>
+    <string name="danh_muc">Danh mục</string>
+    <string name="tat_ca">Tất cả</string>
+
+    <string-array name="arrSapXep">
+        <item>Giá từ cao xuống thâp</item>
+        <item>Giá từ thấp lên cao</item>
+        <item>Sản phẩm mới nhất</item>
+        <item>Giảm giá nhiều nhất</item>
+        <item>Khuyến mại nhiều nhất</item>
+        <item>Yêu thích nhất</item>
+        <item>Bình luận nhiều nhất</item>
+    </string-array>
+
+
+    <string-array name="arrTabs">
+        <item>Tất cả</item>
+        <item>Miễn phí</item>
+        <item>Bé ăn</item>
+        <item>Bé mặc</item>
+        <item>Bé ngủ</item>
+        <item>Bé tắm</item>
+        <item>Bé vệ sinh</item>
+        <item>Bé khỏe - an toàn</item>
+        <item>Bé đi ra ngoài</item>
+        <item>Bé chơi mà học</item>
+        <item>Dành cho mẹ</item>
+        <item>Đồ dùng gia đình</item>
+        <item>Sản phẩm khác</item>
+
+    </string-array>
+
 </resources>
