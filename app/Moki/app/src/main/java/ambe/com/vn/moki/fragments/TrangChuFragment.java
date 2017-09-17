@@ -17,7 +17,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.ViewFlipper;
 
 import com.squareup.picasso.Picasso;
@@ -25,7 +25,9 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 import ambe.com.vn.moki.R;
+import ambe.com.vn.moki.adapters.ListviewAdapter;
 import ambe.com.vn.moki.adapters.PagerTrangChuAdapter;
+import ambe.com.vn.moki.model.Model_listview_dlg;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -230,6 +232,29 @@ public class TrangChuFragment extends Fragment implements View.OnClickListener {
     }
 
     private void xuLyLoc() {
+        final Dialog dialog = new Dialog(getActivity());
+        dialog.setContentView(R.layout.dialog_loc);
+        ListView lv=(ListView)dialog.findViewById(R.id.lvdlgloc);
+        ArrayList<Model_listview_dlg> arr=new ArrayList<>();
+        arr.add(new Model_listview_dlg("Danh mục","Tất cả"));
+        arr.add(new Model_listview_dlg("Nhãn hiệu","Tất cả"));
+        arr.add(new Model_listview_dlg("Gía","Tất cả"));
+        arr.add(new Model_listview_dlg("Trạng thái","Tất cả"));
+        ListviewAdapter lvListviewAdapter=new ListviewAdapter(getActivity(),arr);
+        lv.setAdapter(lvListviewAdapter);
+
+
+
+        Button dialogButton = (Button) dialog.findViewById(R.id.btn_huy_dlgloc);
+        // if button is clicked, close the custom dialog
+        dialogButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
 
     }
 
