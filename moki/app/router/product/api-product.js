@@ -1,4 +1,5 @@
 var profile = require('../model/profile');
+var product = require('../model/product');
 
 
 
@@ -15,7 +16,7 @@ module.exports = function (app, db) {
     var newProfile = new profile();
     newProfile.id_user = "1";
     newProfile.password = "truong";
-    newProfile.token = "truong";
+    newProfile.token = "quat";
     newProfile.email = "truongbk227@gmail.com";
     newProfile.username = "truongbk";
     newProfile.infor_user = {
@@ -38,9 +39,9 @@ module.exports = function (app, db) {
 
     });
   });
-  require('./api-getProduct')(app, profile);
- require('./api-getListProduct')(app, profile);
- require('./api-addProduct')(app, profile);
- require('./api-editProduct')(app, profile);
- require('./api-delProduct')(app, profile);
+  require('./api-getProduct')(app, product);
+ require('./api-getListProduct')(app, product);
+ require('./api-addProduct')(app, profile,product);
+ require('./api-editProduct')(app, product);
+ require('./api-delProduct')(app, product, profile);
 };

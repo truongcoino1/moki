@@ -1,20 +1,25 @@
 
-module.exports = function(app,profile ){
+module.exports = function(app,product){
     app.post('/profile/get_list_product', (req, res) => {
-        profile.find({ token: req.body.token }, (err, rs) => {
-          let result= null;
-          console.log(rs.length)
+      product.find({}, (err, rs) => {
+         let result = null;
           if (rs.length != 0) {
-               result = {
-                code :1000,
-                message :"OK",
-                data :rs[0].list_product,
-              }            
+             let list =[];
+             for(var i=0; i < rs.length; i++){
+               if(rs[i].category[0].id === req.body.category_id){
+                 list.push(rs[i]);
+               }
+             }
+             result = {
+              code :1000,
+              message :"OK",
+              data :list,
+            }  
+            return res.json(result)
           } else{
             result = {
-              code :9995,
-              message :"User is not validated.",
-             
+              code :9992,
+              message :"Product is not existed.",            
             } 
           }
           return res.json(result)

@@ -1,14 +1,10 @@
+var convert = require('../Convert');
 
 
-
-module.exports = function (app, profile) {
+module.exports = function (app, profile, product) {
     app.post('/profile/set_comment', (req, res) => {
         profile.find({ token: req.body.token }, (err, rs) => {
             if (rs.length != 0) {
-                let result = null;
-                for (var i = 0; i < rs[0].list_product.length; i++) {
-                    if (rs[0].list_product[i].id_product === req.body.id_product) {
-                        console.log("truong vao day")
                         let poster = {
                             id: rs[0].id_user,
                             name: rs[0].infor_user.firstname + " " + rs[0].infor_user.lastname,
@@ -17,39 +13,36 @@ module.exports = function (app, profile) {
                         let comment = {
                             comment: req.body.comment,
                             index: req.body.index,
-                            count: req.body.console,
+                            count: req.body.count,
                             poster: poster,
                         }
-                        rs[0].list_product[i].comment.push(comment);
-                        rs[0].save((err, post) => {
-                            if (err) {
-                                result = {
-                                    code: 404,
-                                    message: err,
+                     product.find({id_product :req.body.id_product},(err1, rs1) =>{
+                        if(rs1.length !=0){
+                            rs1[0].comment.push(comment);
+                            rs1[0].save(function (err, product) {
+                                if (err != null) {
+                                  res.send(err);
+                                  return null;
                                 }
-                            } else {
-                                result = {
-                                    code: 1000,
-                                    message: "OK",
+                                else {
+                                    let result = {
+                                        code: 1000,
+                                        message: "OK.",
+                                        data :comment,
+                                    }
+                                    return res.json(result);
                                 }
+                      
+                              });
+                        } else {
+                            let result = {
+                                code: 9992,
+                                message: "Product is not existed.",
                             }
-                        });
-                        result = {
-                            code: 1000,
-                            message: "OK",
+                            return res.json(result);
                         }
-                        return res.json(result);
-
-                    } else {
-                        result = {
-                            code: 9992,
-                            message: "Product is not existed",
-                        }
-                        break;
-                    }
-                }
-                console.log("truongcoi")
-                return res.json(result);
+            
+                     })
             }
             else {
                 let result = {

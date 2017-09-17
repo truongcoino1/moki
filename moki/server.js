@@ -17,8 +17,13 @@ mongoose.connect(configDB.url);
 mongoose.Promise = global.Promise;
 var dbMongo = mongoose.connection;
 dbMongo.on('err', console.error.bind(console,'connect err'))
-dbMongo.once("open", function(){
-console.log('mongodb connect');
+dbMongo.once("open", function(err, rs){
+if(!err){
+  console.log('mongodb connect');
+} else{
+  console.log('err');
+}
+
 })
 require('./app/router/product/api-product')(app,dbMongo);
 require('./app/router/comment-product/api-comment')(app,dbMongo);
