@@ -60,7 +60,7 @@ public class TrangChuFragment extends Fragment implements View.OnClickListener {
     private Dialog dialogSapXep;
     private Dialog dialogLoc;
     private LocAdapter locAdapter;
-private BubbleThumbRangeSeekbar seekbar;
+    private BubbleThumbRangeSeekbar seekbar;
 
     public TrangChuFragment() {
         // Required empty public constructor
@@ -393,25 +393,25 @@ private BubbleThumbRangeSeekbar seekbar;
     }
 
     private void xuLyGia() {
-        final Dialog dialog = new Dialog(getActivity());
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.layout_dialog_loc_gia);
+        final Dialog dialogGia = new Dialog(getActivity());
+        dialogGia.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialogGia.setContentView(R.layout.layout_dialog_loc_gia);
 
-        final TextView txtMin = dialog.findViewById(R.id.txt_min);
-        final TextView txtMax = dialog.findViewById(R.id.txt_max);
-        TextView txtTitle = dialog.findViewById(R.id.txt_title_dialog_gia);
-        ImageView imgBack = dialog.findViewById(R.id.img_back_dialog_gia);
-         seekbar = dialog.findViewById(R.id.seek_bar);
-        final ListView listGia = dialog.findViewById(R.id.list_dialog_gia);
-        Button btnHuy = dialog.findViewById(R.id.btn_huy_dialog_gia);
-        Button btnLoc = dialog.findViewById(R.id.btn_loc_dialog_gia);
+        final TextView txtMin = dialogGia.findViewById(R.id.txt_min);
+        final TextView txtMax = dialogGia.findViewById(R.id.txt_max);
+        TextView txtTitle = dialogGia.findViewById(R.id.txt_title_dialog_gia);
+        ImageView imgBack = dialogGia.findViewById(R.id.img_back_dialog_gia);
+        seekbar = dialogGia.findViewById(R.id.seek_bar);
+        final ListView listGia = dialogGia.findViewById(R.id.list_dialog_gia);
+        Button btnHuy = dialogGia.findViewById(R.id.btn_huy_dialog_gia);
+        Button btnLoc = dialogGia.findViewById(R.id.btn_loc_dialog_gia);
         final DecimalFormat format = new DecimalFormat("###,###,###");
-        ArrayList<String> arrayList = new ArrayList<String>();
+        final ArrayList<String> arrayList = new ArrayList<String>();
         arrayList.add("0 - 300.000 VNĐ");
         arrayList.add("300.000 - 500.000 VNĐ");
         arrayList.add("500.000 - 1.000.000 VNĐ");
         arrayList.add("1.000.000 - 2.000.000 VNĐ");
-        arrayList.add("2.000.000 - 5.300.000 VNĐ");
+        arrayList.add("2.000.000 - 5.000.000 VNĐ");
         arrayList.add("5.000.000 - 10.000.000 VNĐ");
         arrayList.add("10.000.000 - 30.000.000 VNĐ");
 
@@ -435,6 +435,7 @@ private BubbleThumbRangeSeekbar seekbar;
                 txtMin.setText(format.format(minValue) + " VNĐ");
                 txtMax.setText(format.format(maxValue) + " VNĐ");
 
+
             }
 
 
@@ -444,22 +445,18 @@ private BubbleThumbRangeSeekbar seekbar;
         btnLoc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                arrLocs.get(2).setCheck(1);
+                arrLocs.get(2).setSubTitle(format.format(seekbar.getSelectedMinValue()) +" VNĐ" + " - " + format.format(seekbar.getSelectedMaxValue()) + " VNĐ");
+                locAdapter.notifyDataSetChanged();
+                dialogGia.dismiss();
             }
         });
 
-        btnLoc.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                seekbar.setMinStartValue(100000).apply();
-
-                seekbar.setMaxStartValue(500000).apply();
-            }
-        });
 
         seekbar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                listGia.setItemChecked(-1,false);
+                listGia.setItemChecked(-1, false);
             }
         });
 
@@ -469,41 +466,27 @@ private BubbleThumbRangeSeekbar seekbar;
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 switch (i) {
                     case 0:
-//                        setPositionSeekBar(seekbar, 0, 300000);
-                        seekbar.setMinStartValue(0).apply();
-                        seekbar.setMaxStartValue(300000).apply();
-
+                        setPositionSeekBar(seekbar, 0, 300000);
                         break;
                     case 1:
-//                        setPositionSeekBar(seekbar, 300000, 500000);
-                        seekbar.setMinStartValue(300000).apply();
-                        seekbar.setMaxStartValue(500000).apply();
-                        Log.d("LOI",seekbar.getSelectedMinValue()+"");
+                        setPositionSeekBar(seekbar, 300000, 500000);
+
                         break;
                     case 2:
-                        //                       setPositionSeekBar(seekbar,500000,1000000);
-                        seekbar.setMinStartValue(500000).apply();
-                        seekbar.setMaxStartValue(1000000).apply();
+                        setPositionSeekBar(seekbar, 500000, 1000000);
                         break;
                     case 3:
- //                       setPositionSeekBar(seekbar, 1000000, 2000000);
-                        seekbar.setMinStartValue(1000000).apply();
-                        seekbar.setMaxStartValue(2000000).apply();
+                        setPositionSeekBar(seekbar, 1000000, 2000000);
                         break;
                     case 4:
- //                       setPositionSeekBar(seekbar, 2000000, 5000000);
-                        seekbar.setMinStartValue(2000000).apply();
-                        seekbar.setMaxStartValue(5000000).apply();
+                        setPositionSeekBar(seekbar, 2000000, 5000000);
                         break;
                     case 5:
-//                        setPositionSeekBar(seekbar, 5000000, 10000000);
-                        seekbar.setMinStartValue(5000000).apply();
-                        seekbar.setMaxStartValue(10000000).apply();
+                        setPositionSeekBar(seekbar, 5000000, 10000000);
                         break;
                     case 6:
- //                       setPositionSeekBar(seekbar, 10000000, 30000000);
-                        seekbar.setMinStartValue(10000000).apply();
-                        seekbar.setMaxStartValue(30000000).apply();
+                        setPositionSeekBar(seekbar, 10000000, 30000000);
+
                         break;
                     default:
                         break;
@@ -514,26 +497,26 @@ private BubbleThumbRangeSeekbar seekbar;
         imgBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dialog.dismiss();
+                dialogGia.dismiss();
             }
         });
 
         btnHuy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dialog.dismiss();
+                dialogGia.dismiss();
             }
         });
 
 
-        dialog.show();
+        dialogGia.show();
     }
 
 
     private void setPositionSeekBar(BubbleThumbRangeSeekbar s, int min, int max) {
-        s.setMinStartValue(min).apply();
 
-        s.setMaxStartValue(max).apply();
+        s.setMinStartValue(min).setMaxStartValue(max).apply();
+
 
     }
 

@@ -133,7 +133,9 @@ public class IntroFragment extends Fragment {
                     txtTitleIntro.setVisibility(View.VISIBLE);
                     txtTitleIntro.setText("Không yêu đừng nói lời cay đắng.");
 
+                    Animation animation=AnimationUtils.loadAnimation(getActivity(),R.anim.com_adobe_image_toolbar_out);
 
+                    imgIntro3.startAnimation(animation);
                     imgIntro1.setVisibility(View.GONE);
                     rllIntro3.setVisibility(View.GONE);
                     imgIntro3.setVisibility(View.VISIBLE);

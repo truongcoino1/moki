@@ -74,7 +74,7 @@
             app:bar_color="@color/colorAccent"
             app:bar_highlight_color="@color/colorPrimary"
             app:corner_radius="10"
-            app:data_type="_integer"
+            app:data_type="_long"
             app:left_thumb_image="@drawable/seek_thumb_disabled"
             app:left_thumb_image_pressed="@drawable/seek_thumb_pressed"
             app:max_value="30000000"
