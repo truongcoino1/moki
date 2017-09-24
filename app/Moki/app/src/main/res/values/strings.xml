@@ -26,14 +26,19 @@
     <string name="thiet_lap">Thiết lập</string>
     <string name="trung_tam_ho_tro">Trung tâm hỗ trợ</string>
     <string name="gioi_thieu_moki">Giới thiệu MOKI</string>
+    <string name="sap_xep_do"><p><font color="red">Sắp xếp</font></p></string>
+    <string name="loc_do"><p><font color="red">Lọc</font></p></string>
+    <string name="xung_quanh_do"><p><font color ="red">Xung quanh</font></p></string>
     <string name="sap_xep">Sắp xếp</string>
+    <string name="xung_quanh">Xung quanh</string>
     <string name="loc">Lọc</string>
-    <string name="Xung_quanh">Xung quanh</string>
     <string name="huy">Hủy</string>
     <string name="ap_dung">Áp dụng</string>
     <string name="xoa_het">Xóa hết</string>
     <string name="danh_muc">Danh mục</string>
     <string name="tat_ca">Tất cả</string>
+    <string name="trang_thai">Trạng thái</string>
+    <string name="gia">Giá</string>
 
     <string-array name="arrSapXep">
         <item>Giá từ cao xuống thâp</item>

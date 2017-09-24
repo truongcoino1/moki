@@ -116,7 +116,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/size_10dp"
-                    android:text="@string/Xung_quanh"
+                    android:text="@string/xung_quanh"
                     android:textColor="@color/colorBlack" />
             </LinearLayout>
         </LinearLayout>

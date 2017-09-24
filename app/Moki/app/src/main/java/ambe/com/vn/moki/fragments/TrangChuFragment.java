@@ -7,27 +7,39 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
+import android.view.ActionMode;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ViewFlipper;
 
+import com.crystal.crystalrangeseekbar.interfaces.OnRangeSeekbarChangeListener;
+import com.crystal.crystalrangeseekbar.widgets.BubbleThumbRangeSeekbar;
 import com.squareup.picasso.Picasso;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.logging.SimpleFormatter;
 
 import ambe.com.vn.moki.R;
-import ambe.com.vn.moki.adapters.ListviewAdapter;
+import ambe.com.vn.moki.adapters.LocAdapter;
 import ambe.com.vn.moki.adapters.PagerTrangChuAdapter;
-import ambe.com.vn.moki.model.Model_listview_dlg;
+import ambe.com.vn.moki.models.Loc;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -40,11 +52,15 @@ public class TrangChuFragment extends Fragment implements View.OnClickListener {
     private TabLayout tableLayoutTrangChu;
     private PagerTrangChuAdapter pagerTrangChuAdapter;
     private ArrayList<String> arrTabs;
+    private ArrayList<Loc> arrLocs;
     private ViewFlipper viewFlipper;
     private LinearLayout llSapXep;
     private LinearLayout llLoc;
     private LinearLayout llXungQuanh;
     private Dialog dialogSapXep;
+    private Dialog dialogLoc;
+    private LocAdapter locAdapter;
+private BubbleThumbRangeSeekbar seekbar;
 
     public TrangChuFragment() {
         // Required empty public constructor
@@ -179,7 +195,6 @@ public class TrangChuFragment extends Fragment implements View.OnClickListener {
                 break;
 
 
-
         }
     }
 
@@ -191,20 +206,22 @@ public class TrangChuFragment extends Fragment implements View.OnClickListener {
 
         dialogSapXep = new Dialog(getActivity());
         dialogSapXep.setContentView(R.layout.layout_dialog_sap_xep);
-        dialogSapXep.setTitle(R.string.sap_xep);
+        dialogSapXep.setTitle(R.string.sap_xep_do);
 
 
         ListView listSapXep = dialogSapXep.findViewById(R.id.list_sap_xep);
-        Button btnHuy =dialogSapXep.findViewById(R.id.btn_huy_sap_xep);
-        Button btnAdpDung=dialogSapXep.findViewById(R.id.btn_ap_dung_sap_xep);
+        Button btnHuy = dialogSapXep.findViewById(R.id.btn_huy_sap_xep);
+        Button btnAdpDung = dialogSapXep.findViewById(R.id.btn_ap_dung_sap_xep);
 
 
         String[] arrSapXep = getResources().getStringArray(R.array.arrSapXep);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(
                 getActivity(),
-                android.R.layout.simple_list_item_1,
+                android.R.layout.simple_list_item_single_choice,
                 arrSapXep
         );
+
+        listSapXep.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
         listSapXep.setAdapter(adapter);
 
         btnHuy.setOnClickListener(new View.OnClickListener() {
@@ -224,7 +241,6 @@ public class TrangChuFragment extends Fragment implements View.OnClickListener {
         dialogSapXep.show();
 
 
-
     }
 
     private void xuLyApDungSapXep() {
@@ -232,25 +248,365 @@ public class TrangChuFragment extends Fragment implements View.OnClickListener {
     }
 
     private void xuLyLoc() {
-        final Dialog dialog = new Dialog(getActivity());
-        dialog.setContentView(R.layout.dialog_loc);
-        ListView lv=(ListView)dialog.findViewById(R.id.lvdlgloc);
-        ArrayList<Model_listview_dlg> arr=new ArrayList<>();
-        arr.add(new Model_listview_dlg("Danh mục","Tất cả"));
-        arr.add(new Model_listview_dlg("Nhãn hiệu","Tất cả"));
-        arr.add(new Model_listview_dlg("Gía","Tất cả"));
-        arr.add(new Model_listview_dlg("Trạng thái","Tất cả"));
-        ListviewAdapter lvListviewAdapter=new ListviewAdapter(getActivity(),arr);
-        lv.setAdapter(lvListviewAdapter);
 
 
+        dialogLoc = new Dialog(getActivity());
+        dialogLoc.setContentView(R.layout.layout_dialog_loc);
+        dialogLoc.setTitle(R.string.loc_do);
 
-        Button dialogButton = (Button) dialog.findViewById(R.id.btn_huy_dlgloc);
-        // if button is clicked, close the custom dialog
-        dialogButton.setOnClickListener(new View.OnClickListener() {
+        Button btnHuy = dialogLoc.findViewById(R.id.btn_huy_loc);
+        Button btnXoaHet = dialogLoc.findViewById(R.id.btn_xoa_het_loc);
+        Button btnLoc = dialogLoc.findViewById(R.id.btn_loc);
+        ListView listLoc = dialogLoc.findViewById(R.id.list_loc);
+
+        arrLocs = new ArrayList<Loc>();
+        arrLocs.add(new Loc("Danh mục", "Tất cả", 0));
+        arrLocs.add(new Loc("Nhãn hiệu", "Tất cả", 0));
+        arrLocs.add(new Loc("Giá", "Tất cả", 0));
+        arrLocs.add(new Loc("Trạng thái", "Tất cả", 0));
+
+        locAdapter = new LocAdapter(arrLocs, getActivity());
+
+        listLoc.setAdapter(locAdapter);
+
+
+        listLoc.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                switch (i) {
+                    case 0:
+                        xuLyDanhMuc();
+                        break;
+                    case 1:
+                        xuLyNhanHieu();
+                        break;
+                    case 2:
+                        xuLyGia();
+                        break;
+                    case 3:
+                        xuLyTrangThai();
+                        break;
+                }
+            }
+        });
+// éo hiểu sao k chạy đc dòng này =))
+        for (Loc loc : arrLocs) {
+            if (loc.getCheck() == 1) {
+                btnHuy.setVisibility(View.GONE);
+                btnXoaHet.setVisibility(View.VISIBLE);
+            } else {
+                btnHuy.setVisibility(View.VISIBLE);
+                btnXoaHet.setVisibility(View.GONE);
+            }
+        }
+
+
+        btnHuy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialogLoc.dismiss();
+            }
+        });
+
+
+        dialogLoc.show();
+
+    }
+
+    private void xuLyTrangThai() {
+
+        final Dialog dialog = new Dialog(getActivity());
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+
+        dialog.setContentView(R.layout.layout_dialog);
+        final ListView listTrangThai = dialog.findViewById(R.id.list_dialog);
+        TextView txtTitle = dialog.findViewById(R.id.txt_title_dialog);
+        ImageView imgBack = dialog.findViewById(R.id.img_back_dialog);
+        Button btnHuy = dialog.findViewById(R.id.btn_huy_dialog);
+        Button btnLoc = dialog.findViewById(R.id.btn_loc_dialog);
+
+        txtTitle.setText(R.string.trang_thai);
+
+        final ArrayList<Loc> arrTrangThai = new ArrayList<Loc>();
+        arrTrangThai.add(new Loc("Mới", "Sản phẩm mới 100% nguyên seal chưa qua sử dụng.", 2));
+        arrTrangThai.add(new Loc("Gần như mới", "Sản phẩm dùng lướt - chất lượng như mới.", 2));
+        arrTrangThai.add(new Loc("Tốt", "Sản phẩm đã qua sử dụng -  chất lượng khá cao.", 2));
+        arrTrangThai.add(new Loc("Khá tốt", "Sản phẩm đã qua sử dụng -  chất lượng đảm bảo.", 2));
+        arrTrangThai.add(new Loc("Cũ", "Sản phẩm cũ.", 2));
+        final LocAdapter trangThaiAdapter = new LocAdapter(arrTrangThai, getActivity());
+
+        listTrangThai.setAdapter(trangThaiAdapter);
+        listTrangThai.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                for (int x = 0; x < arrTrangThai.size(); ++x) {
+                    if (x != i) {
+                        arrTrangThai.get(x).setCheck(2);
+                        trangThaiAdapter.notifyDataSetChanged();
+                    } else {
+                        arrTrangThai.get(x).setCheck(1);
+                        trangThaiAdapter.notifyDataSetChanged();
+                    }
+                }
+            }
+        });
+
+        btnHuy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 dialog.dismiss();
+            }
+        });
+
+        imgBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+
+            }
+        });
+
+        btnLoc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String subTitle = "";
+                for (Loc loc : arrTrangThai) {
+                    if (loc.getCheck() == 1) {
+                        subTitle = loc.getTitLe();
+                    }
+                }
+
+                arrLocs.get(3).setSubTitle(subTitle + "");
+                arrLocs.get(3).setCheck(1);
+
+                locAdapter.notifyDataSetChanged();
+
+                dialog.dismiss();
+            }
+        });
+
+
+        dialog.show();
+
+
+    }
+
+    private void xuLyGia() {
+        final Dialog dialog = new Dialog(getActivity());
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.layout_dialog_loc_gia);
+
+        final TextView txtMin = dialog.findViewById(R.id.txt_min);
+        final TextView txtMax = dialog.findViewById(R.id.txt_max);
+        TextView txtTitle = dialog.findViewById(R.id.txt_title_dialog_gia);
+        ImageView imgBack = dialog.findViewById(R.id.img_back_dialog_gia);
+         seekbar = dialog.findViewById(R.id.seek_bar);
+        final ListView listGia = dialog.findViewById(R.id.list_dialog_gia);
+        Button btnHuy = dialog.findViewById(R.id.btn_huy_dialog_gia);
+        Button btnLoc = dialog.findViewById(R.id.btn_loc_dialog_gia);
+        final DecimalFormat format = new DecimalFormat("###,###,###");
+        ArrayList<String> arrayList = new ArrayList<String>();
+        arrayList.add("0 - 300.000 VNĐ");
+        arrayList.add("300.000 - 500.000 VNĐ");
+        arrayList.add("500.000 - 1.000.000 VNĐ");
+        arrayList.add("1.000.000 - 2.000.000 VNĐ");
+        arrayList.add("2.000.000 - 5.300.000 VNĐ");
+        arrayList.add("5.000.000 - 10.000.000 VNĐ");
+        arrayList.add("10.000.000 - 30.000.000 VNĐ");
+
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+                getActivity(),
+                android.R.layout.simple_list_item_single_choice,
+                arrayList
+        );
+
+        listGia.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+
+        listGia.setAdapter(adapter);
+
+
+        txtTitle.setText(R.string.gia);
+
+        seekbar.setOnRangeSeekbarChangeListener(new OnRangeSeekbarChangeListener() {
+            @Override
+            public void valueChanged(Number minValue, Number maxValue) {
+                txtMin.setText(format.format(minValue) + " VNĐ");
+                txtMax.setText(format.format(maxValue) + " VNĐ");
+
+            }
+
+
+        });
+
+
+        btnLoc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+            }
+        });
+
+        btnLoc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                seekbar.setMinStartValue(100000).apply();
+
+                seekbar.setMaxStartValue(500000).apply();
+            }
+        });
+
+        seekbar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listGia.setItemChecked(-1,false);
+            }
+        });
+
+
+        listGia.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                switch (i) {
+                    case 0:
+//                        setPositionSeekBar(seekbar, 0, 300000);
+                        seekbar.setMinStartValue(0).apply();
+                        seekbar.setMaxStartValue(300000).apply();
+
+                        break;
+                    case 1:
+//                        setPositionSeekBar(seekbar, 300000, 500000);
+                        seekbar.setMinStartValue(300000).apply();
+                        seekbar.setMaxStartValue(500000).apply();
+                        Log.d("LOI",seekbar.getSelectedMinValue()+"");
+                        break;
+                    case 2:
+                        //                       setPositionSeekBar(seekbar,500000,1000000);
+                        seekbar.setMinStartValue(500000).apply();
+                        seekbar.setMaxStartValue(1000000).apply();
+                        break;
+                    case 3:
+ //                       setPositionSeekBar(seekbar, 1000000, 2000000);
+                        seekbar.setMinStartValue(1000000).apply();
+                        seekbar.setMaxStartValue(2000000).apply();
+                        break;
+                    case 4:
+ //                       setPositionSeekBar(seekbar, 2000000, 5000000);
+                        seekbar.setMinStartValue(2000000).apply();
+                        seekbar.setMaxStartValue(5000000).apply();
+                        break;
+                    case 5:
+//                        setPositionSeekBar(seekbar, 5000000, 10000000);
+                        seekbar.setMinStartValue(5000000).apply();
+                        seekbar.setMaxStartValue(10000000).apply();
+                        break;
+                    case 6:
+ //                       setPositionSeekBar(seekbar, 10000000, 30000000);
+                        seekbar.setMinStartValue(10000000).apply();
+                        seekbar.setMaxStartValue(30000000).apply();
+                        break;
+                    default:
+                        break;
+                }
+            }
+        });
+
+        imgBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+
+        btnHuy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+
+
+        dialog.show();
+    }
+
+
+    private void setPositionSeekBar(BubbleThumbRangeSeekbar s, int min, int max) {
+        s.setMinStartValue(min).apply();
+
+        s.setMaxStartValue(max).apply();
+
+    }
+
+    private void xuLyNhanHieu() {
+    }
+
+    private void xuLyDanhMuc() {
+        final Dialog dialog = new Dialog(getActivity());
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+
+        dialog.setContentView(R.layout.layout_dialog);
+        final ListView listView = dialog.findViewById(R.id.list_dialog);
+        TextView txtTitle = dialog.findViewById(R.id.txt_title_dialog);
+
+        Button btnHuy = dialog.findViewById(R.id.btn_huy_dialog);
+        Button btnLoc = dialog.findViewById(R.id.btn_loc_dialog);
+        ImageView imgBack = dialog.findViewById(R.id.img_back_dialog);
+
+        txtTitle.setText(R.string.danh_muc);
+
+
+        final String[] arr = getResources().getStringArray(R.array.arrTabs);
+
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+                getActivity(),
+                android.R.layout.simple_list_item_single_choice,
+                arr
+        );
+
+
+        listView.setAdapter(adapter);
+        listView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+        listView.setItemsCanFocus(true);
+
+        String subTitle = arrLocs.get(0).getSubTitle();
+        for (int i = 0; i < arr.length; ++i) {
+            if (subTitle.equals(arr[i])) {
+                listView.setItemChecked(i, true);
+            }
+        }
+
+
+        imgBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+
+        btnHuy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+
+
+        btnLoc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int id = listView.getCheckedItemPosition();
+                String subTitle = arr[id];
+
+
+                arrLocs.get(0).setSubTitle(subTitle + "");
+                arrLocs.get(0).setCheck(1);
+
+                locAdapter.notifyDataSetChanged();
+
+                dialog.dismiss();
+
+
             }
         });
 

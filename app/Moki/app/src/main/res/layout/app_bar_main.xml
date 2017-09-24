@@ -15,7 +15,7 @@
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
+            android:layout_height="@dimen/size_50dp"
             android:background="@color/colorWhite"
             app:popupTheme="@style/AppTheme.PopupOverlay">
            <LinearLayout
@@ -36,27 +36,25 @@
                    <ImageView
                        android:layout_width="@dimen/size_50dp"
                        android:layout_height="@dimen/size_50dp"
-                       android:id="@+id/icon_search"
                        android:layout_gravity="center"
                        android:src="@drawable/icon_search_on_bar"/>
                    <ImageView
                        android:layout_width="@dimen/size_50dp"
                        android:layout_height="@dimen/size_50dp"
                        android:layout_gravity="center"
-                       android:id="@+id/icon_message"
+
                        android:src="@drawable/ic_icon_message"/>
                    <ImageView
                        android:layout_width="@dimen/size_50dp"
                        android:layout_height="@dimen/size_50dp"
                        android:layout_gravity="center"
-                       android:id="@+id/icon_alert"
+
                        android:src="@drawable/icon_alert"/>
 
                    <ImageView
                        android:layout_width="@dimen/size_50dp"
                        android:layout_height="@dimen/size_50dp"
                        android:layout_gravity="center"
-                       android:id="@+id/change_view"
                        android:src="@drawable/tutorial_change_viewmode"/>
 
                </LinearLayout>

@@ -14,19 +14,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ImageView;
-import android.widget.Toast;
 
 import ambe.com.vn.moki.R;
 import ambe.com.vn.moki.fragments.TinTucFragment;
 import ambe.com.vn.moki.fragments.TrangChuFragment;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
+        implements NavigationView.OnNavigationItemSelectedListener {
 
 
     FragmentManager fragmentManager;
-    private ImageView img_change_view;
     private Toolbar toolbar;
     private FloatingActionButton fab;
     private DrawerLayout drawer;
@@ -39,10 +36,6 @@ public class MainActivity extends AppCompatActivity
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");
-
-        img_change_view = (ImageView) findViewById(R.id.change_view);
-        img_change_view.setOnClickListener(this);
-
 
         fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -75,6 +68,7 @@ public class MainActivity extends AppCompatActivity
             super.onBackPressed();
         }
     }
+
 
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -115,11 +109,5 @@ public class MainActivity extends AppCompatActivity
 
         drawer.closeDrawer(GravityCompat.START);
         return true;
-    }
-
-
-    @Override
-    public void onClick(View view) {
-
     }
 }
