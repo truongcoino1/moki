@@ -7,6 +7,8 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.SearchView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.ActionMode;
 import android.view.LayoutInflater;
@@ -34,12 +36,15 @@ import com.squareup.picasso.Picasso;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.logging.SimpleFormatter;
 
 import ambe.com.vn.moki.R;
 import ambe.com.vn.moki.adapters.LocAdapter;
 import ambe.com.vn.moki.adapters.PagerTrangChuAdapter;
+import ambe.com.vn.moki.adapters.StickyHeaderAdapter;
 import ambe.com.vn.moki.models.Loc;
+import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -324,7 +329,6 @@ public class TrangChuFragment extends Fragment implements View.OnClickListener {
         ImageView imgBack = dialog.findViewById(R.id.img_back_dialog);
         Button btnHuy = dialog.findViewById(R.id.btn_huy_dialog);
         Button btnLoc = dialog.findViewById(R.id.btn_loc_dialog);
-
         txtTitle.setText(R.string.trang_thai);
 
         final ArrayList<Loc> arrTrangThai = new ArrayList<Loc>();
@@ -432,10 +436,21 @@ public class TrangChuFragment extends Fragment implements View.OnClickListener {
         seekbar.setOnRangeSeekbarChangeListener(new OnRangeSeekbarChangeListener() {
             @Override
             public void valueChanged(Number minValue, Number maxValue) {
-                txtMin.setText(format.format(minValue) + " VNĐ");
-                txtMax.setText(format.format(maxValue) + " VNĐ");
+                if (((long) minValue == 0 && (long) maxValue == 300000)
+                        || ((long) minValue == 300000 && (long) maxValue == 500000)
+                        || ((long) minValue == 500000 && (long) maxValue == 1000000)
+                        || ((long) minValue == 1000000 && (long) maxValue == 2000000)
+                        || ((long) minValue == 2000000 && (long) maxValue == 5000000)
+                        || ((long) minValue == 5000000 && (long) maxValue == 10000000)
+                        || ((long) minValue == 10000000 && (long) maxValue == 30000000)) {
+                    txtMin.setText(format.format(minValue) + " VNĐ");
+                    txtMax.setText(format.format(maxValue) + " VNĐ");
+                } else {
+                    txtMin.setText(format.format(minValue) + " VNĐ");
+                    txtMax.setText(format.format(maxValue) + " VNĐ");
+                    listGia.setItemChecked(-1, true);
 
-
+                }
             }
 
 
@@ -446,14 +461,16 @@ public class TrangChuFragment extends Fragment implements View.OnClickListener {
             @Override
             public void onClick(View view) {
                 arrLocs.get(2).setCheck(1);
-                arrLocs.get(2).setSubTitle(format.format(seekbar.getSelectedMinValue()) +" VNĐ" + " - " + format.format(seekbar.getSelectedMaxValue()) + " VNĐ");
+                arrLocs.get(2).setSubTitle(format.format(seekbar.getSelectedMinValue()) + " VNĐ" + " - " + format.format(seekbar.getSelectedMaxValue()) + " VNĐ");
                 locAdapter.notifyDataSetChanged();
                 dialogGia.dismiss();
             }
         });
 
 
-        seekbar.setOnClickListener(new View.OnClickListener() {
+        seekbar.setOnClickListener(new View.OnClickListener()
+
+        {
             @Override
             public void onClick(View view) {
                 listGia.setItemChecked(-1, false);
@@ -461,7 +478,9 @@ public class TrangChuFragment extends Fragment implements View.OnClickListener {
         });
 
 
-        listGia.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listGia.setOnItemClickListener(new AdapterView.OnItemClickListener()
+
+        {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 switch (i) {
@@ -494,14 +513,18 @@ public class TrangChuFragment extends Fragment implements View.OnClickListener {
             }
         });
 
-        imgBack.setOnClickListener(new View.OnClickListener() {
+        imgBack.setOnClickListener(new View.OnClickListener()
+
+        {
             @Override
             public void onClick(View view) {
                 dialogGia.dismiss();
             }
         });
 
-        btnHuy.setOnClickListener(new View.OnClickListener() {
+        btnHuy.setOnClickListener(new View.OnClickListener()
+
+        {
             @Override
             public void onClick(View view) {
                 dialogGia.dismiss();
@@ -512,7 +535,6 @@ public class TrangChuFragment extends Fragment implements View.OnClickListener {
         dialogGia.show();
     }
 
-
     private void setPositionSeekBar(BubbleThumbRangeSeekbar s, int min, int max) {
 
         s.setMinStartValue(min).setMaxStartValue(max).apply();
@@ -521,6 +543,64 @@ public class TrangChuFragment extends Fragment implements View.OnClickListener {
     }
 
     private void xuLyNhanHieu() {
+        final Dialog dialogNhanHieu = new Dialog(getActivity());
+        dialogNhanHieu.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialogNhanHieu.setContentView(R.layout.layout_dialog_loc_nhan_hieu);
+
+
+        TextView txtTitle = dialogNhanHieu.findViewById(R.id.txt_title_dialog_nhan_hieu);
+        ImageView imgBack = dialogNhanHieu.findViewById(R.id.img_back_dialog_nhan_hieu);
+        Button btnHuy = dialogNhanHieu.findViewById(R.id.btn_huy_dialog_nhan_hieu);
+        Button btnLoc = dialogNhanHieu.findViewById(R.id.btn_loc_dialog_nhan_hieu);
+        SearchView searchView = dialogNhanHieu.findViewById(R.id.search_nhan_hieu);
+        final StickyListHeadersListView stickyListHeadersListView = dialogNhanHieu.findViewById(R.id.list_stick_header);
+
+        stickyListHeadersListView.setVisibility(View.VISIBLE);
+        searchView.requestFocus();
+        searchView.setQueryHint("Tìm kiếm");
+        txtTitle.setText(R.string.nhan_hieu);
+        ArrayList<String> arrTinhThanhs = new ArrayList<String>();
+
+        String[] arr = getActivity().getResources().getStringArray(R.array.arrTinhThanh);
+        for (String str : arr) {
+            arrTinhThanhs.add(str);
+        }
+
+        Collections.sort(arrTinhThanhs);
+
+        final StickyHeaderAdapter adapter = new StickyHeaderAdapter(getActivity(), arrTinhThanhs);
+        stickyListHeadersListView.setAdapter(adapter);
+
+        btnHuy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialogNhanHieu.dismiss();
+            }
+        });
+
+        imgBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialogNhanHieu.dismiss();
+            }
+        });
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                adapter.getFilter().filter(newText);
+                return true;
+            }
+        });
+
+        dialogNhanHieu.show();
+
+
     }
 
     private void xuLyDanhMuc() {
@@ -534,7 +614,6 @@ public class TrangChuFragment extends Fragment implements View.OnClickListener {
         Button btnHuy = dialog.findViewById(R.id.btn_huy_dialog);
         Button btnLoc = dialog.findViewById(R.id.btn_loc_dialog);
         ImageView imgBack = dialog.findViewById(R.id.img_back_dialog);
-
         txtTitle.setText(R.string.danh_muc);
 
 
