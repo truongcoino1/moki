@@ -3,7 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Moki.iml" filepath="$PROJECT_DIR$/Moki.iml" />
+      <module fileurl="file://C:\Users\HoangNV\Desktop\MOKI\moki\app\Moki\Moki.iml" filepath="C:\Users\HoangNV\Desktop\MOKI\moki\app\Moki\Moki.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://C:\Users\HoangNV\Desktop\MOKI\moki\app\Moki\app\app.iml" filepath="C:\Users\HoangNV\Desktop\MOKI\moki\app\Moki\app\app.iml" />
     </modules>
   </component>
 </project>

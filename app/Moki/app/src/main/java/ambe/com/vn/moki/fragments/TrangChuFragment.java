@@ -67,6 +67,9 @@ public class TrangChuFragment extends Fragment implements View.OnClickListener {
     private LocAdapter locAdapter;
     private BubbleThumbRangeSeekbar seekbar;
 
+    Button btnHuy;
+    Button btnXoaHet;
+
     public TrangChuFragment() {
         // Required empty public constructor
     }
@@ -259,8 +262,8 @@ public class TrangChuFragment extends Fragment implements View.OnClickListener {
         dialogLoc.setContentView(R.layout.layout_dialog_loc);
         dialogLoc.setTitle(R.string.loc_do);
 
-        Button btnHuy = dialogLoc.findViewById(R.id.btn_huy_loc);
-        Button btnXoaHet = dialogLoc.findViewById(R.id.btn_xoa_het_loc);
+        btnHuy = dialogLoc.findViewById(R.id.btn_huy_loc);
+        btnXoaHet = dialogLoc.findViewById(R.id.btn_xoa_het_loc);
         Button btnLoc = dialogLoc.findViewById(R.id.btn_loc);
         ListView listLoc = dialogLoc.findViewById(R.id.list_loc);
 
@@ -273,6 +276,18 @@ public class TrangChuFragment extends Fragment implements View.OnClickListener {
         locAdapter = new LocAdapter(arrLocs, getActivity());
 
         listLoc.setAdapter(locAdapter);
+        btnXoaHet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                for(Loc loc:arrLocs){
+                    loc.setCheck(0);
+                    btnXoaHet.setVisibility(View.GONE);
+                    btnHuy.setVisibility(View.VISIBLE);
+
+                }
+                locAdapter.notifyDataSetChanged();
+            }
+        });
 
 
         listLoc.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -294,16 +309,7 @@ public class TrangChuFragment extends Fragment implements View.OnClickListener {
                 }
             }
         });
-// éo hiểu sao k chạy đc dòng này =))
-        for (Loc loc : arrLocs) {
-            if (loc.getCheck() == 1) {
-                btnHuy.setVisibility(View.GONE);
-                btnXoaHet.setVisibility(View.VISIBLE);
-            } else {
-                btnHuy.setVisibility(View.VISIBLE);
-                btnXoaHet.setVisibility(View.GONE);
-            }
-        }
+
 
 
         btnHuy.setOnClickListener(new View.OnClickListener() {
@@ -316,6 +322,15 @@ public class TrangChuFragment extends Fragment implements View.OnClickListener {
 
         dialogLoc.show();
 
+    }
+    private void setNut(ArrayList<Loc> ds){
+        for(int i=0;i<ds.size();i++){
+            if(ds.get(i).getCheck()==1)
+            {
+                btnHuy.setVisibility(View.GONE);
+                btnXoaHet.setVisibility(View.VISIBLE);
+            }
+        }
     }
 
     private void xuLyTrangThai() {
@@ -385,6 +400,7 @@ public class TrangChuFragment extends Fragment implements View.OnClickListener {
                 arrLocs.get(3).setCheck(1);
 
                 locAdapter.notifyDataSetChanged();
+                setNut(arrLocs);
 
                 dialog.dismiss();
             }
@@ -463,6 +479,7 @@ public class TrangChuFragment extends Fragment implements View.OnClickListener {
                 arrLocs.get(2).setCheck(1);
                 arrLocs.get(2).setSubTitle(format.format(seekbar.getSelectedMinValue()) + " VNĐ" + " - " + format.format(seekbar.getSelectedMaxValue()) + " VNĐ");
                 locAdapter.notifyDataSetChanged();
+                setNut(arrLocs);
                 dialogGia.dismiss();
             }
         });
@@ -584,6 +601,12 @@ public class TrangChuFragment extends Fragment implements View.OnClickListener {
                 dialogNhanHieu.dismiss();
             }
         });
+        btnLoc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setNut(arrLocs);
+            }
+        });
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -665,6 +688,7 @@ public class TrangChuFragment extends Fragment implements View.OnClickListener {
                 arrLocs.get(0).setCheck(1);
 
                 locAdapter.notifyDataSetChanged();
+                setNut(arrLocs);
 
                 dialog.dismiss();
 
