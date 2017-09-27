@@ -281,6 +281,7 @@ public class TrangChuFragment extends Fragment implements View.OnClickListener {
             public void onClick(View view) {
                 for(Loc loc:arrLocs){
                     loc.setCheck(0);
+                    loc.setSubTitle("Tất cả");
                     btnXoaHet.setVisibility(View.GONE);
                     btnHuy.setVisibility(View.VISIBLE);
 
