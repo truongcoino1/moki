@@ -8,7 +8,8 @@ module.exports = function (app, profile, product) {
                         let like = {
                             index: req.body.index,
                             count: req.body.count,
-                            name: rs[0].infor_user.firstname + " " + rs[0].infor_user.lastname,
+                            id_user :rs[0].id_user,
+                            name: rs[0].firstname + " " + rs[0].lastname,
                         }
                      product.find({id_product :req.body.id_product},(err1, rs1) =>{
                         if(rs1.length !=0){

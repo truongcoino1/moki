@@ -3,10 +3,11 @@ module.exports = function(app,product){
     app.post('/profile/get_list_product', (req, res) => {
       product.find({}, (err, rs) => {
          let result = null;
+         console.log(rs.length);
           if (rs.length != 0) {
              let list =[];
              for(var i=0; i < rs.length; i++){
-               if(rs[i].category[0].id === req.body.category_id){
+               if(rs[i].category.category_id === req.body.category_id){
                  list.push(rs[i]);
                }
              }

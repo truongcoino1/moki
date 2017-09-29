@@ -7,8 +7,8 @@ module.exports = function (app, profile, product) {
             if (rs.length != 0) {
                         let poster = {
                             id: rs[0].id_user,
-                            name: rs[0].infor_user.firstname + " " + rs[0].infor_user.lastname,
-                            avatar: rs[0].infor_user.avatar,
+                            name: rs[0].firstname + " " + rs[0].lastname,
+                            avatar: rs[0].avatar,
                         }
                         let comment = {
                             comment: req.body.comment,

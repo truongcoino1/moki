@@ -1,60 +1,54 @@
 var mongoose = require('mongoose');
 var Schema = new mongoose.Schema({
-    id_user :String,
     id_product: String,
     name_product: String,
-    image: [
+    image: 
       {
         url: String,
         id: String,
-      }],
+      },
     price: String,
-    price_new: String,
     price_precent: String,
     described: String,
     ships_from: String,
-    ships_from_id: String,
+    ships_from_id: {
+      province :String,
+      district :String,
+      ward :String,
+    },
     condition: String,
-    modified: String,
     created: String,
-    product_size_id : Number,
     like: [],
     comment: [],
-    is_like: String,
-    best_offers: String,
-    video: [{
+    video: {
       url: String,
       thumb: String,
-    }],
-    size: [{
-      id: String,
+    },
+    size: {
+      id_size: String,
       size_name: String
-    }],
-    brand: [{
-      id: String,
+    },
+    brand: {
+      id_brand: String,
       brand_name: String
-    }],
+    },
     seller: {
-      id_seller: String,
-      username: String,
+      id_user :String,
+      name: String,
       avatar: String,
       score: String,
       listing: String,
     },
-    category: [{
-      id: String,
+    category: {
+      category_id: String,
       name: String,
       has_brand: String,
       has_name: String
-    }],
+    },
     state: String,
-    is_blocked: String,
-    can_edit: String,
+    blocked: [],
+    can_edit: [],
     banned: String,
-    can_buy: String,
-    product_waiting_rate: String,
-    seller_vacation_mode: String,
-    offers: String,
     url_share: String,
     weight: String,
     dimention: {

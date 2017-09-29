@@ -19,15 +19,14 @@ module.exports = function (app, db) {
     newProfile.token = "quat";
     newProfile.email = "truongbk227@gmail.com";
     newProfile.username = "truongbk";
-    newProfile.infor_user = {
-      url: null,
-      created: null,
-      status: null,
-      avatar: null,
-      firstname: "Nguyễn Công",
-      lastname: "Trương",
-      adddress: "Bắc Ninh",
-    }
+      newProfile.url= null,
+      newProfile.created= null,
+      newProfile.status= null,
+      newProfile.avatar= null,
+      newProfile.firstname= "Nguyễn Công",
+      newProfile.lastname= "Trương",
+      newProfile.adddress= "Bắc Ninh",
+    
     newProfile.save(function (err, profile) {
       if (err != null) {
         res.send(err);
