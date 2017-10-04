@@ -12,6 +12,7 @@ import ambe.com.vn.moki.fragments.MainIntroFragment;
 
 public class IntroActivity extends AppCompatActivity {
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

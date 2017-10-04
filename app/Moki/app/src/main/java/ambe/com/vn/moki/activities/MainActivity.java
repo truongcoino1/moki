@@ -1,5 +1,6 @@
 package ambe.com.vn.moki.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -18,20 +19,31 @@ import android.view.MenuItem;
 import ambe.com.vn.moki.R;
 import ambe.com.vn.moki.fragments.TinTucFragment;
 import ambe.com.vn.moki.fragments.TrangChuFragment;
+import ambe.com.vn.moki.utils.Utils;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-
+    public static final String PREF_USER_FIRST_TIME = "user_first_time";
     FragmentManager fragmentManager;
     private Toolbar toolbar;
     private FloatingActionButton fab;
     private DrawerLayout drawer;
     private NavigationView navigationView;
+    private boolean isUserFirstTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        isUserFirstTime = Boolean.valueOf(Utils.readSharedSetting(MainActivity.this, PREF_USER_FIRST_TIME, "true"));
+
+        Intent introIntent = new Intent(MainActivity.this, IntroActivity.class);
+        introIntent.putExtra(PREF_USER_FIRST_TIME, isUserFirstTime);
+
+        if (isUserFirstTime)
+            startActivity(introIntent);
+
         setContentView(R.layout.activity_main);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

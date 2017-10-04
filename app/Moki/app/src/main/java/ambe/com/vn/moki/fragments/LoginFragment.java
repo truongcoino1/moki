@@ -14,7 +14,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import ambe.com.vn.moki.R;
+import ambe.com.vn.moki.activities.IntroActivity;
 import ambe.com.vn.moki.activities.MainActivity;
+import ambe.com.vn.moki.utils.Utils;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -99,8 +101,9 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
     }
 
     private void xuLyTxtBoQua() {
-
+        Utils.saveSharedSetting(getActivity(), MainActivity.PREF_USER_FIRST_TIME, "false");
         Intent intent=new Intent(getActivity(), MainActivity.class);
+
         startActivity(intent);
 
     }
