@@ -396,9 +396,13 @@ public class TrangChuFragment extends Fragment implements View.OnClickListener {
                         subTitle = loc.getTitLe();
                     }
                 }
+                if(subTitle!="") {
+                    arrLocs.get(3).setSubTitle(subTitle + "");
 
-                arrLocs.get(3).setSubTitle(subTitle + "");
-                arrLocs.get(3).setCheck(1);
+                    arrLocs.get(3).setCheck(1);
+                } else{
+                    arrLocs.get(3).setSubTitle("Tất cả");
+                }
 
                 locAdapter.notifyDataSetChanged();
                 setNut(arrLocs);
@@ -477,8 +481,11 @@ public class TrangChuFragment extends Fragment implements View.OnClickListener {
         btnLoc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                arrLocs.get(2).setCheck(1);
+
+                if((long)seekbar.getSelectedMinValue()!=0&&(long)seekbar.getSelectedMinValue()!=30000000){
                 arrLocs.get(2).setSubTitle(format.format(seekbar.getSelectedMinValue()) + " VNĐ" + " - " + format.format(seekbar.getSelectedMaxValue()) + " VNĐ");
+                    arrLocs.get(2).setCheck(1);
+                }
                 locAdapter.notifyDataSetChanged();
                 setNut(arrLocs);
                 dialogGia.dismiss();
@@ -686,6 +693,7 @@ public class TrangChuFragment extends Fragment implements View.OnClickListener {
 
 
                 arrLocs.get(0).setSubTitle(subTitle + "");
+                if(!arrLocs.get(0).getSubTitle().equals("Tất cả"))
                 arrLocs.get(0).setCheck(1);
 
                 locAdapter.notifyDataSetChanged();
