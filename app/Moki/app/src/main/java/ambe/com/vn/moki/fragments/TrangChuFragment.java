@@ -37,12 +37,15 @@ import com.squareup.picasso.Picasso;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.logging.SimpleFormatter;
 
 import ambe.com.vn.moki.R;
 import ambe.com.vn.moki.adapters.LocAdapter;
 import ambe.com.vn.moki.adapters.PagerTrangChuAdapter;
 import ambe.com.vn.moki.adapters.StickyHeaderAdapter;
+import ambe.com.vn.moki.adapters.ViewPagerAdapter;
 import ambe.com.vn.moki.models.Loc;
 import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
 
@@ -52,13 +55,13 @@ import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
 public class TrangChuFragment extends Fragment implements View.OnClickListener {
 
 
-    private View view;
+    private View view,vp1,vp2;
     private ViewPager vPagerTrangChu;
     private TabLayout tableLayoutTrangChu;
     private PagerTrangChuAdapter pagerTrangChuAdapter;
     private ArrayList<String> arrTabs;
     private ArrayList<Loc> arrLocs;
-    private ViewFlipper viewFlipper;
+    private ViewPager viewFlipper;
     private LinearLayout llSapXep;
     private LinearLayout llLoc;
     private LinearLayout llXungQuanh;
@@ -66,6 +69,9 @@ public class TrangChuFragment extends Fragment implements View.OnClickListener {
     private Dialog dialogLoc;
     private LocAdapter locAdapter;
     private BubbleThumbRangeSeekbar seekbar;
+
+    Timer timer;
+    TimerTask timerTask;
 
     Button btnHuy;
     Button btnXoaHet;
@@ -88,6 +94,12 @@ public class TrangChuFragment extends Fragment implements View.OnClickListener {
         return view;
     }
 
+    public int doi(int i){
+        if(i==0) return 1;
+        else return 0;
+    }
+
+
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -98,34 +110,81 @@ public class TrangChuFragment extends Fragment implements View.OnClickListener {
 
 
     }
+    public void doiHinh(){
+        timer=new Timer();
+        timerTask=new TimerTask() {
+            @Override
+            public void run() {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        viewFlipper.setCurrentItem(doi(viewFlipper.getCurrentItem()));
+                    }
+                });
+
+            }
+        };
+        timer.scheduleAtFixedRate(timerTask,2000,4000);
+
+
+    }
 
     private void addViewFlipper() {
-        ArrayList<String> urlHinhAnhs = new ArrayList<String>();
-        urlHinhAnhs.add("http://diendanso.net/wp-content/uploads/2015/12/anh-dep-17.jpg");
-        urlHinhAnhs.add("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnNwpPOkNoh7r3sc4X2KKpmZp07bCLZFIBU8WZyDhFNvlOyXjIYg");
-        urlHinhAnhs.add("http://taihinhanhdep.xyz/wp-content/uploads/2016/09/hinh-anh-dep-ve-thien-nhien-va-tinh-yeu.jpg");
-        urlHinhAnhs.add("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJRpc-Ymeo8O-MrkFOCbcjYV5IAhpPKDM4vJbaVzaPQIzxkaDh");
-        urlHinhAnhs.add("http://hinhdep.com.vn/wp-content/uploads/2013/06/anh-dep-tinh-ban007.jpg");
+        ArrayList<Fragment> arr=new ArrayList<>();
+        ViewPager1 v1=new ViewPager1();
+        ViewPager1 v2=new ViewPager1();
+        arr.add(v1);
+        arr.add(v2);
+        ViewPagerAdapter viewPagerAdapter=new ViewPagerAdapter(getActivity().getSupportFragmentManager(),arr);
+        viewFlipper.setAdapter(viewPagerAdapter);
+        viewFlipper.setPageTransformer(true, new ViewPager.PageTransformer() {
+            @Override
+            public void transformPage(View page, float position) {
+                if(position==1.0){
+                    vp1.setBackgroundResource(R.drawable.hinh_tron_hong);
+                    vp2.setBackgroundResource(R.drawable.hinh_tron_xam);
+                } else if(position==0.0){
+                    vp1.setBackgroundResource(R.drawable.hinh_tron_xam);
+                    vp2.setBackgroundResource(R.drawable.hinh_tron_hong);
+                }else {
 
-        for (String str : urlHinhAnhs) {
-            ImageView imageView = new ImageView(getActivity());
-            Picasso.with(getActivity()).load(str)
-                    .into(imageView);
-            imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-            viewFlipper.addView(imageView);
-        }
+                }
+            }
+        });
 
-        viewFlipper.setFlipInterval(5000);
-        viewFlipper.setAutoStart(true);
-        Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.slide_in_right);
-        Animation animation1 = AnimationUtils.loadAnimation(getContext(), R.anim.slide_out_right);
-        viewFlipper.setInAnimation(animation);
-        viewFlipper.setOutAnimation(animation1);
+
+//        for (String str : urlHinhAnhs) {
+//            ImageView imageView = new ImageView(getActivity());
+//            Picasso.with(getActivity()).load(str)
+//                    .into(imageView);
+//            imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+//            viewFlipper.addView(imageView);
+//        }
+
+
+//        viewFlipper.setFlipInterval(5000);
+//        viewFlipper.setAutoStart(true);
+//        Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.slide_in_right);
+//        Animation animation1 = AnimationUtils.loadAnimation(getContext(), R.anim.slide_out_right);
+//        viewFlipper.setInAnimation(animation);
+//        viewFlipper.setOutAnimation(animation1);
 
 
     }
 
     private void addEvents() {
+        vp1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                viewFlipper.setCurrentItem(0);
+            }
+        });
+        vp2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                viewFlipper.setCurrentItem(1);
+            }
+        });
 
         vPagerTrangChu.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tableLayoutTrangChu));
 
@@ -163,6 +222,8 @@ public class TrangChuFragment extends Fragment implements View.OnClickListener {
         llSapXep = view.findViewById(R.id.ll_sap_xep);
         llLoc = view.findViewById(R.id.ll_loc);
         llXungQuanh = view.findViewById(R.id.ll_xung_quanh);
+        vp1=view.findViewById(R.id.v1_fragment_viewpager);
+        vp2=view.findViewById(R.id.v2_fragment_viewpager);
 
 
         arrTabs = new ArrayList<>();
@@ -180,6 +241,9 @@ public class TrangChuFragment extends Fragment implements View.OnClickListener {
         pagerTrangChuAdapter = new PagerTrangChuAdapter(getChildFragmentManager(), arrTabs);
         vPagerTrangChu.setAdapter(pagerTrangChuAdapter);
         pagerTrangChuAdapter.notifyDataSetChanged();
+
+        doiHinh();
+
 
 
     }
@@ -708,6 +772,7 @@ public class TrangChuFragment extends Fragment implements View.OnClickListener {
         dialog.show();
 
     }
+
 
     public class DepthPageTransformer implements ViewPager.PageTransformer {
         private static final float MIN_SCALE = 0.75f;
