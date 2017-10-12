@@ -66,14 +66,13 @@
 
     <include layout="@layout/content_main" />
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
+    <ImageView
+        android:id="@+id/img_shell"
         android:layout_width="@dimen/size_100dp"
         android:layout_height="@dimen/size_100dp"
         android:layout_gravity="bottom|end"
         app:backgroundTint="@color/colorWhite"
         android:scaleType="fitXY"
-
         android:src="@drawable/sell_button" />
 
 </android.support.design.widget.CoordinatorLayout>

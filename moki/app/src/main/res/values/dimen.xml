@@ -19,4 +19,6 @@
     <dimen name="size_100dp">100dp</dimen>
     <dimen name="size_75dp">75dp</dimen>
     <dimen name="size_16dp">16dp</dimen>
+    <dimen name="size_70dp">70dp</dimen>
+    <dimen name="size_25dp">25dp</dimen>
 </resources>

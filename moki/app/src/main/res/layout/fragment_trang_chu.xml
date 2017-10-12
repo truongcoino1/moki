@@ -44,34 +44,12 @@
                 android:fitsSystemWindows="true"
                 app:contentScrim="?attr/colorPrimary"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed">
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="150dp">
-                <android.support.v4.view.ViewPager
+
+                <ViewFlipper
                     android:id="@+id/view_flipper"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/size_150dp"
-                    android:visibility="visible"></android.support.v4.view.ViewPager>
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_alignParentBottom="true"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginBottom="10dp">
-                    <View
-                        android:id="@+id/v1_fragment_viewpager"
-                        android:layout_width="@dimen/size_10dp"
-                        android:layout_height="@dimen/size_10dp"
-                        android:background="@drawable/hinh_tron_hong"/>
-                    <View
-                        android:id="@+id/v2_fragment_viewpager"
-                        android:layout_width="@dimen/size_10dp"
-                        android:layout_height="@dimen/size_10dp"
-                        android:background="@drawable/hinh_tron_xam"/>
-                    </LinearLayout>
-                </RelativeLayout>
-
+                    android:visibility="visible"></ViewFlipper>
             </android.support.design.widget.CollapsingToolbarLayout>
 
 

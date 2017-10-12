@@ -37,16 +37,15 @@ import com.squareup.picasso.Picasso;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Timer;
-import java.util.TimerTask;
 import java.util.logging.SimpleFormatter;
 
 import ambe.com.vn.moki.R;
 import ambe.com.vn.moki.adapters.LocAdapter;
 import ambe.com.vn.moki.adapters.PagerTrangChuAdapter;
+import ambe.com.vn.moki.adapters.SingleChoiAdapter;
 import ambe.com.vn.moki.adapters.StickyHeaderAdapter;
-import ambe.com.vn.moki.adapters.ViewPagerAdapter;
 import ambe.com.vn.moki.models.Loc;
+import ambe.com.vn.moki.models.SingleChoice;
 import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
 
 /**
@@ -55,13 +54,13 @@ import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
 public class TrangChuFragment extends Fragment implements View.OnClickListener {
 
 
-    private View view,vp1,vp2;
+    private View view;
     private ViewPager vPagerTrangChu;
     private TabLayout tableLayoutTrangChu;
     private PagerTrangChuAdapter pagerTrangChuAdapter;
     private ArrayList<String> arrTabs;
     private ArrayList<Loc> arrLocs;
-    private ViewPager viewFlipper;
+    private ViewFlipper viewFlipper;
     private LinearLayout llSapXep;
     private LinearLayout llLoc;
     private LinearLayout llXungQuanh;
@@ -69,11 +68,6 @@ public class TrangChuFragment extends Fragment implements View.OnClickListener {
     private Dialog dialogLoc;
     private LocAdapter locAdapter;
     private BubbleThumbRangeSeekbar seekbar;
-    private ArrayList<Fragment> arr;
-    private ViewPagerAdapter viewPagerAdapter;
-
-    Timer timer;
-    TimerTask timerTask;
 
     Button btnHuy;
     Button btnXoaHet;
@@ -96,13 +90,6 @@ public class TrangChuFragment extends Fragment implements View.OnClickListener {
         return view;
     }
 
-    public int doi(int i){
-        if(i<1001)
-            return i+1;
-        return 0;
-    }
-
-
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -113,103 +100,34 @@ public class TrangChuFragment extends Fragment implements View.OnClickListener {
 
 
     }
-    public void doiHinh(){
-        timer=new Timer();
-        timerTask=new TimerTask() {
-            @Override
-            public void run() {
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        if(arr.size()<=1000){
-                        ViewPager1 v=new ViewPager1();
-                        arr.add(v);
-                        viewPagerAdapter.notifyDataSetChanged();
-                        Log.d("length",arr.size()+"");
-                        viewFlipper.setCurrentItem(doi(viewFlipper.getCurrentItem()));
-                        if(viewFlipper.getCurrentItem()%2==0){
-                            vp1.setBackgroundResource(R.drawable.hinh_tron_hong);
-                            vp2.setBackgroundResource(R.drawable.hinh_tron_xam);
-                        } else {
-                            vp1.setBackgroundResource(R.drawable.hinh_tron_xam);
-                            vp2.setBackgroundResource(R.drawable.hinh_tron_hong);
-                        }
-                        }else {
-                            arr.clear();
-                            ViewPager1 v=new ViewPager1();
-                            arr.add(v);
-                            viewPagerAdapter.notifyDataSetChanged();
-                        }
-
-
-                    }
-                });
-
-            }
-        };
-        timer.scheduleAtFixedRate(timerTask,2000,4000);
-
-
-    }
 
     private void addViewFlipper() {
-        arr=new ArrayList<>();
-        ViewPager1 v1=new ViewPager1();
-        ViewPager1 v2=new ViewPager1();
-        arr.add(v1);
-        arr.add(v2);
-        viewPagerAdapter=new ViewPagerAdapter(getActivity().getSupportFragmentManager(),arr);
-        viewFlipper.setAdapter(viewPagerAdapter);
-        viewFlipper.setPageTransformer(true, new ViewPager.PageTransformer() {
-            @Override
-            public void transformPage(View page, float position) {
-                Log.d("positon",position+"");
-                int a=viewFlipper.getCurrentItem();
-                if(a%2==0){
-                    vp1.setBackgroundResource(R.drawable.hinh_tron_hong);
-                    vp2.setBackgroundResource(R.drawable.hinh_tron_xam);
-                } else if(a%2==1){
-                    vp1.setBackgroundResource(R.drawable.hinh_tron_xam);
-                    vp2.setBackgroundResource(R.drawable.hinh_tron_hong);
-                }else {
+        ArrayList<String> urlHinhAnhs = new ArrayList<String>();
+        urlHinhAnhs.add("http://diendanso.net/wp-content/uploads/2015/12/anh-dep-17.jpg");
+        urlHinhAnhs.add("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnNwpPOkNoh7r3sc4X2KKpmZp07bCLZFIBU8WZyDhFNvlOyXjIYg");
+        urlHinhAnhs.add("http://taihinhanhdep.xyz/wp-content/uploads/2016/09/hinh-anh-dep-ve-thien-nhien-va-tinh-yeu.jpg");
+        urlHinhAnhs.add("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJRpc-Ymeo8O-MrkFOCbcjYV5IAhpPKDM4vJbaVzaPQIzxkaDh");
+        urlHinhAnhs.add("http://hinhdep.com.vn/wp-content/uploads/2013/06/anh-dep-tinh-ban007.jpg");
 
-                }
-            }
-        });
+        for (String str : urlHinhAnhs) {
+            ImageView imageView = new ImageView(getActivity());
+            Picasso.with(getActivity()).load(str)
+                    .into(imageView);
+            imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+            viewFlipper.addView(imageView);
+        }
 
-
-//        for (String str : urlHinhAnhs) {
-//            ImageView imageView = new ImageView(getActivity());
-//            Picasso.with(getActivity()).load(str)
-//                    .into(imageView);
-//            imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-//            viewFlipper.addView(imageView);
-//        }
-
-
-//        viewFlipper.setFlipInterval(5000);
-//        viewFlipper.setAutoStart(true);
-//        Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.slide_in_right);
-//        Animation animation1 = AnimationUtils.loadAnimation(getContext(), R.anim.slide_out_right);
-//        viewFlipper.setInAnimation(animation);
-//        viewFlipper.setOutAnimation(animation1);
+        viewFlipper.setFlipInterval(5000);
+        viewFlipper.setAutoStart(true);
+        Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.slide_in_right);
+        Animation animation1 = AnimationUtils.loadAnimation(getContext(), R.anim.slide_out_right);
+        viewFlipper.setInAnimation(animation);
+        viewFlipper.setOutAnimation(animation1);
 
 
     }
 
     private void addEvents() {
-        vp1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                viewFlipper.setCurrentItem(0);
-            }
-        });
-        vp2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                viewFlipper.setCurrentItem(1);
-            }
-        });
 
         vPagerTrangChu.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tableLayoutTrangChu));
 
@@ -230,6 +148,8 @@ public class TrangChuFragment extends Fragment implements View.OnClickListener {
             }
         });
 
+//        tableLayoutTrangChu.setupWithViewPager(vPagerTrangChu);
+
         vPagerTrangChu.setPageTransformer(true, new DepthPageTransformer());
 
 
@@ -247,8 +167,6 @@ public class TrangChuFragment extends Fragment implements View.OnClickListener {
         llSapXep = view.findViewById(R.id.ll_sap_xep);
         llLoc = view.findViewById(R.id.ll_loc);
         llXungQuanh = view.findViewById(R.id.ll_xung_quanh);
-        vp1=view.findViewById(R.id.v1_fragment_viewpager);
-        vp2=view.findViewById(R.id.v2_fragment_viewpager);
 
 
         arrTabs = new ArrayList<>();
@@ -266,8 +184,6 @@ public class TrangChuFragment extends Fragment implements View.OnClickListener {
         pagerTrangChuAdapter = new PagerTrangChuAdapter(getChildFragmentManager(), arrTabs);
         vPagerTrangChu.setAdapter(pagerTrangChuAdapter);
         pagerTrangChuAdapter.notifyDataSetChanged();
-        doiHinh();
-
 
 
     }
@@ -311,14 +227,32 @@ public class TrangChuFragment extends Fragment implements View.OnClickListener {
 
 
         String[] arrSapXep = getResources().getStringArray(R.array.arrSapXep);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-                getActivity(),
-                android.R.layout.simple_list_item_single_choice,
-                arrSapXep
-        );
+        final ArrayList<SingleChoice> arrayList=new ArrayList<SingleChoice>();
 
-        listSapXep.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+        for (int i=0;i<arrSapXep.length;i++){
+
+            arrayList.add(new SingleChoice(arrSapXep[i],0));
+
+        }
+
+        final SingleChoiAdapter adapter=new SingleChoiAdapter(arrayList,getActivity());
         listSapXep.setAdapter(adapter);
+
+        listSapXep.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                for (int x = 0; x < arrayList.size(); ++x) {
+                    if (x != i) {
+                        arrayList.get(x).setCheck(0);
+                        adapter.notifyDataSetChanged();
+                    } else {
+                        arrayList.get(x).setCheck(1);
+                        adapter.notifyDataSetChanged();
+                    }
+                }
+            }
+        });
 
         btnHuy.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -738,17 +672,45 @@ public class TrangChuFragment extends Fragment implements View.OnClickListener {
 
         final String[] arr = getResources().getStringArray(R.array.arrTabs);
 
+//
+//        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+//                getActivity(),
+//                android.R.layout.simple_list_item_single_choice,
+//                arr
+//        );
+//
+//
+//        listView.setAdapter(adapter);
+//        listView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+//        listView.setItemsCanFocus(true);
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-                getActivity(),
-                android.R.layout.simple_list_item_single_choice,
-                arr
-        );
 
+        final ArrayList<SingleChoice> arrDanhMuc=new ArrayList<SingleChoice>();
 
+        for (int i=0;i<arr.length;i++){
+
+            arrDanhMuc.add(new SingleChoice(arr[i],0));
+
+        }
+
+        final SingleChoiAdapter adapter=new SingleChoiAdapter(arrDanhMuc,getActivity());
         listView.setAdapter(adapter);
-        listView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-        listView.setItemsCanFocus(true);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                for (int x = 0; x < arrDanhMuc.size(); ++x) {
+                    if (x != i) {
+                        arrDanhMuc.get(x).setCheck(0);
+                        adapter.notifyDataSetChanged();
+                    } else {
+                        arrDanhMuc.get(x).setCheck(1);
+                        adapter.notifyDataSetChanged();
+                    }
+                }
+            }
+        });
 
         String subTitle = arrLocs.get(0).getSubTitle();
         for (int i = 0; i < arr.length; ++i) {
@@ -776,9 +738,13 @@ public class TrangChuFragment extends Fragment implements View.OnClickListener {
         btnLoc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int id = listView.getCheckedItemPosition();
-                String subTitle = arr[id];
+                String subTitle="";
 
+                for (SingleChoice str: arrDanhMuc){
+                    if (str.getCheck() == 1){
+                        subTitle+=str.getTxtName();
+                    }
+                }
 
                 arrLocs.get(0).setSubTitle(subTitle + "");
                 if(!arrLocs.get(0).getSubTitle().equals("Tất cả"))
@@ -796,7 +762,6 @@ public class TrangChuFragment extends Fragment implements View.OnClickListener {
         dialog.show();
 
     }
-
 
     public class DepthPageTransformer implements ViewPager.PageTransformer {
         private static final float MIN_SCALE = 0.75f;

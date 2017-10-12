@@ -8,7 +8,6 @@ import android.widget.BaseAdapter;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
-import android.widget.TextClock;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -75,10 +74,10 @@ public class StickyHeaderAdapter extends BaseAdapter implements StickyListHeader
         ItemView itemView;
         if (view == null) {
             itemView = new ItemView();
-            view = inflater.inflate(R.layout.custom_nhan_hieu, viewGroup, false);
+            view = inflater.inflate(R.layout.custom_single_choice, viewGroup, false);
 
-            itemView.txtItem = view.findViewById(R.id.txt_nhan_hieu);
-            itemView.imgCheck = view.findViewById(R.id.img_check_nhan_hieu);
+            itemView.txtItem = view.findViewById(R.id.txt_single_choice);
+            itemView.imgCheck = view.findViewById(R.id.img_check_single_choice);
 
             view.setTag(itemView);
         } else {

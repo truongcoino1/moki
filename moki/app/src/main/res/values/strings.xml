@@ -8,6 +8,13 @@
     <string name="dang_nhap">Đăng nhập</string>
     <string name="mat_khau">Mật khẩu</string>
     <string name="dang_ky">Đăng ký</string>
+    <string name="mua">Mua</string>
+    <string name="xem_them">Xem thêm</string>
+    <string name="thu_lai">Thu lại</string>
+    <string name="khoi_luong">Khối lượng</string>
+    <string name="kich_thuoc">Kích thước</string>
+    <string name="noi_ban">  Nơi bán</string>
+    <string name="binh_luan_dau_tien">Trờ thành người bình luận đầu tiên</string>
 
     <string name="quen_mat_khau"><u>Quên mật khẩu?</u></string>
     <string name="title_activity_main">MainActivity</string>

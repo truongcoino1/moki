@@ -6,6 +6,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.view.Gravity;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -15,10 +16,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
+
+import com.infideap.drawerbehavior.AdvanceDrawerLayout;
 
 import ambe.com.vn.moki.R;
 import ambe.com.vn.moki.fragments.TinTucFragment;
 import ambe.com.vn.moki.fragments.TrangChuFragment;
+import ambe.com.vn.moki.models.products.Image;
 import ambe.com.vn.moki.utils.Utils;
 
 public class MainActivity extends AppCompatActivity
@@ -28,9 +33,10 @@ public class MainActivity extends AppCompatActivity
     FragmentManager fragmentManager;
     private Toolbar toolbar;
     private FloatingActionButton fab;
-    private DrawerLayout drawer;
+    private AdvanceDrawerLayout drawer;
     private NavigationView navigationView;
     private boolean isUserFirstTime;
+    private ImageView imgShell;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,16 +55,9 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");
 
-        fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
-        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        imgShell=findViewById(R.id.img_shell);
+        drawer =  findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         toolbar.setNavigationIcon(R.drawable.icon_menu);
@@ -70,6 +69,9 @@ public class MainActivity extends AppCompatActivity
         fragmentManager = getSupportFragmentManager();
         TrangChuFragment trangChuFragment = TrangChuFragment.newInstance();
         fragmentManager.beginTransaction().replace(R.id.frame_main, trangChuFragment).commit();
+
+        drawer.useCustomBehavior(Gravity.START);
+        drawer.useCustomBehavior(Gravity.END);
     }
 
     @Override
