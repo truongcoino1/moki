@@ -1,0 +1,148 @@
+<resources>
+    <string name="app_name">Moki</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="bo_qua">Bỏ qua</string>
+    <string name="so_dien_thoai">Số điện thoại</string>
+    <string name="dang_nhap">Đăng nhập</string>
+    <string name="mat_khau">Mật khẩu</string>
+    <string name="dang_ky">Đăng ký</string>
+    <string name="mua">Mua</string>
+    <string name="xem_them">Xem thêm</string>
+    <string name="thu_lai">Thu lại</string>
+    <string name="khoi_luong">Khối lượng</string>
+    <string name="kich_thuoc">Kích thước</string>
+    <string name="noi_ban">  Nơi bán</string>
+    <string name="binh_luan_dau_tien">Trờ thành người bình luận đầu tiên</string>
+
+    <string name="quen_mat_khau"><u>Quên mật khẩu?</u></string>
+    <string name="title_activity_main">MainActivity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="chao_mung">Chào mừng bạn đến với MOKI</string>
+    <string name="trang_chu">Trang chủ</string>
+    <string name="tin_tuc">Tin tức</string>
+    <string name="danh_sach_yeu_thich">Danh sách yêu thích</string>
+    <string name="danh_sach_ban">Danh sách bán</string>
+    <string name="danh_sach_mua">Danh sách mua</string>
+    <string name="tu_thien">Từ thiện</string>
+    <string name="thiet_lap">Thiết lập</string>
+    <string name="trung_tam_ho_tro">Trung tâm hỗ trợ</string>
+    <string name="gioi_thieu_moki">Giới thiệu MOKI</string>
+    <string name="sap_xep_do"><p><font color="red">Sắp xếp</font></p></string>
+    <string name="loc_do"><p><font color="red">Lọc</font></p></string>
+    <string name="xung_quanh_do"><p><font color="red">Xung quanh</font></p></string>
+    <string name="sap_xep">Sắp xếp</string>
+    <string name="xung_quanh">Xung quanh</string>
+    <string name="loc">Lọc</string>
+    <string name="huy">Hủy</string>
+    <string name="ap_dung">Áp dụng</string>
+    <string name="xoa_het">Xóa hết</string>
+    <string name="danh_muc">Danh mục</string>
+    <string name="tat_ca">Tất cả</string>
+    <string name="trang_thai">Trạng thái</string>
+    <string name="gia">Giá</string>
+    <string name="tim_kiem">Tìm kiếm</string>
+    <string name="nhan_hieu">Nhãn hiệu</string>
+
+    <string-array name="arrTinhThanh">
+        <item>An Giang</item>
+        <item>Bà Rịa - Vũng Tàu</item>
+        <item>Bắc Giang</item>
+        <item>Bắc Kạn</item>
+        <item>Bạc Liêu</item>
+        <item>Bắc Ninh</item>
+        <item>Bến Tre</item>
+        <item>Bình Định</item>
+        <item>Bình Dương</item>
+        <item>Bình Phước</item>
+        <item>Bình Thuận</item>
+        <item>Cà Mau</item>
+        <item>Cao Bằng</item>
+        <item>Đắk Lắk</item>
+        <item>Đắk Nông</item>
+        <item>Điện Biên</item>
+        <item>Đồng Nai</item>
+        <item>Đồng Tháp</item>
+        <item>Gia Lai</item>
+        <item>Hà Giang</item>
+        <item>Hà Nam</item>
+        <item>Hà Tĩnh</item>
+        <item>Hải Dương</item>
+        <item>Hậu Giang</item>
+        <item>Hòa Bình</item>
+        <item>Hưng Yên</item>
+        <item>Khánh Hòa</item>
+        <item>Kiên Giang</item>
+        <item>Kon Tum</item>
+        <item>Lai Châu</item>
+        <item>Lâm Đồng</item>
+        <item>Lạng Sơn</item>
+        <item>Lào Cai</item>
+        <item>Long An</item>
+        <item>Nam Định</item>
+        <item>Nghệ An</item>
+        <item>Ninh Bình</item>
+        <item>Ninh Thuận</item>
+        <item>Phú Thọ</item>
+        <item>Quảng Bình</item>
+        <item>Quảng Nam</item>
+        <item>Quảng Ngãi</item>
+        <item>Quảng Ninh</item>
+        <item>Quảng Trị</item>
+        <item>Sóc Trăng</item>
+        <item>Sơn La</item>
+        <item>Tây Ninh</item>
+        <item>Thái Bình</item>
+        <item>Thái Nguyên</item>
+        <item>Thanh Hóa</item>
+        <item>Thừa Thiên Huế</item>
+        <item>Tiền Giang</item>
+        <item>Trà Vinh</item>
+        <item>Tuyên Quang</item>
+        <item>Vĩnh Long</item>
+        <item>Vĩnh Phúc</item>
+        <item>Yên Bái</item>
+        <item>Phú Yên</item>
+        <item>Cần Thơ</item>
+        <item>Đà Nẵng</item>
+        <item>Hải Phòng</item>
+        <item>Hà Nội</item>
+        <item>TP HCM</item>
+
+    </string-array>
+
+
+    <string-array name="arrSapXep">
+        <item>Giá từ cao xuống thâp</item>
+        <item>Giá từ thấp lên cao</item>
+        <item>Sản phẩm mới nhất</item>
+        <item>Giảm giá nhiều nhất</item>
+        <item>Khuyến mại nhiều nhất</item>
+        <item>Yêu thích nhất</item>
+        <item>Bình luận nhiều nhất</item>
+    </string-array>
+
+
+    <string-array name="arrTabs">
+        <item>Tất cả</item>
+        <item>Miễn phí</item>
+        <item>Bé ăn</item>
+        <item>Bé mặc</item>
+        <item>Bé ngủ</item>
+        <item>Bé tắm</item>
+        <item>Bé vệ sinh</item>
+        <item>Bé khỏe - an toàn</item>
+        <item>Bé đi ra ngoài</item>
+        <item>Bé chơi mà học</item>
+        <item>Dành cho mẹ</item>
+        <item>Đồ dùng gia đình</item>
+        <item>Sản phẩm khác</item>
+
+    </string-array>
+
+</resources>
