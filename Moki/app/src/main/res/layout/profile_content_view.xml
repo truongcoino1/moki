@@ -5,6 +5,7 @@
     android:layout_margin="@dimen/size_10dp"
     android:layout_height="wrap_content">
     <LinearLayout
+        android:id="@+id/lnl_profile_content_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"

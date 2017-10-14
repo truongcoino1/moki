@@ -20,9 +20,24 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
-        android:background="@color/colorWhite"
-        app:headerLayout="@layout/nav_header_main"
-        app:menu="@menu/activity_main_drawer" />
+        android:background="@color/colorWhite">
+        <!--app:headerLayout="@layout/nav_header_main">-->
+        <!--app:menu="@menu/activity_main_drawer"-->
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <include layout="@layout/nav_header_main"></include>
+            <ListView
+                android:id="@+id/list_menu"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            </ListView>
+        </LinearLayout>
+
+    </android.support.design.widget.NavigationView>
 
 
 </com.infideap.drawerbehavior.AdvanceDrawerLayout>

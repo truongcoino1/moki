@@ -11,4 +11,5 @@
     <color name="colorGray">#424242</color>
     <color name="colorWhileDark">#90EEEEEE</color>
     <color name="colorGrayLight">#dfdfdf</color>
+    <color name="colorBlue">#64DD17</color>
 </resources>

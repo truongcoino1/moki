@@ -25,7 +25,7 @@
 
     <item
         android:id="@+id/menu_danh_sach_mua"
-        android:icon="@drawable/product_price"
+        android:icon="@drawable/product_new_price"
         android:title="@string/danh_sach_mua" />
     <item
         android:id="@+id/menu_tu_thien"

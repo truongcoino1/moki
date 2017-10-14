@@ -27,7 +27,7 @@
                 android:src="@drawable/icon_back_small" />
 
             <TextView
-                android:id="@+id/txt_product_name"
+                android:id="@+id/txt_tittle_tb_product_detail"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="8"

@@ -4,39 +4,36 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.widget.ArrayAdapter;
 
-import java.util.ArrayList;
-
-import ambe.com.vn.moki.fragments.MainFragment;
+import ambe.com.vn.moki.fragments.ProductMainFragment;
 
 /**
  * Created by AMBE on 16/09/2017.
  */
 
 public class PagerTrangChuAdapter extends FragmentStatePagerAdapter {
-    private ArrayList<String> arrayList;
+    private int  numberOfTab;
 
-    public PagerTrangChuAdapter(FragmentManager fm, ArrayList<String> arrayList) {
+    public PagerTrangChuAdapter(FragmentManager fm, int numberOfTab) {
         super(fm);
-        this.arrayList = arrayList;
+        this.numberOfTab = numberOfTab;
     }
 
     @Override
     public Fragment getItem(int position) {
 
-        MainFragment mainFragment = new MainFragment();
+        ProductMainFragment productMainFragment = new ProductMainFragment();
         Bundle bundle = new Bundle();
         bundle.putInt("ID", position);
-        mainFragment.setArguments(bundle);
-        return mainFragment;
+        productMainFragment.setArguments(bundle);
+        return productMainFragment;
 
     }
 
 
     @Override
     public int getCount() {
-        return arrayList.size();
+        return numberOfTab;
     }
 }
 

@@ -1,5 +1,6 @@
 package ambe.com.vn.moki.activities;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -19,11 +20,13 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
 
     private Toolbar toolbar;
     private ImageView imgBack;
+    private TextView txtTitleToolbar;
     private PullToZoomScrollViewEx scrollViewEx;
     private View zoomView;
     private View contentView;
     private TextView txtDescription;
     private TextView txtXemThem;
+    private LinearLayout lnlProfileContent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +40,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
     private void addEvents() {
 
         imgBack.setOnClickListener(this);
+        lnlProfileContent.setOnClickListener(this);
 
     }
 
@@ -44,6 +48,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
         toolbar = findViewById(R.id.tb_product_detail);
         imgBack = findViewById(R.id.img_back);
         scrollViewEx = findViewById(R.id.scroll_detail_product);
+        txtTitleToolbar=findViewById(R.id.txt_tittle_tb_product_detail);
 
         zoomView = LayoutInflater.from(this).inflate(R.layout.product_image_zoom_view, null, false);
         contentView = LayoutInflater.from(this).inflate(R.layout.product_content_view, null, false);
@@ -52,6 +57,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
 
         txtDescription=contentView.findViewById(R.id.txt_p_conten_description);
         txtXemThem=contentView.findViewById(R.id.txt_xem_them);
+        lnlProfileContent=contentView.findViewById(R.id.lnl_profile_content_view);
 
         //xu ly su kien bam vao nut xem them
         txtDescription.post(new Runnable() {
@@ -107,6 +113,16 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
             case R.id.img_back:
                 finish();
                 break;
+            case R.id.lnl_profile_content_view:
+                xuLyXemProfile();
+                break;
         }
+    }
+
+    private void xuLyXemProfile() {
+
+        Intent intent=new Intent(this,ProfileActivity.class);
+        startActivity(intent);
+
     }
 }

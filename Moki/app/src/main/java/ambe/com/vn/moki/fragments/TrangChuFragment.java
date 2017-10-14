@@ -181,7 +181,7 @@ public class TrangChuFragment extends Fragment implements View.OnClickListener {
             tableLayoutTrangChu.addTab(tableLayoutTrangChu.newTab().setText(str));
         }
         tableLayoutTrangChu.setTabGravity(TabLayout.GRAVITY_FILL);
-        pagerTrangChuAdapter = new PagerTrangChuAdapter(getChildFragmentManager(), arrTabs);
+        pagerTrangChuAdapter = new PagerTrangChuAdapter(getChildFragmentManager(),tableLayoutTrangChu.getTabCount());
         vPagerTrangChu.setAdapter(pagerTrangChuAdapter);
         pagerTrangChuAdapter.notifyDataSetChanged();
 
@@ -210,9 +210,7 @@ public class TrangChuFragment extends Fragment implements View.OnClickListener {
         }
     }
 
-    private void xuLyXungQuanh() {
-
-    }
+    private void xuLyXungQuanh() {}
 
     private void xuLySapXep() {
 
@@ -273,9 +271,7 @@ public class TrangChuFragment extends Fragment implements View.OnClickListener {
 
     }
 
-    private void xuLyApDungSapXep() {
-
-    }
+    private void xuLyApDungSapXep() {}
 
     private void xuLyLoc() {
 

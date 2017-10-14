@@ -8,7 +8,7 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import ambe.com.vn.moki.R;
-import ambe.com.vn.moki.fragments.MainIntroFragment;
+import ambe.com.vn.moki.fragments.IntroMainFragment;
 
 public class IntroActivity extends AppCompatActivity {
 
@@ -23,8 +23,8 @@ public class IntroActivity extends AppCompatActivity {
 
         FragmentManager fragmentManager=getSupportFragmentManager();
         FragmentTransaction transaction=fragmentManager.beginTransaction();
-        MainIntroFragment mainIntroFragment = MainIntroFragment.newInstance();
-        transaction.replace(R.id.frame_intro_main, mainIntroFragment).commit();
+        IntroMainFragment introMainFragment = IntroMainFragment.newInstance();
+        transaction.replace(R.id.frame_intro_main, introMainFragment).commit();
 
     }
 }
