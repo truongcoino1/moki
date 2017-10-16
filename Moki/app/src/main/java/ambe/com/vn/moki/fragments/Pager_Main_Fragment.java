@@ -39,9 +39,11 @@ public class Pager_Main_Fragment extends Fragment{
         }
         if(position%2==0){
             Picasso.with(getActivity()).load("https://moki.vn//files/banner/banner_1497926374_35.png").into(img);
+            img.setScaleType(ImageView.ScaleType.FIT_XY);
 
         } else{
             Picasso.with(getActivity()).load("https://moki.vn//files/banner/banner_1507083436_36.png").into(img);
+            img.setScaleType(ImageView.ScaleType.FIT_XY);
         }
         //https://moki.vn//files/banner/banner_1497926374_35.png
     }

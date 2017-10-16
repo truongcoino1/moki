@@ -20,6 +20,7 @@ import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.infideap.drawerbehavior.AdvanceDrawerLayout;
 
@@ -32,7 +33,7 @@ import ambe.com.vn.moki.fragments.TrangChuFragment;
 import ambe.com.vn.moki.models.products.Image;
 import ambe.com.vn.moki.utils.Utils;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     public static final String PREF_USER_FIRST_TIME = "user_first_time";
     FragmentManager fragmentManager;
@@ -45,6 +46,8 @@ public class MainActivity extends AppCompatActivity {
     private ListView listMenu;
     private ArrayList<ambe.com.vn.moki.models.MenuItem> arrMenuItem;
     private MenuMainAdapter menuAdapter;
+    private boolean is_grid=true;
+    ImageView img_message,img_notification,img_changeview,img_search;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,8 +67,18 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("");
 
 
-
+        img_changeview=(ImageView)findViewById(R.id.img_changeview);
+        img_search=(ImageView)findViewById(R.id.img_search);
+        img_message=(ImageView)findViewById(R.id.img_message);
+        img_notification=(ImageView)findViewById(R.id.img_notification);
         imgShell = findViewById(R.id.img_shell);
+
+        img_notification.setOnClickListener(this);
+        img_message.setOnClickListener(this);
+        img_search.setOnClickListener(this);
+        img_changeview.setOnClickListener(this);
+        imgShell.setOnClickListener(this);
+
         drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -150,4 +163,31 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.img_search:
+                Toast.makeText(MainActivity.this,"search",Toast.LENGTH_LONG).show();
+                break;
+            case R.id.img_message:
+                Toast.makeText(MainActivity.this,"message",Toast.LENGTH_LONG).show();
+                break;
+            case R.id.img_changeview:
+                Toast.makeText(MainActivity.this,"changeview",Toast.LENGTH_LONG).show();
+                if(is_grid){
+                    img_changeview.setImageResource(R.drawable.icon_grid);
+                    is_grid=false;
+                }else{
+                    img_changeview.setImageResource(R.drawable.tutorial_change_viewmode);
+                    is_grid=true;
+                }
+                break;
+            case R.id.img_notification:
+                Toast.makeText(MainActivity.this,"notification",Toast.LENGTH_LONG).show();
+                break;
+            case R.id.img_shell:
+                break;
+        }
+
+    }
 }

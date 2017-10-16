@@ -74,6 +74,7 @@ public class TrangChuFragment extends Fragment implements View.OnClickListener {
     private BubbleThumbRangeSeekbar seekbar;
     private View v1,v2;
     private boolean flag = true;
+
     ArrayList<Fragment> arr;
     IntroAdapter introAdapter;
 

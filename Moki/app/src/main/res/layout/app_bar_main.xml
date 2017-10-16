@@ -34,6 +34,7 @@
                    android:orientation="horizontal"
                    android:gravity="right">
                    <ImageView
+                       android:id="@+id/img_search"
                        android:layout_width="@dimen/size_50dp"
                        android:layout_height="@dimen/size_50dp"
                        android:layout_gravity="center"
@@ -42,19 +43,20 @@
                        android:layout_width="@dimen/size_50dp"
                        android:layout_height="@dimen/size_50dp"
                        android:layout_gravity="center"
-
+                        android:id="@+id/img_message"
                        android:src="@drawable/ic_icon_message"/>
                    <ImageView
                        android:layout_width="@dimen/size_50dp"
                        android:layout_height="@dimen/size_50dp"
                        android:layout_gravity="center"
-
+                       android:id="@+id/img_notification"
                        android:src="@drawable/icon_alert"/>
 
                    <ImageView
                        android:layout_width="@dimen/size_50dp"
                        android:layout_height="@dimen/size_50dp"
                        android:layout_gravity="center"
+                       android:id="@+id/img_changeview"
                        android:src="@drawable/tutorial_change_viewmode"/>
 
                </LinearLayout>
