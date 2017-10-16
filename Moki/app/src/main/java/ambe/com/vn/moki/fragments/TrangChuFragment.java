@@ -2,6 +2,7 @@ package ambe.com.vn.moki.fragments;
 
 
 import android.app.Dialog;
+import android.app.VoiceInteractor;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
@@ -37,9 +38,12 @@ import com.squareup.picasso.Picasso;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.logging.SimpleFormatter;
 
 import ambe.com.vn.moki.R;
+import ambe.com.vn.moki.adapters.IntroAdapter;
 import ambe.com.vn.moki.adapters.LocAdapter;
 import ambe.com.vn.moki.adapters.PagerTrangChuAdapter;
 import ambe.com.vn.moki.adapters.SingleChoiAdapter;
@@ -60,7 +64,7 @@ public class TrangChuFragment extends Fragment implements View.OnClickListener {
     private PagerTrangChuAdapter pagerTrangChuAdapter;
     private ArrayList<String> arrTabs;
     private ArrayList<Loc> arrLocs;
-    private ViewFlipper viewFlipper;
+    private ViewPager viewFlipper;
     private LinearLayout llSapXep;
     private LinearLayout llLoc;
     private LinearLayout llXungQuanh;
@@ -68,6 +72,10 @@ public class TrangChuFragment extends Fragment implements View.OnClickListener {
     private Dialog dialogLoc;
     private LocAdapter locAdapter;
     private BubbleThumbRangeSeekbar seekbar;
+    private View v1,v2;
+    private boolean flag = true;
+    ArrayList<Fragment> arr;
+    IntroAdapter introAdapter;
 
     Button btnHuy;
     Button btnXoaHet;
@@ -102,29 +110,116 @@ public class TrangChuFragment extends Fragment implements View.OnClickListener {
     }
 
     private void addViewFlipper() {
-        ArrayList<String> urlHinhAnhs = new ArrayList<String>();
-        urlHinhAnhs.add("http://diendanso.net/wp-content/uploads/2015/12/anh-dep-17.jpg");
-        urlHinhAnhs.add("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnNwpPOkNoh7r3sc4X2KKpmZp07bCLZFIBU8WZyDhFNvlOyXjIYg");
-        urlHinhAnhs.add("http://taihinhanhdep.xyz/wp-content/uploads/2016/09/hinh-anh-dep-ve-thien-nhien-va-tinh-yeu.jpg");
-        urlHinhAnhs.add("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJRpc-Ymeo8O-MrkFOCbcjYV5IAhpPKDM4vJbaVzaPQIzxkaDh");
-        urlHinhAnhs.add("http://hinhdep.com.vn/wp-content/uploads/2013/06/anh-dep-tinh-ban007.jpg");
+//        ArrayList<String> urlHinhAnhs = new ArrayList<String>();
+//        urlHinhAnhs.add("http://diendanso.net/wp-content/uploads/2015/12/anh-dep-17.jpg");
+//        urlHinhAnhs.add("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnNwpPOkNoh7r3sc4X2KKpmZp07bCLZFIBU8WZyDhFNvlOyXjIYg");
+//        urlHinhAnhs.add("http://taihinhanhdep.xyz/wp-content/uploads/2016/09/hinh-anh-dep-ve-thien-nhien-va-tinh-yeu.jpg");
+//        urlHinhAnhs.add("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJRpc-Ymeo8O-MrkFOCbcjYV5IAhpPKDM4vJbaVzaPQIzxkaDh");
+//        urlHinhAnhs.add("http://hinhdep.com.vn/wp-content/uploads/2013/06/anh-dep-tinh-ban007.jpg");
+//
+//        for (String str : urlHinhAnhs) {
+//            ImageView imageView = new ImageView(getActivity());
+//            Picasso.with(getActivity()).load(str)
+//                    .into(imageView);
+//            imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+//            viewFlipper.addView(imageView);
+//        }
+//
+//        viewFlipper.setFlipInterval(5000);
+//        viewFlipper.setAutoStart(true);
+//        Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.slide_in_right);
+//        Animation animation1 = AnimationUtils.loadAnimation(getContext(), R.anim.slide_out_right);
+//        viewFlipper.setInAnimation(animation);
+//        viewFlipper.setOutAnimation(animation1);
+        Pager_Main_Fragment pager_1=new Pager_Main_Fragment();
+        Pager_Main_Fragment pager_2=new Pager_Main_Fragment();
+        arr=new ArrayList<>();
+        arr.add(pager_1);
+        arr.add(pager_2);
+        introAdapter=new IntroAdapter(getFragmentManager(),arr);
+        viewFlipper.setAdapter(introAdapter);
+        v1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(viewFlipper.getCurrentItem()%2==0){
+//                    viewFlipper.setCurrentItem(arr.size()-2);
+                } else {
+                    viewFlipper.setCurrentItem(viewFlipper.getCurrentItem()-1);
+                }
+            }
+        });
+        v2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(viewFlipper.getCurrentItem()%2==0){
+                    viewFlipper.setCurrentItem(viewFlipper.getCurrentItem()-1);
+                } else {
+//                    viewFlipper.setCurrentItem(arr.size()-2);
+                }
+            }
+        });
+        viewFlipper.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
-        for (String str : urlHinhAnhs) {
-            ImageView imageView = new ImageView(getActivity());
-            Picasso.with(getActivity()).load(str)
-                    .into(imageView);
-            imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-            viewFlipper.addView(imageView);
-        }
+            }
 
-        viewFlipper.setFlipInterval(5000);
-        viewFlipper.setAutoStart(true);
-        Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.slide_in_right);
-        Animation animation1 = AnimationUtils.loadAnimation(getContext(), R.anim.slide_out_right);
-        viewFlipper.setInAnimation(animation);
-        viewFlipper.setOutAnimation(animation1);
+            @Override
+            public void onPageSelected(int position) {
+                if(position%2==0){
+                    v1.setBackgroundResource(R.drawable.hinh_tron_hong);
+                    v2.setBackgroundResource(R.drawable.hinh_tron_xam);
+                }else {
+                    v1.setBackgroundResource(R.drawable.hinh_tron_xam);
+                    v2.setBackgroundResource(R.drawable.hinh_tron_hong);
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
 
 
+
+
+
+
+
+
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        Timer timer=new Timer();
+        TimerTask timerTask=new TimerTask() {
+            @Override
+            public void run() {
+                if (flag && (getActivity() != null)){
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+
+
+                            if(arr.size()<19){
+                                Pager_Main_Fragment a=new Pager_Main_Fragment();
+                                arr.add(a);
+                                introAdapter.notifyDataSetChanged();
+                                viewFlipper.setCurrentItem(arr.size());}
+                                else{
+                                arr.clear();
+                                Pager_Main_Fragment a=new Pager_Main_Fragment();
+                                arr.add(a);
+                                introAdapter.notifyDataSetChanged();
+                            }
+
+                        }
+                });}
+            }
+        };
+        timer.scheduleAtFixedRate(timerTask,3000,5000);
     }
 
     private void addEvents() {
@@ -167,6 +262,8 @@ public class TrangChuFragment extends Fragment implements View.OnClickListener {
         llSapXep = view.findViewById(R.id.ll_sap_xep);
         llLoc = view.findViewById(R.id.ll_loc);
         llXungQuanh = view.findViewById(R.id.ll_xung_quanh);
+        v1=(View) view.findViewById(R.id.view_pager_1);
+        v2=(View) view.findViewById(R.id.view_pager_2);
 
 
         arrTabs = new ArrayList<>();
@@ -757,6 +854,10 @@ public class TrangChuFragment extends Fragment implements View.OnClickListener {
 
         dialog.show();
 
+    }
+    public void onDestroy() {
+        flag = false;
+        super.onDestroy();
     }
 
     public class DepthPageTransformer implements ViewPager.PageTransformer {

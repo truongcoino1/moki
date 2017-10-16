@@ -44,13 +44,41 @@
                 android:fitsSystemWindows="true"
                 app:contentScrim="?attr/colorPrimary"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fitsSystemWindows="true">
 
-                <ViewFlipper
+                <android.support.v4.view.ViewPager
                     android:id="@+id/view_flipper"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/size_150dp"
-                    android:visibility="visible"></ViewFlipper>
+                    android:visibility="visible"></android.support.v4.view.ViewPager>
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginBottom="@dimen/size_10dp"
+                        >
+                        <View
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:background="@drawable/hinh_tron_hong"
+                            android:id="@+id/view_pager_1"/>
+                        <View
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:background="@drawable/hinh_tron_xam"
+                            android:layout_toRightOf="@id/view_pager_1"
+                            android:id="@+id/view_pager_2"
+                            android:layout_marginLeft="@dimen/size_5dp"/>
+                    </RelativeLayout>
+                </RelativeLayout>
+
             </android.support.design.widget.CollapsingToolbarLayout>
+
+
 
 
             <TextView

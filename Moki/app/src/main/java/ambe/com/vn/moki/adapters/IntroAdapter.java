@@ -23,10 +23,10 @@ public class IntroAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         Fragment fragment = arrFragments.get(position);
         Bundle bundle = new Bundle();
-        if (position < 3) {
+
             bundle.putInt("POSITION", position);
             fragment.setArguments(bundle);
-        }
+
 
         return fragment;
     }
