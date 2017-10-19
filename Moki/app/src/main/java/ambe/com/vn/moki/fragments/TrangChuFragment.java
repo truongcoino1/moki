@@ -43,6 +43,7 @@ import java.util.TimerTask;
 import java.util.logging.SimpleFormatter;
 
 import ambe.com.vn.moki.R;
+import ambe.com.vn.moki.activities.MainActivity;
 import ambe.com.vn.moki.adapters.IntroAdapter;
 import ambe.com.vn.moki.adapters.LocAdapter;
 import ambe.com.vn.moki.adapters.PagerTrangChuAdapter;
@@ -59,9 +60,9 @@ public class TrangChuFragment extends Fragment implements View.OnClickListener {
 
 
     private View view;
-    private ViewPager vPagerTrangChu;
-    private TabLayout tableLayoutTrangChu;
-    private PagerTrangChuAdapter pagerTrangChuAdapter;
+    public ViewPager vPagerTrangChu;
+    public TabLayout tableLayoutTrangChu;
+    public PagerTrangChuAdapter pagerTrangChuAdapter;
     private ArrayList<String> arrTabs;
     private ArrayList<Loc> arrLocs;
     private ViewPager viewFlipper;
@@ -74,6 +75,7 @@ public class TrangChuFragment extends Fragment implements View.OnClickListener {
     private BubbleThumbRangeSeekbar seekbar;
     private View v1,v2;
     private boolean flag = true;
+    public ArrayList<Fragment> arrpager;
 
     ArrayList<Fragment> arr;
     IntroAdapter introAdapter;
@@ -225,6 +227,7 @@ public class TrangChuFragment extends Fragment implements View.OnClickListener {
 
     private void addEvents() {
 
+
         vPagerTrangChu.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tableLayoutTrangChu));
 
         tableLayoutTrangChu.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -246,7 +249,7 @@ public class TrangChuFragment extends Fragment implements View.OnClickListener {
 
 //        tableLayoutTrangChu.setupWithViewPager(vPagerTrangChu);
 
-        vPagerTrangChu.setPageTransformer(true, new DepthPageTransformer());
+//        vPagerTrangChu.setPageTransformer(true, new DepthPageTransformer());
 
 
         llSapXep.setOnClickListener(this);
@@ -279,7 +282,11 @@ public class TrangChuFragment extends Fragment implements View.OnClickListener {
             tableLayoutTrangChu.addTab(tableLayoutTrangChu.newTab().setText(str));
         }
         tableLayoutTrangChu.setTabGravity(TabLayout.GRAVITY_FILL);
-        pagerTrangChuAdapter = new PagerTrangChuAdapter(getChildFragmentManager(),tableLayoutTrangChu.getTabCount());
+        arrpager=new ArrayList<>();
+        for(int i=0;i<tableLayoutTrangChu.getTabCount();i++){
+            arrpager.add(new ProductMainFragment());
+        }
+        pagerTrangChuAdapter = new PagerTrangChuAdapter(getChildFragmentManager(),arrpager);
         vPagerTrangChu.setAdapter(pagerTrangChuAdapter);
         pagerTrangChuAdapter.notifyDataSetChanged();
 

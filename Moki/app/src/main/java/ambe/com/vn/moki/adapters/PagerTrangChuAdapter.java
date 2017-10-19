@@ -5,35 +5,45 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import ambe.com.vn.moki.fragments.ProductMainFragment;
+import java.util.ArrayList;
+
+import ambe.com.vn.moki.activities.MainActivity;
 
 /**
  * Created by AMBE on 16/09/2017.
  */
 
 public class PagerTrangChuAdapter extends FragmentStatePagerAdapter {
-    private int  numberOfTab;
+    private ArrayList<Fragment> arr;
 
-    public PagerTrangChuAdapter(FragmentManager fm, int numberOfTab) {
+
+    public PagerTrangChuAdapter(FragmentManager fm,ArrayList<Fragment> arr) {
         super(fm);
-        this.numberOfTab = numberOfTab;
+        this.arr=arr;
+
     }
 
     @Override
     public Fragment getItem(int position) {
 
-        ProductMainFragment productMainFragment = new ProductMainFragment();
-        Bundle bundle = new Bundle();
-        bundle.putInt("ID", position);
-        productMainFragment.setArguments(bundle);
-        return productMainFragment;
+            Bundle bundle = new Bundle();
+            bundle.putInt("ID", position);
+            bundle.putBoolean("xanhdo",MainActivity.is_grid);
+            arr.get(position).setArguments(bundle);
+
+
+
+
+
+        return arr.get(position);
 
     }
 
 
+
     @Override
     public int getCount() {
-        return numberOfTab;
+        return arr.size();
     }
 }
 

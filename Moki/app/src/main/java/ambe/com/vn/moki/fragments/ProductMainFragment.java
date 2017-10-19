@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 
 import ambe.com.vn.moki.R;
+import ambe.com.vn.moki.activities.MainActivity;
 import ambe.com.vn.moki.adapters.ProductAdapter;
 import ambe.com.vn.moki.models.products.Image;
 import ambe.com.vn.moki.models.products.Product;
@@ -63,12 +65,35 @@ public class ProductMainFragment extends Fragment {
         }
 
     }
+    @Override
+    public void onStart() {
+        super.onStart();
+
+    }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         addControls();
         addEvents();
+        Bundle bundle = getArguments();
+
+        boolean a=true;
+        if (bundle != null) {
+            a = bundle.getBoolean("xanhdo", true);
+            Log.d("bundle",a+"");
+        }
+        if(a&& (MainActivity.is_grid)) {
+//            grid view
+            rcvProduct.setLayoutManager(new GridLayoutManager(getActivity(),2));
+
+        } else{
+//              listview
+            rcvProduct.setLayoutManager(new GridLayoutManager(getActivity(),1));
+        }
+        productAdapter=new ProductAdapter(getActivity(),arrProducts);
+        rcvProduct.setAdapter(productAdapter);
+
 
 
 
@@ -83,7 +108,7 @@ public class ProductMainFragment extends Fragment {
     private void addControls() {
         rcvProduct=view.findViewById(R.id.rcv_main_product);
 
-        rcvProduct.setLayoutManager(new GridLayoutManager(getActivity(),2));
+
         arrProducts=new ArrayList<Product>();
         ArrayList<Profile> test=new ArrayList<>();
 
@@ -105,7 +130,6 @@ public class ProductMainFragment extends Fragment {
         arrProducts.add(new  Product("Sam sung galaxy S8",new Image("https://cdn.tgdd.vn/Products/Images/42/91131/samsung-galaxy-s8-plus-tim-khoi-400-400x460.png","1"),"1250000",test,test));
         arrProducts.add(new  Product("Sam sung galaxy S8",new Image("https://cdn.tgdd.vn/Products/Images/42/91131/samsung-galaxy-s8-plus-tim-khoi-400-400x460.png","1"),"1250000",test,test));
 
-        productAdapter=new ProductAdapter(getActivity(),arrProducts);
-        rcvProduct.setAdapter(productAdapter);
+
     }
 }

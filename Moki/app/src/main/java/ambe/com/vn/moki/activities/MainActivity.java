@@ -3,20 +3,17 @@ package ambe.com.vn.moki.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.view.menu.MenuAdapter;
+import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -28,14 +25,16 @@ import java.util.ArrayList;
 
 import ambe.com.vn.moki.R;
 import ambe.com.vn.moki.adapters.MenuMainAdapter;
+import ambe.com.vn.moki.adapters.PagerTrangChuAdapter;
+import ambe.com.vn.moki.fragments.ProductMainFragment;
 import ambe.com.vn.moki.fragments.TinTucFragment;
 import ambe.com.vn.moki.fragments.TrangChuFragment;
-import ambe.com.vn.moki.models.products.Image;
 import ambe.com.vn.moki.utils.Utils;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     public static final String PREF_USER_FIRST_TIME = "user_first_time";
+    public static boolean is_grid=true;
     FragmentManager fragmentManager;
     private Toolbar toolbar;
     private FloatingActionButton fab;
@@ -46,8 +45,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ListView listMenu;
     private ArrayList<ambe.com.vn.moki.models.MenuItem> arrMenuItem;
     private MenuMainAdapter menuAdapter;
-    private boolean is_grid=true;
-    ImageView img_message,img_notification,img_changeview,img_search;
+    public ImageView img_message,img_notification,img_changeview,img_search;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +60,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             startActivity(introIntent);
 
         setContentView(R.layout.activity_main);
+
+
+
+
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");
@@ -175,17 +177,54 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.img_changeview:
                 Toast.makeText(MainActivity.this,"changeview",Toast.LENGTH_LONG).show();
                 if(is_grid){
+
                     img_changeview.setImageResource(R.drawable.icon_grid);
+                    Fragment fragment=getSupportFragmentManager().findFragmentById(R.id.frame_main);
+                    PagerTrangChuAdapter adapter= (PagerTrangChuAdapter) ((TrangChuFragment)fragment).vPagerTrangChu.getAdapter();
+                    adapter.notifyDataSetChanged();
+                    ViewPager lay=((TrangChuFragment)fragment).vPagerTrangChu;
+                    int current=0;
+                    if(lay.getCurrentItem()!=-1){
+                        current=lay.getCurrentItem();
+                    }
+                    Fragment fragment1=adapter.getItem(current);
+
+
+                   fragment1.getChildFragmentManager().beginTransaction().setCustomAnimations( R.animator.card_flip_right_in, R.animator.card_flip_right_out,
+                            R.animator.card_flip_left_in, R.animator.card_flip_left_out).replace(R.id.pager_xanhdo,new ProductMainFragment()).commit();
+
+
                     is_grid=false;
+
+
+
+
                 }else{
+
                     img_changeview.setImageResource(R.drawable.tutorial_change_viewmode);
+                    Fragment fragment=getSupportFragmentManager().findFragmentById(R.id.frame_main);
+                    PagerTrangChuAdapter adapter= (PagerTrangChuAdapter) ((TrangChuFragment)fragment).vPagerTrangChu.getAdapter();
+
+                    ViewPager lay=((TrangChuFragment)fragment).vPagerTrangChu;
+                    int current=0;
+                    if(lay.getCurrentItem()!=-1){
+                        current=lay.getCurrentItem();
+                    }
+                    Fragment fragment1=adapter.getItem(current);
+                    Log.d("bundle",is_grid+"");
+                    adapter.notifyDataSetChanged();
+                    fragment1.getChildFragmentManager().beginTransaction().setCustomAnimations( R.animator.card_flip_left_in , R.animator.card_flip_left_out,R.animator.card_flip_right_in, R.animator.card_flip_right_out
+                           ).replace(R.id.pager_xanhdo,new ProductMainFragment()).commit();
+
                     is_grid=true;
+
                 }
                 break;
             case R.id.img_notification:
                 Toast.makeText(MainActivity.this,"notification",Toast.LENGTH_LONG).show();
                 break;
             case R.id.img_shell:
+                Toast.makeText(MainActivity.this,"shell",Toast.LENGTH_LONG).show();
                 break;
         }
 
