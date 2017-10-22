@@ -41,8 +41,8 @@ module.exports = function (app, profile, product,message) {
                         }
                         else {
                         let result = {
-                            code: 9992,
-                            message: "Profile is not existed.",
+                            code: 9995,
+                            message: "User is not validated.",
                         }
                         return res.json(result)
                     }
@@ -51,8 +51,8 @@ module.exports = function (app, profile, product,message) {
             } 
             else {
                 let result = {
-                    code: 9992,
-                    message: "Profile is not existed.",
+                    code: 9995,
+                    message: "User is not validated.",
                 }
                 return res.json(result)
             }
