@@ -14,9 +14,9 @@ module.exports = function (app, db) {
   })
   app.post('/api/profile/create', function (req, res) {
     var newProfile = new profile();
-    newProfile.id_user = "1";
+    newProfile.id_user = "2";
     newProfile.password = "truong";
-    newProfile.token = "quat";
+    newProfile.token = "quat1";
     newProfile.email = "truongbk227@gmail.com";
     newProfile.username = "truongbk";
       newProfile.url= null,
