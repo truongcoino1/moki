@@ -1,6 +1,6 @@
 
 module.exports = function(app,product){
-    app.post('/profile/get_list_product', (req, res) => {
+    app.post('/get_list_product', (req, res) => {
       product.find({}, (err, rs) => {
          let result = null;
          console.log(rs.length);

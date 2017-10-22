@@ -1,7 +1,7 @@
 
 
 module.exports = function(app,product ){
-    app.post('/profile/get_product', (req, res) => {
+    app.post('/get_product', (req, res) => {
         product.find({ id_product: req.body.id_product }, (err, rs) => {
           if (rs.length  != 0) {            
                  result = {

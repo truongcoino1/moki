@@ -1,19 +1,20 @@
 
 
 module.exports = function (app, profile) {
-    app.post('/product/save_search_product', (req, res) => {
+    app.post('/product/dalete_search_product', (req, res) => {
         profile.find({ token: req.body.token }, (err, rs) => {
             if (rs.lenght !== 0) {
-                let result = {
-                    id_search :  rs[0].list_search.length,
-                    keyword : req.body.keyword,
-                    category: { category_id: req.body.category_id },
-                    brand: { brand_name: req.body.brand_name },
-                    size: { size_name: req.body.size_name },
-                    price: req.body.price,
-                    condition: req.body.condition
-                };
-                rs[0].list_search.push(result);
+               let list_search = rs[0].list_search;
+               
+               for(var i =0; i < list_search.length; i++){
+                   if(rs[0].list_search[i].id_search === parseInt(req.body.id_search)){
+                    console.log("a");
+                    rs[0].list_search.splice(i,1);
+                   }
+               }
+               for(var j =0; j < rs[0].list_search.length; j++){
+                 rs[0].list_search[j].id_search = j;  
+            }
                 rs[0].save(function (err, post) {
                     if (err) {
                         let result = {
