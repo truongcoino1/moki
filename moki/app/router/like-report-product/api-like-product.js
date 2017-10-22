@@ -11,6 +11,7 @@ module.exports = function (app, profile, product) {
                             id_user :rs[0].id_user,
                             name: rs[0].firstname + " " + rs[0].lastname,
                         }
+                        
                      product.find({id_product :req.body.id_product},(err1, rs1) =>{
                         if(rs1.length !=0){
                             rs1[0].like.push(like);
@@ -20,6 +21,15 @@ module.exports = function (app, profile, product) {
                                   return null;
                                 }
                                 else {
+                                    rs[0].list_like.push({
+                                        id_product :req.body.id_product,
+                                        name_product : rs1[0].name_product,
+                                        price : rs1[0].price,
+                                        image : rs1[0].image,
+                                    })
+                                    rs[0].save(function (err, product) {
+                              
+                                      });
                                     let result = {
                                         code: 1000,
                                         message: "OK.",
