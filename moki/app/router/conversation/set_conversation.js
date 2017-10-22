@@ -5,8 +5,6 @@ module.exports = function (app, profile, product,message) {
             if (rs.length != 0) {
                 profile.find({ id_user: req.body.to_id }, (err1, rs1) => {
                     if (rs1.length != 0) {
-
-
                         product.find({ id_product: req.body.id_product }, (err2, rs2) => {
                       if(rs2.length!=0){
                         message.find({ }, (err3, rs3) => {
@@ -18,8 +16,8 @@ module.exports = function (app, profile, product,message) {
                                     newMessage.product_id = req.body.id_product;
                                     newMessage.unread = "unread";
                                     newMessage.save(function (err, message) { });
-                                    rs[0].list_chat.push(newMessage.id_message);
-                                   rs1[0].list_chat.push(newMessage.id_message);
+                                    rs[0].list_chat.push({id_message : newMessage.id_message});
+                                   rs1[0].list_chat.push({id_message : newMessage.id_message});
                                    rs[0].save(function (err, message) { });
                                    rs1[0].save(function (err, message) { });
                         
