@@ -3,6 +3,7 @@ package ambe.com.vn.moki.adapters;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,8 +53,9 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         viewHolder.txtPrice.setText(price + " K");
         viewHolder.txtLike.setText(product.getLike().size()+"");
         viewHolder.txtMess.setText(product.getComment().size()+"");
+        Log.d("url",product.getImage().get(0).getUrl());
         Picasso.with(context)
-                .load(product.getImage().getUrl())
+                .load(product.getImage().get(0).getUrl())
                 .error(R.drawable.no_image)
                 .into(viewHolder.imageView);
 

@@ -161,6 +161,7 @@ public class TrangChuFragment extends Fragment implements View.OnClickListener {
                 }
             }
         });
+
         viewFlipper.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {

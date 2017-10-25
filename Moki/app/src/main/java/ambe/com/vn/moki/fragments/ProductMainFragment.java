@@ -10,15 +10,18 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
 import java.util.ArrayList;
 
 import ambe.com.vn.moki.R;
 import ambe.com.vn.moki.activities.MainActivity;
+import ambe.com.vn.moki.adapters.ListviewMainAdapter;
 import ambe.com.vn.moki.adapters.ProductAdapter;
 import ambe.com.vn.moki.models.products.Image;
 import ambe.com.vn.moki.models.products.Product;
 import ambe.com.vn.moki.models.users.Profile;
+import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -27,6 +30,7 @@ public class ProductMainFragment extends Fragment {
 
     private ArrayList<String> arrayList;
     int position;
+    StickyListHeadersListView lv;
     private View view;
     private RecyclerView rcvProduct;
     private ArrayList<Product> arrProducts;
@@ -86,13 +90,17 @@ public class ProductMainFragment extends Fragment {
         if(a&& (MainActivity.is_grid)) {
 //            grid view
             rcvProduct.setLayoutManager(new GridLayoutManager(getActivity(),2));
+            productAdapter=new ProductAdapter(getActivity(),arrProducts);
+            rcvProduct.setAdapter(productAdapter);
+
 
         } else{
 //              listview
-            rcvProduct.setLayoutManager(new GridLayoutManager(getActivity(),1));
+            lv.setVisibility(View.VISIBLE);
+            rcvProduct.setVisibility(View.GONE);
+            ListviewMainAdapter listviewMainAdapter=new ListviewMainAdapter(this.getActivity(),arrProducts);
+            lv.setAdapter(listviewMainAdapter);
         }
-        productAdapter=new ProductAdapter(getActivity(),arrProducts);
-        rcvProduct.setAdapter(productAdapter);
 
 
 
@@ -107,29 +115,59 @@ public class ProductMainFragment extends Fragment {
 
     private void addControls() {
         rcvProduct=view.findViewById(R.id.rcv_main_product);
-
+        lv=view.findViewById(R.id.xxx);
 
         arrProducts=new ArrayList<Product>();
         ArrayList<Profile> test=new ArrayList<>();
 
-        arrProducts.add(new  Product("Sam sung galaxy S8",new Image("https://cdn.tgdd.vn/Products/Images/42/91131/samsung-galaxy-s8-plus-tim-khoi-400-400x460.png","1"),"1250000",test,test));
-        arrProducts.add(new  Product("Sam sung galaxy S8",new Image("https://cdn.tgdd.vn/Products/Images/42/91131/samsung-galaxy-s8-plus-tim-khoi-400-400x460.png","1"),"1250000",test,test));
-        arrProducts.add(new  Product("Sam sung galaxy S8",new Image("https://cdn.tgdd.vn/Products/Images/42/91131/samsung-galaxy-s8-plus-tim-khoi-400-400x460.png","1"),"1250000",test,test));
-        arrProducts.add(new  Product("Sam sung galaxy S8",new Image("https://cdn.tgdd.vn/Products/Images/42/91131/samsung-galaxy-s8-plus-tim-khoi-400-400x460.png","1"),"1250000",test,test));
-        arrProducts.add(new  Product("Sam sung galaxy S8 không bán chỉ cho",new Image("https://cdn.tgdd.vn/Products/Images/42/91131/samsung-galaxy-s8-plus-tim-khoi-400-400x460.png","1"),"1250000",test,test));
-        arrProducts.add(new  Product("Sam sung galaxy S8",new Image("https://cdn.tgdd.vn/Products/Images/42/91131/samsung-galaxy-s8-plus-tim-khoi-400-400x460.png","1"),"1250000",test,test));
-        arrProducts.add(new  Product("Sam sung galaxy S8",new Image("https://cdn.tgdd.vn/Products/Images/42/91131/samsung-galaxy-s8-plus-tim-khoi-400-400x460.png","1"),"1250000",test,test));
-        arrProducts.add(new  Product("Sam sung galaxy S8",new Image("https://cdn.tgdd.vn/Products/Images/42/91131/samsung-galaxy-s8-plus-tim-khoi-400-400x460.png","1"),"1250000",test,test));
-        arrProducts.add(new  Product("Sam sung galaxy S8",new Image("https://cdn.tgdd.vn/Products/Images/42/91131/samsung-galaxy-s8-plus-tim-khoi-400-400x460.png","1"),"1250000",test,test));
-        arrProducts.add(new  Product("Sam sung galaxy S8",new Image("https://cdn.tgdd.vn/Products/Images/42/91131/samsung-galaxy-s8-plus-tim-khoi-400-400x460.png","1"),"1250000",test,test));
-        arrProducts.add(new  Product("Sam sung galaxy S8",new Image("https://cdn.tgdd.vn/Products/Images/42/91131/samsung-galaxy-s8-plus-tim-khoi-400-400x460.png","1"),"1250000",test,test));
-        arrProducts.add(new  Product("Sam sung galaxy S8",new Image("https://cdn.tgdd.vn/Products/Images/42/91131/samsung-galaxy-s8-plus-tim-khoi-400-400x460.png","1"),"1250000",test,test));
-        arrProducts.add(new  Product("Sam sung galaxy S8",new Image("https://cdn.tgdd.vn/Products/Images/42/91131/samsung-galaxy-s8-plus-tim-khoi-400-400x460.png","1"),"1250000",test,test));
-        arrProducts.add(new  Product("Sam sung galaxy S8",new Image("https://cdn.tgdd.vn/Products/Images/42/91131/samsung-galaxy-s8-plus-tim-khoi-400-400x460.png","1"),"1250000",test,test));
-        arrProducts.add(new  Product("Sam sung galaxy S8",new Image("https://cdn.tgdd.vn/Products/Images/42/91131/samsung-galaxy-s8-plus-tim-khoi-400-400x460.png","1"),"1250000",test,test));
-        arrProducts.add(new  Product("Sam sung galaxy S8",new Image("https://cdn.tgdd.vn/Products/Images/42/91131/samsung-galaxy-s8-plus-tim-khoi-400-400x460.png","1"),"1250000",test,test));
-        arrProducts.add(new  Product("Sam sung galaxy S8",new Image("https://cdn.tgdd.vn/Products/Images/42/91131/samsung-galaxy-s8-plus-tim-khoi-400-400x460.png","1"),"1250000",test,test));
+        ArrayList<Image> images=new ArrayList<>();
+        Image image=new Image("https://cdn.tgdd.vn/Products/Images/42/91131/samsung-galaxy-s8-plus-tim-khoi-400-400x460.png","1");
+        images.add(image);
 
-
+        arrProducts.add(new  Product("Sam sung galaxy S8",images,"1250000",test,test));
+        arrProducts.add(new  Product("Sam sung galaxy S8",images,"1250000",test,test));
+        arrProducts.add(new  Product("Sam sung galaxy S8",images,"1250000",test,test));
+        arrProducts.add(new  Product("Sam sung galaxy S8",images,"1250000",test,test));
+        arrProducts.add(new  Product("Sam sung galaxy S8",images,"1250000",test,test));
+        arrProducts.add(new  Product("Sam sung galaxy S8",images,"1250000",test,test));
+        arrProducts.add(new  Product("Sam sung galaxy S8",images,"1250000",test,test));
+        arrProducts.add(new  Product("Sam sung galaxy S8",images,"1250000",test,test));
+        arrProducts.add(new  Product("Sam sung galaxy S8",images,"1250000",test,test));
+        arrProducts.add(new  Product("Sam sung galaxy S8",images,"1250000",test,test));
+        arrProducts.add(new  Product("Sam sung galaxy S8",images,"1250000",test,test));
+        arrProducts.add(new  Product("Sam sung galaxy S8",images,"1250000",test,test));
+        arrProducts.add(new  Product("Sam sung galaxy S8",images,"1250000",test,test));
+        arrProducts.add(new  Product("Sam sung galaxy S8",images,"1250000",test,test));
+        arrProducts.add(new  Product("Sam sung galaxy S8",images,"1250000",test,test));
+        arrProducts.add(new  Product("Sam sung galaxy S8",images,"1250000",test,test));
+        arrProducts.add(new  Product("Sam sung galaxy S8",images,"1250000",test,test));
+        arrProducts.add(new  Product("Sam sung galaxy S8",images,"1250000",test,test));
+        arrProducts.add(new  Product("Sam sung galaxy S8",images,"1250000",test,test));
+        arrProducts.add(new  Product("Sam sung galaxy S8",images,"1250000",test,test));
+        arrProducts.add(new  Product("Sam sung galaxy S8",images,"1250000",test,test));
+        arrProducts.add(new  Product("Sam sung galaxy S8",images,"1250000",test,test));
+        arrProducts.add(new  Product("Sam sung galaxy S8",images,"1250000",test,test));
+        arrProducts.add(new  Product("Sam sung galaxy S8",images,"1250000",test,test));
+        arrProducts.add(new  Product("Sam sung galaxy S8",images,"1250000",test,test));
+        arrProducts.add(new  Product("Sam sung galaxy S8",images,"1250000",test,test));
+        arrProducts.add(new  Product("Sam sung galaxy S8",images,"1250000",test,test));
+        arrProducts.add(new  Product("Sam sung galaxy S8",images,"1250000",test,test));
+        arrProducts.add(new  Product("Sam sung galaxy S8",images,"1250000",test,test));
+        arrProducts.add(new  Product("Sam sung galaxy S8",images,"1250000",test,test));
+        arrProducts.add(new  Product("Sam sung galaxy S8",images,"1250000",test,test));
+        arrProducts.add(new  Product("Sam sung galaxy S8",images,"1250000",test,test));
+        arrProducts.add(new  Product("Sam sung galaxy S8",images,"1250000",test,test));
+        arrProducts.add(new  Product("Sam sung galaxy S8",images,"1250000",test,test));
+        arrProducts.add(new  Product("Sam sung galaxy S8",images,"1250000",test,test));
+        arrProducts.add(new  Product("Sam sung galaxy S8",images,"1250000",test,test));
+        arrProducts.add(new  Product("Sam sung galaxy S8",images,"1250000",test,test));
+        arrProducts.add(new  Product("Sam sung galaxy S8",images,"1250000",test,test));
+        arrProducts.add(new  Product("Sam sung galaxy S8",images,"1250000",test,test));
+        arrProducts.add(new  Product("Sam sung galaxy S8",images,"1250000",test,test));
+        arrProducts.add(new  Product("Sam sung galaxy S8",images,"1250000",test,test));
+        arrProducts.add(new  Product("Sam sung galaxy S8",images,"1250000",test,test));
+        arrProducts.add(new  Product("Sam sung galaxy S8",images,"1250000",test,test));
+        arrProducts.add(new  Product("Sam sung galaxy S8",images,"1250000",test,test));
+        arrProducts.add(new  Product("Sam sung galaxy S8",images,"1250000",test,test));
     }
 }

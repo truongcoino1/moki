@@ -12,7 +12,7 @@ import ambe.com.vn.moki.models.users.Profile;
 public class Product implements Serializable {
     private String id_product;
     private String name_product;
-    private Image image;
+    private ArrayList<Image> image;
     private String price;
     private String price_precent;
     private String described;
@@ -35,7 +35,7 @@ public class Product implements Serializable {
     private Dimention dimention;
     private ArrayList<Object> list_report;
 
-    public Product(String name_product, Image image, String price, ArrayList<Profile> like, ArrayList<Profile> comment) {
+    public Product(String name_product, ArrayList<Image> image, String price, ArrayList<Profile> like, ArrayList<Profile> comment) {
         this.name_product = name_product;
         this.image = image;
         this.price = price;
@@ -43,7 +43,7 @@ public class Product implements Serializable {
         this.comment = comment;
     }
 
-    public Product(String id_product, String name_product, Image image, String price, String price_precent, String described, String ships_from, Ships_from_id ships_from_id, String condition, String created, ArrayList<Profile> like, ArrayList<Profile> comment, Video video, Size size, Brand brand, Seller seller, Category category, String state, ArrayList<Profile> blocked, ArrayList<Profile> can_edit, String url_share, String weight, Dimention dimention, ArrayList<Object> list_report) {
+    public Product(String id_product, String name_product, ArrayList<Image> image, String price, String price_precent, String described, String ships_from, Ships_from_id ships_from_id, String condition, String created, ArrayList<Profile> like, ArrayList<Profile> comment, Video video, Size size, Brand brand, Seller seller, Category category, String state, ArrayList<Profile> blocked, ArrayList<Profile> can_edit, String url_share, String weight, Dimention dimention, ArrayList<Object> list_report) {
         this.id_product = id_product;
         this.name_product = name_product;
         this.image = image;
@@ -89,11 +89,11 @@ public class Product implements Serializable {
         this.name_product = name_product;
     }
 
-    public Image getImage() {
+    public ArrayList<Image> getImage() {
         return image;
     }
 
-    public void setImage(Image image) {
+    public void setImage(ArrayList<Image> image) {
         this.image = image;
     }
 

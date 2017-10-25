@@ -1,5 +1,7 @@
 package ambe.com.vn.moki.activities;
 
+import android.annotation.SuppressLint;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -8,6 +10,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -24,9 +27,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     private Toolbar toolbar;
     private ImageView imgBack;
     private MyAdapter myAdapter;
-    private TextView txtSanPham;
-    private TextView txtNguoiTheoDoi;
-    private TextView txtDangTheoDoi;
+    private Button btnSanPham,btnNguoiTheoDoi,btnDangTheoDoi;
 
 
     @Override
@@ -45,9 +46,9 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         viewPager = findViewById(R.id.view_pager_profile_detail);
         toolbar = findViewById(R.id.tb_profile_detail);
         imgBack = findViewById(R.id.img_back_profile_detail);
-        txtDangTheoDoi=findViewById(R.id.txt_activity_profile_dang_theo_doi);
-        txtNguoiTheoDoi=findViewById(R.id.txt_activity_profile_ng_theo_doi);
-        txtSanPham=findViewById(R.id.txt_activity_profile_san_pham);
+        btnDangTheoDoi=findViewById(R.id.txt_activity_profile_dang_theo_doi);
+        btnNguoiTheoDoi=findViewById(R.id.txt_activity_profile_ng_theo_doi);
+        btnSanPham=findViewById(R.id.txt_activity_profile_san_pham);
 
         myAdapter=new MyAdapter(getSupportFragmentManager());
         viewPager.setAdapter(myAdapter);
@@ -64,9 +65,9 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
     private void addEvents() {
         imgBack.setOnClickListener(this);
-        txtSanPham.setOnClickListener(this);
-        txtDangTheoDoi.setOnClickListener(this);
-        txtNguoiTheoDoi.setOnClickListener(this);
+        btnSanPham.setOnClickListener(this);
+        btnDangTheoDoi.setOnClickListener(this);
+        btnNguoiTheoDoi.setOnClickListener(this);
 
 
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -102,26 +103,45 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
     }
 
+
     private void xuLyChonNguoiTheoDoi() {
-        txtSanPham.setTextColor(getResources().getColor(R.color.colorBlack));
-        txtDangTheoDoi.setTextColor(getResources().getColor(R.color.colorBlack));
-        txtNguoiTheoDoi.setTextColor(getResources().getColor(R.color.colorRed));
+        btnSanPham.setTextColor(getResources().getColor(R.color.colorBlack));
+        btnSanPham.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_san_pham_trang));
+        btnDangTheoDoi.setTextColor(getResources().getColor(R.color.colorBlack));
+        btnDangTheoDoi.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_dang_theo_doi));
+        btnNguoiTheoDoi.setTextColor(getResources().getColor(R.color.colorWhite));
+        btnNguoiTheoDoi.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_nguoi_theo_doi_do));
+
 
 
     }
 
+
     private void xuLyChonDangTheoDoi() {
-        txtDangTheoDoi.setTextColor(getResources().getColor(R.color.colorRed));
-        txtSanPham.setTextColor(getResources().getColor(R.color.colorBlack));
-        txtNguoiTheoDoi.setTextColor(getResources().getColor(R.color.colorBlack));
+        btnSanPham.setTextColor(getResources().getColor(R.color.colorBlack));
+        btnSanPham.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_san_pham_trang));
+        btnDangTheoDoi.setTextColor(getResources().getColor(R.color.colorWhite));
+        btnDangTheoDoi.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_dang_theo_doi_do));
+        btnNguoiTheoDoi.setTextColor(getResources().getColor(R.color.colorBlack));
+        btnNguoiTheoDoi.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_nguoi_theo_doi));
+
+
+
+
 
 
     }
 
     private void xuLyChonTxtSanPham() {
-        txtSanPham.setTextColor(getResources().getColor(R.color.colorRed));
-        txtDangTheoDoi.setTextColor(getResources().getColor(R.color.colorBlack));
-        txtNguoiTheoDoi.setTextColor(getResources().getColor(R.color.colorBlack));
+        btnSanPham.setTextColor(getResources().getColor(R.color.colorWhite));
+        btnSanPham.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_san_pham));
+        btnDangTheoDoi.setTextColor(getResources().getColor(R.color.colorBlack));
+        btnDangTheoDoi.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_dang_theo_doi));
+        btnNguoiTheoDoi.setTextColor(getResources().getColor(R.color.colorBlack));
+        btnNguoiTheoDoi.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_nguoi_theo_doi));
+
+
+
 
     }
 

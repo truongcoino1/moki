@@ -86,7 +86,7 @@
             android:layout_width="@dimen/size_150dp"
             android:layout_height="@dimen/size_30dp"
             android:layout_centerInParent="true"
-            android:background="@drawable/bg_theo_doi"
+            android:background="@drawable/bg_san_pham"
             android:gravity="center"
             android:orientation="horizontal">
 
@@ -172,7 +172,7 @@
             android:layout_below="@+id/lnl_2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/bg_theo_doi">
+            android:background="@drawable/bg_san_pham">
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

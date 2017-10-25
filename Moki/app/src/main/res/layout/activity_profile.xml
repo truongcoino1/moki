@@ -270,46 +270,42 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/size_30dp"
-                android:background="@drawable/bg_theo_doi"
                 android:layout_marginLeft="@dimen/size_10dp"
                 android:layout_marginRight="@dimen/size_10dp"
                 android:layout_marginTop="@dimen/size_10dp"
                 android:orientation="horizontal"
                 android:weightSum="10">
-                <TextView
+                <Button
                     android:id="@+id/txt_activity_profile_san_pham"
                     android:layout_width="0dp"
                     android:layout_weight="3"
+                    android:background="@drawable/bg_san_pham"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:textColor="@color/colorRed"
+                    android:textColor="@color/colorWhite"
                     android:text="@string/san_pham"/>
-                <TextView
-                    android:layout_width="@dimen/size_1dp"
-                    android:layout_height="match_parent"
-                    android:background="@color/colorRedDark"/>
 
-                <TextView
+
+                <Button
                     android:id="@+id/txt_activity_profile_dang_theo_doi"
                     android:layout_width="0dp"
                     android:layout_weight="4"
                     android:layout_height="match_parent"
                     android:gravity="center"
+                    android:background="@drawable/bg_dang_theo_doi"
                     android:textColor="@color/colorBlack"
                     android:text="@string/dang_theo_doi"/>
-                <TextView
-                    android:layout_width="@dimen/size_1dp"
-                    android:layout_height="match_parent"
-                    android:background="@color/colorRedDark"/>
-                <TextView
-                    android:id="@+id/txt_activity_profile_ng_theo_doi"
 
+                <Button
+                    android:id="@+id/txt_activity_profile_ng_theo_doi"
+                    android:background="@drawable/bg_nguoi_theo_doi"
                     android:layout_width="0dp"
                     android:layout_weight="3"
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:textColor="@color/colorBlack"
-                    android:text="@string/nguoi_theo_doi"/>
+                    android:text="@string/nguoi_theo_doi"
+                    />
 
             </LinearLayout>
 
