@@ -282,8 +282,9 @@
                     android:background="@drawable/bg_san_pham"
                     android:layout_height="match_parent"
                     android:gravity="center"
+                    android:textAllCaps="false"
                     android:textColor="@color/colorWhite"
-                    android:text="@string/san_pham"/>
+                    android:text="Sản phẩm"/>
 
 
                 <Button
@@ -292,6 +293,8 @@
                     android:layout_weight="4"
                     android:layout_height="match_parent"
                     android:gravity="center"
+                    android:textAllCaps="false"
+
                     android:background="@drawable/bg_dang_theo_doi"
                     android:textColor="@color/colorBlack"
                     android:text="@string/dang_theo_doi"/>
@@ -303,6 +306,8 @@
                     android:layout_weight="3"
                     android:layout_height="match_parent"
                     android:gravity="center"
+                    android:textAllCaps="false"
+
                     android:textColor="@color/colorBlack"
                     android:text="@string/nguoi_theo_doi"
                     />

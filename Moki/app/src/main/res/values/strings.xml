@@ -18,7 +18,6 @@
     <string name="san_pham">Sản phẩm</string>
     <string name="dang_theo_doi">Đang theo dõi</string>
     <string name="nguoi_theo_doi">Người theo dõi</string>
-
     <string name="quen_mat_khau"><u>Quên mật khẩu?</u></string>
     <string name="xem_tat_ca_danh_gia"><u><p><font color="red">Xem tất cả đánh giá</font></p></u></string>
     <string name="title_activity_main">MainActivity</string>
@@ -48,8 +47,9 @@
     <string name="tat_ca">Tất cả</string>
     <string name="trang_thai">Trạng thái</string>
     <string name="gia">Giá</string>
-    <string name="tim_kiem">Tìm kiếm</string>
     <string name="nhan_hieu">Nhãn hiệu</string>
+    <string name="tim_kiem">Tìm kiếm</string>
+    <string name="huong_dan_tim_kiem">Hướng dẫn tìm kiếm</string>
 
     <string-array name="arrTinhThanh">
         <item>An Giang</item>

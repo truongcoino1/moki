@@ -10,18 +10,22 @@
 
     <android.support.design.widget.TabLayout
         android:id="@+id/tab_layout_trang_chu"
+        style="@style/customTabLayout"
         android:layout_width="match_parent"
         android:layout_height="@dimen/size_50dp"
         android:layout_below="@+id/toolbar"
         android:background="@color/colorWhite"
         android:elevation="6dp"
+        android:textAllCaps="false"
         app:tabGravity="center"
         app:tabMinWidth="@dimen/size_20dp"
         app:tabMode="scrollable"
         app:tabPadding="@dimen/size_10dp"
         app:tabPaddingBottom="@dimen/size_10dp"
         app:tabPaddingTop="@dimen/size_10dp"
-        app:tabSelectedTextColor="@color/colorRed"></android.support.design.widget.TabLayout>
+        app:tabSelectedTextColor="@color/colorRed"
+        app:tabTextAppearance="@style/TabTextAppearance"></android.support.design.widget.TabLayout>
+
 
 
     <android.support.design.widget.CoordinatorLayout
@@ -44,41 +48,42 @@
                 android:fitsSystemWindows="true"
                 app:contentScrim="?attr/colorPrimary"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fitsSystemWindows="true">
 
-                <android.support.v4.view.ViewPager
-                    android:id="@+id/view_flipper"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/size_150dp"
-                    android:visibility="visible"></android.support.v4.view.ViewPager>
+                    <android.support.v4.view.ViewPager
+                        android:id="@+id/view_flipper"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/size_150dp"
+                        android:visibility="visible"></android.support.v4.view.ViewPager>
+
                     <RelativeLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentBottom="true"
                         android:layout_centerHorizontal="true"
-                        android:layout_marginBottom="@dimen/size_10dp"
-                        >
+                        android:layout_marginBottom="@dimen/size_10dp">
+
                         <View
+                            android:id="@+id/view_pager_1"
                             android:layout_width="8dp"
                             android:layout_height="8dp"
-                            android:background="@drawable/hinh_tron_hong"
-                            android:id="@+id/view_pager_1"/>
+                            android:background="@drawable/hinh_tron_hong" />
+
                         <View
-                            android:layout_width="8dp"
-                            android:layout_height="8dp"
-                            android:background="@drawable/hinh_tron_xam"
-                            android:layout_toRightOf="@id/view_pager_1"
                             android:id="@+id/view_pager_2"
-                            android:layout_marginLeft="@dimen/size_5dp"/>
+                            android:layout_width="8dp"
+                            android:layout_height="8dp"
+                            android:layout_marginLeft="@dimen/size_5dp"
+                            android:layout_toRightOf="@id/view_pager_1"
+                            android:background="@drawable/hinh_tron_xam" />
                     </RelativeLayout>
                 </RelativeLayout>
 
             </android.support.design.widget.CollapsingToolbarLayout>
-
-
 
 
             <TextView
@@ -169,7 +174,7 @@
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/size_2dp"
+                android:layout_height="@dimen/size_1dp"
                 android:background="@color/colorGrayLight" />
 
         </android.support.design.widget.AppBarLayout>
@@ -179,9 +184,8 @@
             android:id="@+id/view_pager_trang_chu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
-        </android.support.v4.view.ViewPager>
-
+            android:background="@color/colorWhite"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"></android.support.v4.view.ViewPager>
 
 
     </android.support.design.widget.CoordinatorLayout>

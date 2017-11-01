@@ -53,11 +53,11 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         viewHolder.txtPrice.setText(price + " K");
         viewHolder.txtLike.setText(product.getLike().size()+"");
         viewHolder.txtMess.setText(product.getComment().size()+"");
-        Log.d("url",product.getImage().get(0).getUrl());
-        Picasso.with(context)
-                .load(product.getImage().get(0).getUrl())
-                .error(R.drawable.no_image)
-                .into(viewHolder.imageView);
+//        Picasso.with(context)
+//                .load(product.getImage().get(0).getUrl())
+//                .error(R.drawable.no_image)
+//                .into(viewHolder.imageView);
+        viewHolder.imageView.setImageResource(R.drawable.android);
 
         viewHolder.txtName.setText(product.getName_product());
 

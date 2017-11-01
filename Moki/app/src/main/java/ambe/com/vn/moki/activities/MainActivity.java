@@ -34,7 +34,7 @@ import ambe.com.vn.moki.utils.Utils;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     public static final String PREF_USER_FIRST_TIME = "user_first_time";
-    public static boolean is_grid=true;
+    public static boolean is_grid = true;
     FragmentManager fragmentManager;
     private Toolbar toolbar;
     private FloatingActionButton fab;
@@ -45,7 +45,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ListView listMenu;
     private ArrayList<ambe.com.vn.moki.models.MenuItem> arrMenuItem;
     private MenuMainAdapter menuAdapter;
-    public ImageView img_message,img_notification,img_changeview,img_search;
+    private ImageView img_message;
+    private ImageView img_notification;
+    private ImageView img_changeview;
+    private ImageView img_search;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,15 +56,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         isUserFirstTime = Boolean.valueOf(Utils.readSharedSetting(MainActivity.this, PREF_USER_FIRST_TIME, "true"));
 
-        Intent introIntent = new Intent(MainActivity.this, IntroActivity.class);
-        introIntent.putExtra(PREF_USER_FIRST_TIME, isUserFirstTime);
-
-        if (isUserFirstTime)
-            startActivity(introIntent);
+//        Intent introIntent = new Intent(MainActivity.this, IntroActivity.class);
+//        introIntent.putExtra(PREF_USER_FIRST_TIME, isUserFirstTime);
+//
+//        if (isUserFirstTime)
+//            startActivity(introIntent);
 
         setContentView(R.layout.activity_main);
-
-
 
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -69,10 +70,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         getSupportActionBar().setTitle("");
 
 
-        img_changeview=(ImageView)findViewById(R.id.img_changeview);
-        img_search=(ImageView)findViewById(R.id.img_search);
-        img_message=(ImageView)findViewById(R.id.img_message);
-        img_notification=(ImageView)findViewById(R.id.img_notification);
+        img_changeview = (ImageView) findViewById(R.id.img_changeview);
+        img_search = (ImageView) findViewById(R.id.img_search);
+        img_message = (ImageView) findViewById(R.id.img_message);
+        img_notification = (ImageView) findViewById(R.id.img_notification);
         imgShell = findViewById(R.id.img_shell);
 
         img_notification.setOnClickListener(this);
@@ -123,8 +124,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         TrangChuFragment trangChuFragment = TrangChuFragment.newInstance();
                         fragmentManager.beginTransaction().replace(R.id.frame_main, trangChuFragment).commit();
                         drawer.closeDrawer(GravityCompat.START);
-                        for (int j=0;j<arrMenuItem.size();j++){
-                            if (j != i){
+                        for (int j = 0; j < arrMenuItem.size(); j++) {
+                            if (j != i) {
                                 arrMenuItem.get(j).setCheck(0);
                             } else {
                                 arrMenuItem.get(i).setCheck(1);
@@ -139,8 +140,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         fragmentManager.beginTransaction().replace(R.id.frame_main, tinTucFragment).commit();
                         drawer.closeDrawer(GravityCompat.START);
 
-                        for (int j=0;j<arrMenuItem.size();j++){
-                            if (j != i){
+                        for (int j = 0; j < arrMenuItem.size(); j++) {
+                            if (j != i) {
                                 arrMenuItem.get(j).setCheck(0);
                             } else {
                                 arrMenuItem.get(i).setCheck(1);
@@ -167,66 +168,71 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.img_search:
-                Toast.makeText(MainActivity.this,"search",Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this, "search", Toast.LENGTH_LONG).show();
+                xuLySearch();
                 break;
             case R.id.img_message:
-                Toast.makeText(MainActivity.this,"message",Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this, "message", Toast.LENGTH_LONG).show();
                 break;
             case R.id.img_changeview:
-                Toast.makeText(MainActivity.this,"changeview",Toast.LENGTH_LONG).show();
-                if(is_grid){
+                Toast.makeText(MainActivity.this, "changeview", Toast.LENGTH_LONG).show();
+                if (is_grid) {
 
                     img_changeview.setImageResource(R.drawable.icon_grid);
-                    Fragment fragment=getSupportFragmentManager().findFragmentById(R.id.frame_main);
-                    PagerTrangChuAdapter adapter= (PagerTrangChuAdapter) ((TrangChuFragment)fragment).vPagerTrangChu.getAdapter();
+                    Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.frame_main);
+                    PagerTrangChuAdapter adapter = (PagerTrangChuAdapter) ((TrangChuFragment) fragment).vPagerTrangChu.getAdapter();
                     adapter.notifyDataSetChanged();
-                    ViewPager lay=((TrangChuFragment)fragment).vPagerTrangChu;
-                    int current=0;
-                    if(lay.getCurrentItem()!=-1){
-                        current=lay.getCurrentItem();
+                    ViewPager lay = ((TrangChuFragment) fragment).vPagerTrangChu;
+                    int current = 0;
+                    if (lay.getCurrentItem() != -1) {
+                        current = lay.getCurrentItem();
                     }
-                    Fragment fragment1=adapter.getItem(current);
+                    Fragment fragment1 = adapter.getItem(current);
 
 
-                   fragment1.getChildFragmentManager().beginTransaction().setCustomAnimations( R.animator.card_flip_right_in, R.animator.card_flip_right_out,
-                            R.animator.card_flip_left_in, R.animator.card_flip_left_out).replace(R.id.pager_xanhdo,new ProductMainFragment()).commit();
+                    fragment1.getChildFragmentManager().beginTransaction().setCustomAnimations(R.animator.card_flip_right_in, R.animator.card_flip_right_out,
+                            R.animator.card_flip_left_in, R.animator.card_flip_left_out).replace(R.id.pager_xanhdo, new ProductMainFragment()).commit();
 
 
-                    is_grid=false;
+                    is_grid = false;
 
 
-
-
-                }else{
+                } else {
 
                     img_changeview.setImageResource(R.drawable.tutorial_change_viewmode);
-                    Fragment fragment=getSupportFragmentManager().findFragmentById(R.id.frame_main);
-                    PagerTrangChuAdapter adapter= (PagerTrangChuAdapter) ((TrangChuFragment)fragment).vPagerTrangChu.getAdapter();
+                    Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.frame_main);
+                    PagerTrangChuAdapter adapter = (PagerTrangChuAdapter) ((TrangChuFragment) fragment).vPagerTrangChu.getAdapter();
 
-                    ViewPager lay=((TrangChuFragment)fragment).vPagerTrangChu;
-                    int current=0;
-                    if(lay.getCurrentItem()!=-1){
-                        current=lay.getCurrentItem();
+                    ViewPager lay = ((TrangChuFragment) fragment).vPagerTrangChu;
+                    int current = 0;
+                    if (lay.getCurrentItem() != -1) {
+                        current = lay.getCurrentItem();
                     }
-                    Fragment fragment1=adapter.getItem(current);
-                    Log.d("bundle",is_grid+"");
+                    Fragment fragment1 = adapter.getItem(current);
+                    Log.d("bundle", is_grid + "");
                     adapter.notifyDataSetChanged();
-                    fragment1.getChildFragmentManager().beginTransaction().setCustomAnimations( R.animator.card_flip_left_in , R.animator.card_flip_left_out,R.animator.card_flip_right_in, R.animator.card_flip_right_out
-                           ).replace(R.id.pager_xanhdo,new ProductMainFragment()).commit();
+                    fragment1.getChildFragmentManager().beginTransaction().setCustomAnimations(R.animator.card_flip_left_in, R.animator.card_flip_left_out, R.animator.card_flip_right_in, R.animator.card_flip_right_out
+                    ).replace(R.id.pager_xanhdo, new ProductMainFragment()).commit();
 
-                    is_grid=true;
+                    is_grid = true;
 
                 }
                 break;
             case R.id.img_notification:
-                Toast.makeText(MainActivity.this,"notification",Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this, "notification", Toast.LENGTH_LONG).show();
                 break;
             case R.id.img_shell:
-                Toast.makeText(MainActivity.this,"shell",Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this, "shell", Toast.LENGTH_LONG).show();
                 break;
         }
 
+    }
+
+    private void xuLySearch() {
+        Intent intent = new Intent(MainActivity.this, SearchActivity.class);
+        startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_right);
     }
 }

@@ -313,6 +313,7 @@ public class TrangChuFragment extends Fragment implements View.OnClickListener {
                 break;
 
 
+
         }
     }
 
@@ -322,7 +323,6 @@ public class TrangChuFragment extends Fragment implements View.OnClickListener {
 
         dialogSapXep = new Dialog(getActivity());
         dialogSapXep.setContentView(R.layout.layout_dialog_sap_xep);
-        dialogSapXep.setTitle(R.string.sap_xep_do);
 
 
         ListView listSapXep = dialogSapXep.findViewById(R.id.list_sap_xep);
@@ -384,7 +384,6 @@ public class TrangChuFragment extends Fragment implements View.OnClickListener {
 
         dialogLoc = new Dialog(getActivity());
         dialogLoc.setContentView(R.layout.layout_dialog_loc);
-        dialogLoc.setTitle(R.string.loc_do);
 
         btnHuy = dialogLoc.findViewById(R.id.btn_huy_loc);
         btnXoaHet = dialogLoc.findViewById(R.id.btn_xoa_het_loc);

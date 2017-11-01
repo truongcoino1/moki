@@ -2,6 +2,7 @@ package ambe.com.vn.moki.activities;
 
 import android.annotation.SuppressLint;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -22,12 +23,14 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
     public static int NUM_PAGES = 3;
 
+    private Typeface typeface;
+
 
     private ViewPager viewPager;
     private Toolbar toolbar;
     private ImageView imgBack;
     private MyAdapter myAdapter;
-    private Button btnSanPham,btnNguoiTheoDoi,btnDangTheoDoi;
+    private Button btnSanPham, btnNguoiTheoDoi, btnDangTheoDoi;
 
 
     @Override
@@ -46,13 +49,17 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         viewPager = findViewById(R.id.view_pager_profile_detail);
         toolbar = findViewById(R.id.tb_profile_detail);
         imgBack = findViewById(R.id.img_back_profile_detail);
-        btnDangTheoDoi=findViewById(R.id.txt_activity_profile_dang_theo_doi);
-        btnNguoiTheoDoi=findViewById(R.id.txt_activity_profile_ng_theo_doi);
-        btnSanPham=findViewById(R.id.txt_activity_profile_san_pham);
+        btnDangTheoDoi = findViewById(R.id.txt_activity_profile_dang_theo_doi);
+        btnNguoiTheoDoi = findViewById(R.id.txt_activity_profile_ng_theo_doi);
+        btnSanPham = findViewById(R.id.txt_activity_profile_san_pham);
 
-        myAdapter=new MyAdapter(getSupportFragmentManager());
+        typeface = Typeface.createFromAsset(getAssets(), "fonts/Roboto-Regular.ttf");
+
+
+ //       btnDangTheoDoi.setTypeface(typeface);
+        myAdapter = new MyAdapter(getSupportFragmentManager());
         viewPager.setAdapter(myAdapter);
-        viewPager.setPageTransformer(true,new ZoomOutPageTransformer());
+        viewPager.setPageTransformer(true, new ZoomOutPageTransformer());
 
     }
 
@@ -78,7 +85,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
             @Override
             public void onPageSelected(int position) {
-                switch (position){
+                switch (position) {
                     case 0:
                         xuLyChonTxtSanPham();
                         break;
@@ -100,7 +107,6 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         });
 
 
-
     }
 
 
@@ -111,7 +117,6 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         btnDangTheoDoi.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_dang_theo_doi));
         btnNguoiTheoDoi.setTextColor(getResources().getColor(R.color.colorWhite));
         btnNguoiTheoDoi.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_nguoi_theo_doi_do));
-
 
 
     }
@@ -126,10 +131,6 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         btnNguoiTheoDoi.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_nguoi_theo_doi));
 
 
-
-
-
-
     }
 
     private void xuLyChonTxtSanPham() {
@@ -139,8 +140,6 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         btnDangTheoDoi.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_dang_theo_doi));
         btnNguoiTheoDoi.setTextColor(getResources().getColor(R.color.colorBlack));
         btnNguoiTheoDoi.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_nguoi_theo_doi));
-
-
 
 
     }
@@ -153,15 +152,15 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
                 break;
             case R.id.txt_activity_profile_san_pham:
                 xuLyChonTxtSanPham();
-                viewPager.setCurrentItem(0,true);
+                viewPager.setCurrentItem(0, true);
                 break;
             case R.id.txt_activity_profile_dang_theo_doi:
                 xuLyChonTxtSanPham();
-                viewPager.setCurrentItem(1,true);
+                viewPager.setCurrentItem(1, true);
                 break;
             case R.id.txt_activity_profile_ng_theo_doi:
                 xuLyChonTxtSanPham();
-                viewPager.setCurrentItem(2,true);
+                viewPager.setCurrentItem(2, true);
                 break;
         }
     }
