@@ -176,50 +176,50 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.img_message:
                 Toast.makeText(MainActivity.this, "message", Toast.LENGTH_LONG).show();
                 break;
-            case R.id.img_changeview:
-                Toast.makeText(MainActivity.this, "changeview", Toast.LENGTH_LONG).show();
-                if (is_grid) {
-
-                    img_changeview.setImageResource(R.drawable.icon_grid);
-                    Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.frame_main);
-                    PagerTrangChuAdapter adapter = (PagerTrangChuAdapter) ((TrangChuFragment) fragment).vPagerTrangChu.getAdapter();
-                    adapter.notifyDataSetChanged();
-                    ViewPager lay = ((TrangChuFragment) fragment).vPagerTrangChu;
-                    int current = 0;
-                    if (lay.getCurrentItem() != -1) {
-                        current = lay.getCurrentItem();
-                    }
-                    Fragment fragment1 = adapter.getItem(current);
-
-
-                    fragment1.getChildFragmentManager().beginTransaction().setCustomAnimations(R.animator.card_flip_right_in, R.animator.card_flip_right_out,
-                            R.animator.card_flip_left_in, R.animator.card_flip_left_out).replace(R.id.pager_xanhdo, new ProductMainFragment()).commit();
-
-
-                    is_grid = false;
-
-
-                } else {
-
-                    img_changeview.setImageResource(R.drawable.tutorial_change_viewmode);
-                    Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.frame_main);
-                    PagerTrangChuAdapter adapter = (PagerTrangChuAdapter) ((TrangChuFragment) fragment).vPagerTrangChu.getAdapter();
-
-                    ViewPager lay = ((TrangChuFragment) fragment).vPagerTrangChu;
-                    int current = 0;
-                    if (lay.getCurrentItem() != -1) {
-                        current = lay.getCurrentItem();
-                    }
-                    Fragment fragment1 = adapter.getItem(current);
-                    Log.d("bundle", is_grid + "");
-                    adapter.notifyDataSetChanged();
-                    fragment1.getChildFragmentManager().beginTransaction().setCustomAnimations(R.animator.card_flip_left_in, R.animator.card_flip_left_out, R.animator.card_flip_right_in, R.animator.card_flip_right_out
-                    ).replace(R.id.pager_xanhdo, new ProductMainFragment()).commit();
-
-                    is_grid = true;
-
-                }
-                break;
+//            case R.id.img_changeview:
+//                Toast.makeText(MainActivity.this, "changeview", Toast.LENGTH_LONG).show();
+//                if (is_grid) {
+//
+//                    img_changeview.setImageResource(R.drawable.icon_grid);
+//                    Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.frame_main);
+//                    PagerTrangChuAdapter adapter = (PagerTrangChuAdapter) ((TrangChuFragment) fragment).vPagerTrangChu.getAdapter();
+//                    adapter.notifyDataSetChanged();
+//                    ViewPager lay = ((TrangChuFragment) fragment).vPagerTrangChu;
+//                    int current = 0;
+//                    if (lay.getCurrentItem() != -1) {
+//                        current = lay.getCurrentItem();
+//                    }
+//                    Fragment fragment1 = adapter.getItem(current);
+//
+//
+//                    fragment1.getChildFragmentManager().beginTransaction().setCustomAnimations(R.animator.card_flip_right_in, R.animator.card_flip_right_out,
+//                            R.animator.card_flip_left_in, R.animator.card_flip_left_out).replace(R.id.pager_xanhdo, new ProductMainFragment()).commit();
+//
+//
+//                    is_grid = false;
+//
+//
+//                } else {
+//
+//                    img_changeview.setImageResource(R.drawable.tutorial_change_viewmode);
+//                    Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.frame_main);
+//                    PagerTrangChuAdapter adapter = (PagerTrangChuAdapter) ((TrangChuFragment) fragment).vPagerTrangChu.getAdapter();
+//
+//                    ViewPager lay = ((TrangChuFragment) fragment).vPagerTrangChu;
+//                    int current = 0;
+//                    if (lay.getCurrentItem() != -1) {
+//                        current = lay.getCurrentItem();
+//                    }
+//                    Fragment fragment1 = adapter.getItem(current);
+//                    Log.d("bundle", is_grid + "");
+//                    adapter.notifyDataSetChanged();
+//                    fragment1.getChildFragmentManager().beginTransaction().setCustomAnimations(R.animator.card_flip_left_in, R.animator.card_flip_left_out, R.animator.card_flip_right_in, R.animator.card_flip_right_out
+//                    ).replace(R.id.pager_xanhdo, new ProductMainFragment()).commit();
+//
+//                    is_grid = true;
+//
+//                }
+//                break;
             case R.id.img_notification:
                 Toast.makeText(MainActivity.this, "notification", Toast.LENGTH_LONG).show();
                 break;

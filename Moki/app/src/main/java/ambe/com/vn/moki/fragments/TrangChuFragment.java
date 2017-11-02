@@ -285,7 +285,7 @@ public class TrangChuFragment extends Fragment implements View.OnClickListener {
         tableLayoutTrangChu.setTabGravity(TabLayout.GRAVITY_FILL);
         arrpager=new ArrayList<>();
         for(int i=0;i<tableLayoutTrangChu.getTabCount();i++){
-            arrpager.add(new ProductMainFragment());
+            arrpager.add(new Fragment_Product_Main());
         }
         pagerTrangChuAdapter = new PagerTrangChuAdapter(getChildFragmentManager(),arrpager);
         vPagerTrangChu.setAdapter(pagerTrangChuAdapter);
