@@ -16,7 +16,6 @@ module.exports = function(app,profile){
             } 
             return res.json(result)
           }
-         
         })
       });
 }
