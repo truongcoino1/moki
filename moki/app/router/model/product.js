@@ -2,11 +2,7 @@ var mongoose = require('mongoose');
 var Schema = new mongoose.Schema({
     id_product: String,
     name_product: String,
-    image: 
-      {
-        url: String,
-        id: String,
-      },
+    image: [],
     price: String,
     price_precent: String,
     described: String,
@@ -52,9 +48,9 @@ var Schema = new mongoose.Schema({
     url_share: String,
     weight: String,
     dimention: {
-      width: Number,
-      height: Number,
-      length: Number
+      width: String,
+      height: String,
+      length: String
     },
     list_report :[],
 });

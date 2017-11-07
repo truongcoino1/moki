@@ -58,12 +58,10 @@ module.exports = function (app, profile, product) {
           listing: String,
           };
         newProduct.category = {
-          category_id: 1,
-          name: String,
-          has_brand: String,
-          has_name: String
+          category_id: req.body.category_id,
+          name: req.body.category_name,
         };
-        newProduct.state= null;
+        newProduct.state= req.body.state;
         newProduct.blocked= [];
         newProduct.can_edit= [];
         newProduct.banned=  null;
@@ -71,12 +69,15 @@ module.exports = function (app, profile, product) {
         newProduct.weight= req.body.weight;
         newProduct.dimention= {
           width: req.body.width,
-            height: req.body.height,
-              length: req.body.length,
+          height: req.body.height,
+          length: req.body.length,
         };
         newProduct.list_report  =[];
 
         newProduct.save(function (err, product) {
+          if(err){
+            console.log(err);
+          }
         });
         rs[0].list_product.push(newProduct.id_product);
         rs[0].save(function (err, post) {
