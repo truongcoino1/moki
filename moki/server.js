@@ -9,6 +9,8 @@ var mongoose = require('mongoose');
 app.use(cookieParser()); // read cookies (needed for auth)
 app.use(bodyParser.json()); // get information from html forms
 app.use(bodyParser.urlencoded({ extended: true }));
+var logger = require('morgan');
+var io = require('socket.io');
 
 
 var configDB = require('./config/database');
@@ -24,7 +26,11 @@ if(!err){
   console.log('err');
 }
 
-})
+});
+var listen = app.listen(port, () => {
+  console.log('We are live on ' + port);
+});
+var socket = io.listen(listen);
 require('./app/router/product/api-product')(app,dbMongo);
 require('./app/router/comment-product/api-comment')(app,dbMongo);
 require('./app/router/like-report-product/api-like-report')(app,dbMongo);
@@ -35,7 +41,5 @@ require('./app/router/search/search')(app,dbMongo);
 require('./app/router/follow/follow')(app,dbMongo);
 require('./app/router/conversation/conversation')(app,dbMongo);
 require('./app/router/address/address')(app,dbMongo);
+require('./app/router/push-notification/push-notification')(app,socket);
 
-app.listen(port, () => {
-  console.log('We are live on ' + port);
-});
