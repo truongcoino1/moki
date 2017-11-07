@@ -15,11 +15,12 @@ module.exports = function (app, db) {
   app.post('/api/profile/create', function (req, res) {
     var newProfile = new profile();
     newProfile.id_user = "2";
-    newProfile.password = "truong";
-    newProfile.token = "quat1";
-    newProfile.email = "truongbk227@gmail.com";
-    newProfile.username = "truongbk";
     newProfile.phonenumber = "0967897420";
+    newProfile.password = "truong";
+    newProfile.token = newProfile.phonenumber+"truong==ae";
+    newProfile.email = "truongbk22aaa7@gmail.com";
+    newProfile.username = "truongcoibk";
+    
       newProfile.url= null,
       newProfile.created= null,
       newProfile.status= null,

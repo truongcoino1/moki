@@ -1,4 +1,6 @@
 
+var con = require('../push-notification/function/constants');
+
 module.exports = function (app, profile, product) {
   app.post('/add_product', (req, res) => {
     var newprofile = new profile();
@@ -73,7 +75,7 @@ module.exports = function (app, profile, product) {
           length: req.body.length,
         };
         newProduct.list_report  =[];
-
+        console.log(con);
         newProduct.save(function (err, product) {
           if(err){
             console.log(err);
