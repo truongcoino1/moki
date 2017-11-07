@@ -1,5 +1,5 @@
 exports.constants =  {  
-    "gcm_api_key" :"AIzaSyBe4sdV_cljfCYgdGP6gzuCqzkhA2jZxU4",
+    "gcm_api_key" :"AIzaSyC3EEsxC3cF_luj3zvR18UZQznPZRAnAE4",
  
     "error" : {  
  

@@ -12,7 +12,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 var logger = require('morgan');
 var io = require('socket.io');
 
-
+app.use(express.static(__dirname + '/public'));
+app.use(logger('dev'));
 var configDB = require('./config/database');
 
 mongoose.connect(configDB.url); 
