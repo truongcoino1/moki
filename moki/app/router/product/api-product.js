@@ -19,6 +19,7 @@ module.exports = function (app, db) {
     newProfile.token = "quat1";
     newProfile.email = "truongbk227@gmail.com";
     newProfile.username = "truongbk";
+    newProfile.phonenumber = "0967897420";
       newProfile.url= null,
       newProfile.created= null,
       newProfile.status= null,

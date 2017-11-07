@@ -2,7 +2,7 @@
 
 module.exports = function (app, profile) {
     app.post('/login', (req, res) => {
-     profile.find({username : req.body.username, password : req.body.password}, (err, rs) =>{
+     profile.find({phonenumber : req.body.phonenumber, password : req.body.password}, (err, rs) =>{
         if(rs.length >0){
             let result ={
                 code :1000,
@@ -17,7 +17,7 @@ module.exports = function (app, profile) {
             }
             return res.json(result);
         }
-     })
+     });
     });
   }
 

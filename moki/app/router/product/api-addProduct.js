@@ -7,11 +7,24 @@ module.exports = function (app, profile, product) {
         let newProduct = new product();
         newProduct.id_product= req.body.token + "." + rs[0].list_product.length;
         newProduct.name_product=req.body.name_product;
-        newProduct.image= 
-          {
-           id:req.body.id_image,
-           url :req.body.url_image,
-          };
+        newProduct.image= [ {
+          id:0,
+          url :'https://moki.vn//files/product/images/640s/51fdef35df0dde7d44d012e8b9bd71a2.jpg',
+         },
+         {
+          id:1,
+          url :'https://moki.vn//files/product/images/320s/51fdef35df0dde7d44d012e8b9bd71a2.jpg',
+         },
+         {
+          id:2,
+          url :'https://moki.vn//files/product/images/320s/51fdef35df0dde7d44d012e8b9bd71a2.jpg',
+         },
+         {
+          id:3,
+          url :'https://moki.vn//files/product/images/320s/51fdef35df0dde7d44d012e8b9bd71a2.jpg',
+         }
+        ]
+         
         newProduct.price= req.body.price;
         newProduct.price_precent= 0;
         newProduct.described= req.body.described;
