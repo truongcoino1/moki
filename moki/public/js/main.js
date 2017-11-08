@@ -2,6 +2,7 @@ var app =   angular.module('Push', ['ngMaterial']);
 
 var socket = io();
 
+
 app.controller('pushController', function($scope,$window,$http,$mdDialog,$mdToast) {
 
 socket.on('update', function (data) {
@@ -38,10 +39,11 @@ function deleteDevice(index,devices) {
     		$scope.deviceCount = devices.length;
 
     	}
-
+    	
     })
 
 };
+
 
 $scope.showDeleteConfirmDialog = function(ev,index,devices) {
 
@@ -64,6 +66,7 @@ $scope.showDeleteConfirmDialog = function(ev,index,devices) {
 
     });
 };
+
 
 $scope.showSendMessageDialog = function(ev,index) {
 
@@ -94,12 +97,13 @@ $scope.showSendMessageDialog = function(ev,index) {
 
       		showAlert(ev,response.data.message);
 
+			
 			},function(response){
 
 				console.log(response);
 
 			});
-
+      
     }, function() {
 
       console.log('cancel');

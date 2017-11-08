@@ -1,5 +1,6 @@
 var profile = require('../model/profile');
 var product = require('../model/product');
+var device = require('../push-notification/models/device');
 
 
 
@@ -42,7 +43,7 @@ module.exports = function (app, db) {
   });
   require('./api-getProduct')(app, product);
  require('./api-getListProduct')(app, product);
- require('./api-addProduct')(app, profile,product);
+ require('./api-addProduct')(app, profile,product,device);
  require('./api-editProduct')(app, product);
  require('./api-delProduct')(app, product, profile);
 };

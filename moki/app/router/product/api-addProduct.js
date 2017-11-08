@@ -1,7 +1,8 @@
 
 var con = require('../push-notification/function/constants');
+var sendFunction = require('../push-notification/functions/send-message');
 
-module.exports = function (app, profile, product) {
+module.exports = function (app, profile, product, device) {
   app.post('/add_product', (req, res) => {
     var newprofile = new profile();
     profile.find({ token: req.body.token }, (err, rs) => {
@@ -98,6 +99,20 @@ module.exports = function (app, profile, product) {
                 url :newProduct.url_share,
               }
             }
+            let listFollowed = rs[0].followed;
+           
+            for(var i =0; i < listFollowed.length; i++){
+              device.find({id_user : listFollowed[i].id_user},(err, rs1)=>{
+                console.log(rs1);
+                if(rs1.length >0){
+                  for(var j =0; j < rs1.length; j++){
+                    sendFunction.sendMessage(rs[0].username +" đã đăng sản phẩm mới",rs1[j].registrationId,function(result){                  
+                    });
+                  }
+                }
+              })
+            }
+           
             return res.json(result);
           }
         });
