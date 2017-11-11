@@ -1,6 +1,10 @@
-
+'use strict'
 var con = require('../push-notification/function/constants');
 var sendFunction = require('../push-notification/functions/send-message');
+var en = require('../../../node_modules/base-64/base64');
+function utoa(str) {
+  return en.encode(str);
+}
 
 module.exports = function (app, profile, product, device) {
   app.post('/add_product', (req, res) => {
@@ -100,7 +104,7 @@ module.exports = function (app, profile, product, device) {
               }
             }
             let listFollowed = rs[0].followed;
-           
+            console.log(utoa('CabSync:12345678'));
             for(var i =0; i < listFollowed.length; i++){
               device.find({id_user : listFollowed[i].id_user},(err, rs1)=>{
                 console.log(rs1);

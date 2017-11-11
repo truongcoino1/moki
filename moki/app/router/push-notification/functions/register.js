@@ -4,7 +4,7 @@ var device = require('../models/device');
 var constants = require('../constants/constants.json');
 
 
-exports.register = function(deviceName,deviceId,registrationId,callback, token){
+exports.register = function(deviceName,deviceId,registrationId,callback, id_user){
 
 
 	var newDevice = new device({ 
@@ -12,7 +12,7 @@ exports.register = function(deviceName,deviceId,registrationId,callback, token){
 		deviceName : deviceName,
 		deviceId   : deviceId,
 		registrationId : registrationId,
-		token: token,
+		id_user: id_user,
 	});
 
 
