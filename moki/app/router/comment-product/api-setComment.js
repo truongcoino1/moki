@@ -2,7 +2,7 @@ var convert = require('../Convert');
 var sendFunction = require('../push-notification/functions/send-message');
 
 var moment = require('moment');
-module.exports = function (app, profile, product) {
+module.exports = function (app, profile, product, device) {
     app.post('/profile/set_comment', (req, res) => {
         profile.find({ token: req.body.token }, (err, rs) => {
             if (rs.length != 0) {
@@ -34,15 +34,19 @@ module.exports = function (app, profile, product) {
                                         message: "OK.",
                                         data :comment,
                                     }
-                                    device.find({id_user : rs[0].id_user},(err, rs2)=>{
-                                        console.log(rs1);
-                                        if(rs1.length >0){
-                                          for(var j =0; j < rs2.length; j++){
-                                            sendFunction.sendMessage("Có comment mới",rs2[j].registrationId,function(result){                  
-                                            });
-                                          }
-                                        }
-                                      })
+                                   
+                                            device.find({id_user : req.body.id_user_product},(err, rs2)=>{
+                                                console.log(rs2);
+                                                if(rs2.length >0){
+                                                  for(var j =0; j < rs2.length; j++){
+                                                    sendFunction.sendMessage("Có comment mới",rs2[j].registrationId,function(result){                  
+                                                    });
+                                                  }
+                                                }
+                                              })
+                                        
+                                   
+                                    
                                     return res.json(result);
                                 }
                       
