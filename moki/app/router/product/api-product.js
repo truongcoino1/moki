@@ -15,8 +15,8 @@ module.exports = function (app, db) {
   })
   app.post('/api/profile/create', function (req, res) {
     var newProfile = new profile();
-    newProfile.id_user = "2";
-    newProfile.phonenumber = "0967897420";
+    newProfile.id_user = "1";
+    newProfile.phonenumber = "0967897421";
     newProfile.password = "truong";
     newProfile.token = newProfile.phonenumber+"truong==ae";
     newProfile.email = "truongbk22aaa7@gmail.com";
@@ -46,4 +46,5 @@ module.exports = function (app, db) {
  require('./api-addProduct')(app, profile,product,device);
  require('./api-editProduct')(app, product);
  require('./api-delProduct')(app, product, profile);
+ require('./api-getListProductByIDUser')(app, profile,product);
 };

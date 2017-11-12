@@ -4,7 +4,7 @@ var device = require('../models/device');
 var constants = require('../constants/constants.json');
 
 
-exports.register = function(deviceName,deviceId,registrationId,callback, id_user){
+exports.register = function(deviceName,deviceId,registrationId,id_user,callback){
 
 
 	var newDevice = new device({ 
@@ -16,10 +16,10 @@ exports.register = function(deviceName,deviceId,registrationId,callback, id_user
 	});
 
 
-	device.find({registrationId : registrationId}, function(err,devices){
-
+	device.find({id_user : id_user}, function(err,devices){
+		
 		var totalDevices = devices.length;
-
+		console.log(totalDevices);
 		if (totalDevices == 0) {
 
 			newDevice.save(function(err){

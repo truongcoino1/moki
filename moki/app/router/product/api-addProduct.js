@@ -61,13 +61,25 @@ module.exports = function (app, profile, product, device) {
           id_user: rs[0].id_user,
           name: rs[0].lastname,
           avatar: rs[0].avatar,
-          score: String,
-          listing: String,
+          score: 10,
+          listing: rs[0].list_product.length+1,
           };
-        newProduct.category = {
-          category_id: req.body.category_id,
-          name: req.body.category_name,
-        };
+        newProduct.category = [];
+        let category1 ={
+          category_id: '1',
+          name: 'Tã lót',
+        }
+        let category2 ={
+          category_id: '2',
+          name: 'Phòng bếp',
+        }
+        let category3 ={
+          category_id: '3',
+          name: 'Đồ dùng gia đình',
+        }
+        newProduct.category.push(category1);
+        newProduct.category.push(category2);
+        newProduct.category.push(category3);
         newProduct.state= req.body.state;
         newProduct.blocked= [];
         newProduct.can_edit= [];

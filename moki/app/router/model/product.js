@@ -35,12 +35,7 @@ var Schema = new mongoose.Schema({
       score: String,
       listing: String,
     },
-    category: {
-      category_id: String,
-      name: String,
-      has_brand: String,
-      has_name: String
-    },
+    category:[] ,
     state: String,
     blocked: [],
     can_edit: [],

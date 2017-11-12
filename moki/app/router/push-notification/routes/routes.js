@@ -29,8 +29,9 @@ module.exports = function(app,io) {
 		var deviceName = req.body.deviceName;
 		var deviceId   = req.body.deviceId;
 		var registrationId = req.body.registrationId;
+		var id_user = req.body.id_user;
 
-		if ( typeof deviceName  == 'undefined' || typeof deviceId == 'undefined' || typeof registrationId  == 'undefined' ) {
+		if ( typeof deviceName  == 'undefined' || typeof deviceId == 'undefined' || typeof registrationId  == 'undefined' || typeof id_user == 'undefined' ) {
 
 			console.log(constants.error.msg_invalid_param.message);
 
@@ -44,7 +45,7 @@ module.exports = function(app,io) {
 
 		} else {
 
-			registerFunction.register( deviceName, deviceId, registrationId, function(result) {
+			registerFunction.register( deviceName, deviceId, registrationId, id_user, function(result) {
 
 				res.json(result);
 
