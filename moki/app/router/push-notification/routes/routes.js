@@ -9,7 +9,26 @@ module.exports = function(app,io) {
 
 	io.on('connection', function(socket){
 
-		console.log("Client Connected");
+		console.log("Client Connected 1");
+		socket.on('addRoom', function(room){
+          
+       
+            //console.log(room +" =="+id);       
+			socket.room = room;  
+            
+		});
+		socket.on('adduser', function(username){
+            socket.username = username;
+			socket.join(socket.room);
+			
+            socket.broadcast.to(socket.room).emit('updatechat', 'SERVER', username + ' has connected to this room');
+            socket.emit('updaterooms', socket.room);
+		});
+		socket.on('sendchat', function (data) {
+            // we tell the client to execute 'updatechat' with 2 parameters
+            io.sockets.in(socket.room).emit('updatechat', socket.username, data);
+        });
+	
 		socket.emit('update', { message: 'Hello Client',update:false });
 
   		socket.on('update', function(msg){

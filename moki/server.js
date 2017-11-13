@@ -12,6 +12,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 var logger = require('morgan');
 var io = require('socket.io');
 
+
 app.use(express.static(__dirname + '/public'));
 app.use(logger('dev'));
 var configDB = require('./config/database');
@@ -31,6 +32,7 @@ if(!err){
 var listen = app.listen(port, () => {
   console.log('We are live on ' + port);
 });
+
 var socket = io.listen(listen);
 require('./app/router/product/api-product')(app,dbMongo);
 require('./app/router/comment-product/api-comment')(app,dbMongo);
@@ -43,4 +45,5 @@ require('./app/router/follow/follow')(app,dbMongo);
 require('./app/router/conversation/conversation')(app,dbMongo);
 require('./app/router/address/address')(app,dbMongo);
 require('./app/router/push-notification/routes/routes')(app,socket);
+require('./app/router/message/api-create-room-chat')(app);
 
