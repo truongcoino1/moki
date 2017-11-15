@@ -128,6 +128,7 @@ module.exports = function (app, profile, product, device) {
                     console.log(rs1);
                     if(rs1.length >0){
                       let message ={
+                        id:rsp[0].list_notification.length,
                         message:rs[0].username +" đã đăng sản phẩm mới là : "+req.body.name_product,
                         url: rs[0].avatar,
                         view:"0",

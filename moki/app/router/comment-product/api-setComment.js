@@ -39,6 +39,7 @@ module.exports = function (app, profile, product, device) {
                                     console.log(rs2);
                                     if (rs2.length > 0) {
                                         let message = {
+                                            id: rs[0].list_notification.length,
                                             message: rs[0].username + "Đã bình luận về sản phẩm " + rs1[0].name_product,
                                             url: rs[0].avatar,
                                             view: "0",
@@ -51,9 +52,9 @@ module.exports = function (app, profile, product, device) {
                                         profile.find({ id_user: req.body.id_user_product }, (err, rs4) => {
                                             if (rs4.length > 0) {
                                                 rs4[0].list_notification.push(message);
-                                                rs4[0].save((e,r)=>{
-                                                    
-                                                                                                                    })
+                                                rs4[0].save((e, r) => {
+
+                                                })
                                             }
                                         });
 
@@ -68,6 +69,7 @@ module.exports = function (app, profile, product, device) {
                                                 profile.find({ id_user: req.body.id_user_product }, (err, rs3) => {
                                                     if (rs3.length > 0) {
                                                         let message = {
+                                                            id: rs[0].list_notification.length,
                                                             message: rs[0].username + " cũng đã bình luận trong " + rs1[0].name_product + " của " + rs3[0].username,
                                                             url: rs[0].avatar,
                                                             view: "0",
@@ -77,7 +79,7 @@ module.exports = function (app, profile, product, device) {
                                                         profile.find({ id_user: rs1[0].comment[i].poster.id_user }, (err, rs4) => {
                                                             if (rs4.length > 0) {
                                                                 rs4[0].list_notification.push(message);
-                                                                rs4[0].save((e,r)=>{
+                                                                rs4[0].save((e, r) => {
 
                                                                 })
                                                             }

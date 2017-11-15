@@ -38,6 +38,7 @@ module.exports = function (app, profile,device) {
                                 message: "OK",
                             }
                             let message ={
+                                id: rs[0].list_notification.length,
                                 message:rs[0].username +" đã follow bạn",
                                 url: rs[0].avatar,
                                 view:"0",
