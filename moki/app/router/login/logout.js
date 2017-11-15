@@ -4,6 +4,7 @@ module.exports = function (app, profile) {
     app.post('/logout', (req, res) => {
      profile.find({token : req.body.token}, (err, rs) =>{
         if(rs.length >0){
+            rs[0].online =0;
             let result ={
                 code :1000,
                 message :"OK",
