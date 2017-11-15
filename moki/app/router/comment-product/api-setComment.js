@@ -7,7 +7,7 @@ module.exports = function (app, profile, product, device) {
         profile.find({ token: req.body.token }, (err, rs) => {
             if (rs.length != 0) {
                 let poster = {
-                    id: rs[0].id_user,
+                    id_user: rs[0].id_user,
                     name: rs[0].username,
                     avatar: rs[0].avatar,
                 }
@@ -45,8 +45,8 @@ module.exports = function (app, profile, product, device) {
                                     }
                                 });
                                 for (var i = 0; i < rs1[0].comment.length; i++) {
-                                    if (rs1[0].comment[i].poster.id !== rs[0].id_user) {
-                                        device.find({ id_user: rs1[0].comment[i].poster.id }, (err, rs2) => {
+                                    if (rs1[0].comment[i].poster.id_user !== rs[0].id_user) {
+                                        device.find({ id_user: rs1[0].comment[i].poster.id_user }, (err, rs2) => {
             
                                             if (rs2.length > 0) {
                                                profile.find({id_user : req.body.id_user_product},(err, rs3)=>{
