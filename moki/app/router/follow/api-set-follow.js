@@ -2,7 +2,7 @@
 
 var sendFunction = require('../push-notification/functions/send-message');
 
-module.exports = function (app, profile) {
+module.exports = function (app, profile,device) {
     app.post('/profile/set_follow', (req, res) => {
         profile.find({ token: req.body.token }, (err, rs) => {
             console.log(rs);
@@ -37,14 +37,23 @@ module.exports = function (app, profile) {
                                 code: 1000,
                                 message: "OK",
                             }
+                            let message ={
+                                message:rs[0].username +" đã follow bạn",
+                                url: rs[0].avatar,
+                                view:"0",
+                              }
 
                             device.find({id_user : req.body.id_user},(err, rs2)=>{
                                 console.log(rs2);
                                 if(rs1.length >0){
                                   for(var j =0; j < rs2.length; j++){
-                                    sendFunction.sendMessage(rs[0].username +" đã follow bạn",rs2[j].registrationId,function(result){                  
+                                    sendFunction.sendMessage(message,rs2[j].registrationId,function(result){                  
                                     });
                                   }
+                                  rs1[0].list_notification.push(message);
+                                  rs1[0].save((err, pro)=>{
+            
+                                  });
                                 }
                               })
                             return res.json(result);

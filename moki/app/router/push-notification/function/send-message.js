@@ -15,7 +15,7 @@ exports.sendMessage = function(message,registrationId,callback){
 
 		} else 	{
 
-			console.log(response);
+			console.log("aaa");
 			callback(constants.success.msg_send_success);
 		}
 

@@ -32,6 +32,7 @@ var Schema = new mongoose.Schema({
   list_following: [],
   list_chat: [],
   list_order_address: [],
+  list_notification: [],
 
 });
 module.exports = mongoose.model('profile', Schema);

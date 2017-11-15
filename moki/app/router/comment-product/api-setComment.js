@@ -20,8 +20,8 @@ module.exports = function (app, profile, product, device) {
                     time: m.toString(),
                 }
                 product.find({ id_product: req.body.id_product }, (err1, rs1) => {
-                    if (rs1.length != 0) {
 
+                    if (rs1.length != 0) {
                         rs1[0].comment.push(comment);
                         rs1[0].save(function (err, product) {
                             if (err != null) {
@@ -38,23 +38,52 @@ module.exports = function (app, profile, product, device) {
                                 device.find({ id_user: req.body.id_user_product }, (err, rs2) => {
                                     console.log(rs2);
                                     if (rs2.length > 0) {
+                                        let message = {
+                                            message: rs[0].username + "Đã bình luận về sản phẩm " + rs1[0].name_product,
+                                            url: rs[0].avatar,
+                                            view: "0",
+                                        }
+
                                         for (var j = 0; j < rs2.length; j++) {
-                                            sendFunction.sendMessage(rs[0].username + "Đã bình luận về sản phẩm " + rs1[0].name_product, rs2[j].registrationId, function (result) {
+                                            sendFunction.sendMessage(message, rs2[j].registrationId, function (result) {
                                             });
                                         }
+                                        profile.find({ id_user: req.body.id_user_product }, (err, rs4) => {
+                                            if (rs4.length > 0) {
+                                                rs4[0].list_notification.push(message);
+                                                rs4[0].save((e,r)=>{
+                                                    
+                                                                                                                    })
+                                            }
+                                        });
+
                                     }
                                 });
                                 for (var i = 0; i < rs1[0].comment.length; i++) {
                                     if (rs1[0].comment[i].poster.id_user !== rs[0].id_user) {
                                         device.find({ id_user: rs1[0].comment[i].poster.id_user }, (err, rs2) => {
-            
+
                                             if (rs2.length > 0) {
-                                               profile.find({id_user : req.body.id_user_product},(err, rs3)=>{
-                                                   if(rs3.length >0){
-                                                    sendFunction.sendMessage(rs1[0].comment[i].poster.name + " cũng đã bình luận trong " + rs1[0].name_product + " của "+rs3[0].username, rs2[j].registrationId, function (result) {
-                                                    });
-                                                   }
-                                               })
+
+                                                profile.find({ id_user: req.body.id_user_product }, (err, rs3) => {
+                                                    if (rs3.length > 0) {
+                                                        let message = {
+                                                            message: rs[0].username + " cũng đã bình luận trong " + rs1[0].name_product + " của " + rs3[0].username,
+                                                            url: rs[0].avatar,
+                                                            view: "0",
+                                                        }
+                                                        sendFunction.sendMessage(message, rs2[j].registrationId, function (result) {
+                                                        });
+                                                        profile.find({ id_user: rs1[0].comment[i].poster.id_user }, (err, rs4) => {
+                                                            if (rs4.length > 0) {
+                                                                rs4[0].list_notification.push(message);
+                                                                rs4[0].save((e,r)=>{
+
+                                                                })
+                                                            }
+                                                        });
+                                                    }
+                                                })
 
                                             }
                                         });

@@ -121,13 +121,28 @@ module.exports = function (app, profile, product, device) {
             let listFollowed = rs[0].followed;
             console.log(utoa('CabSync:12345678'));
             for(var i =0; i < listFollowed.length; i++){
-              device.find({id_user : listFollowed[i].id_user},(err, rs1)=>{
-                console.log(rs1);
-                if(rs1.length >0){
-                  for(var j =0; j < rs1.length; j++){
-                    sendFunction.sendMessage(rs[0].username +" đã đăng sản phẩm mới là : "+req.body.name_product ,rs1[j].registrationId,function(result){                  
-                    });
-                  }
+              profile.find({id_user : listFollowed[i].id_user},(err, rsp)=>{
+                if(rsp.length >0){
+                  device.find({id_user : rsp[0].id_user},(err, rs1)=>{
+                    console.log(rsp[0].id_user);
+                    console.log(rs1);
+                    if(rs1.length >0){
+                      let message ={
+                        message:rs[0].username +" đã đăng sản phẩm mới là : "+req.body.name_product,
+                        url: rs[0].avatar,
+                        view:"0",
+                      }
+                      for(var j =0; j < rs1.length; j++){
+                        sendFunction.sendMessage(message ,rs1[j].registrationId,function(result){                  
+                        });
+                      }
+                      console.log(message)
+                      rsp[0].list_notification.push(message);
+                      rsp[0].save((err, pro)=>{
+
+                      });
+                    }
+                  });
                 }
               })
             }
