@@ -5,6 +5,8 @@ var en = require('../../../node_modules/base-64/base64');
 function utoa(str) {
   return en.encode(str);
 }
+var moment = require('moment');
+
 
 module.exports = function (app, profile, product, device) {
   app.post('/add_product', (req, res) => {
@@ -42,7 +44,8 @@ module.exports = function (app, profile, product, device) {
           ward :req.body.ward,
         };
         newProduct.condition= req.body.condition;
-        newProduct.created= null;
+        let m = moment();
+        newProduct.created= m.toString();
         newProduct.like= [];
         newProduct.comment= [];
         newProduct.video= {
@@ -122,7 +125,7 @@ module.exports = function (app, profile, product, device) {
                 console.log(rs1);
                 if(rs1.length >0){
                   for(var j =0; j < rs1.length; j++){
-                    sendFunction.sendMessage(rs[0].username +" đã đăng sản phẩm mới",rs1[j].registrationId,function(result){                  
+                    sendFunction.sendMessage(rs[0].username +" đã đăng sản phẩm mới là : "+req.body.name_product ,rs1[j].registrationId,function(result){                  
                     });
                   }
                 }
