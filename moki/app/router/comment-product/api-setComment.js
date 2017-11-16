@@ -36,7 +36,7 @@ module.exports = function (app, profile, product, device) {
                                 }
 
                                 device.find({ id_user: req.body.id_user_product }, (err, rs2) => {
-                                    console.log(rs2);
+                                    //console.log(rs2);
                                     if (rs2.length > 0) {
                                         let message = {
                                             id: rs[0].list_notification.length,
@@ -60,40 +60,61 @@ module.exports = function (app, profile, product, device) {
 
                                     }
                                 });
+                                let list_id = [];
+
                                 for (var i = 0; i < rs1[0].comment.length; i++) {
-                                    if (rs1[0].comment[i].poster.id_user !== rs[0].id_user) {
-                                        device.find({ id_user: rs1[0].comment[i].poster.id_user }, (err, rs2) => {
 
-                                            if (rs2.length > 0) {
+                                    list_id.push(rs1[0].comment[i].poster.id_user);
 
-                                                profile.find({ id_user: req.body.id_user_product }, (err, rs3) => {
-                                                    if (rs3.length > 0) {
-                                                        let message = {
-                                                            id: rs[0].list_notification.length,
-                                                            message: rs[0].username + " cũng đã bình luận trong " + rs1[0].name_product + " của " + rs3[0].username,
-                                                            url: rs[0].avatar,
-                                                            view: "0",
-                                                        }
-                                                        sendFunction.sendMessage(message, rs2[j].registrationId, function (result) {
-                                                        });
-                                                        profile.find({ id_user: rs1[0].comment[i].poster.id_user }, (err, rs4) => {
-                                                            if (rs4.length > 0) {
-                                                                rs4[0].list_notification.push(message);
-                                                                rs4[0].save((e, r) => {
-
-                                                                })
-                                                            }
-                                                        });
-                                                    }
-                                                })
-
-                                            }
-                                        });
+                                }
+                                for (var i = 0; i < list_id.length - 1; i++) {
+                                    for (var j = i + 1; j < list_id.length; j++) {
+                                        if (list_id[i] === list_id[j]) {
+                                            list_id[j] = list_id[j + 1];
+                                            list_id.length--;
+                                            i--;
+                                        }
                                     }
                                 }
 
-
-
+                                for (var i = 0; i < list_id.length; i++) {                                 
+                                    if(list_id[i] !== rs[0].id_user){
+                                        console.log(list_id[i]);
+                                        device.find({ id_user: list_id[i] }, (e1, r1) => {
+                                            if (r1.length > 0) {
+                                                profile.find({ id_user: req.body.id_user_product }, (e, r) => {
+                                                    let message = {
+                                                        id: rs[0].list_notification.length,
+                                                        message: rs[0].username + "cũng đã bình luận về sản phẩm " + rs1[0].name_product + "của " + r[0].username,
+                                                        url: rs[0].avatar,
+                                                        view: "0",
+                                                    }
+                                                    sendFunction.sendMessage(message, r1[0].registrationId, function (result) {
+                                                    });
+                                                })
+    
+                                            }
+                                        });
+                                       
+                                        profile.find({ id_user: list_id[i] }, (e2, r2) => {
+                                            if (r2.length > 0) {
+                                                profile.find({ id_user: req.body.id_user_product }, (e, r) => {
+                                                    let message = {
+                                                        id: rs[0].list_notification.length,
+                                                        message: rs[0].username + "cũng đã bình luận về sản phẩm " + rs1[0].name_product + "của " + r[0].username,
+                                                        url: rs[0].avatar,
+                                                        view: "0",
+                                                    }
+                                                    r2[0].list_notification.push(message);
+                                                    r2[0].save((e3, r3) => {
+        
+                                                    })
+                                                })
+                                         
+                                            }
+                                        })
+                                    }
+                                }
                                 return res.json(result);
                             }
 

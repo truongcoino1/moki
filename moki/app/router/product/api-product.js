@@ -15,20 +15,26 @@ module.exports = function (app, db) {
   })
   app.post('/api/profile/create', function (req, res) {
     var newProfile = new profile();
-    newProfile.id_user = "1";
-    newProfile.phonenumber = "0967897421";
+    newProfile.id_user = "3";
+    newProfile.phonenumber = "0967897422";
     newProfile.password = "truong";
     newProfile.token = newProfile.phonenumber+"truong==ae";
-    newProfile.email = "truongbk22aaa7@gmail.com";
-    newProfile.username = "truongcoibk";
-    
-      newProfile.url= null,
-      newProfile.created= null,
-      newProfile.status= null,
-      newProfile.avatar= null,
-      newProfile.firstname= "Nguyễn Công",
-      newProfile.lastname= "Trương",
-      newProfile.adddress= "Bắc Ninh",
+    newProfile.email = "truongbk227truong@gmail.com";
+    newProfile.username = "truongcoibk2";
+    newProfile.url= null;
+    newProfile.created= null;
+    newProfile.status= null;
+    newProfile.avatar= null;
+    newProfile.firstname= "Nguyễn Công";
+    newProfile.lastname= "Trương 2";
+    newProfile.adddress= "Bắc Ninh";
+    newProfile.rates_lv1 ="1";
+    newProfile.rates_lv2 ="1";
+    newProfile.rates_lv3 ="1";
+    newProfile.city ="Hn";
+    newProfile.is_blocked ="a";
+    newProfile.default_address = null;
+    newProfile.online ="0";
     
     newProfile.save(function (err, profile) {
       if (err != null) {

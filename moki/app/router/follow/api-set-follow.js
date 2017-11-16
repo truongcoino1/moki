@@ -30,9 +30,7 @@ module.exports = function (app, profile,device) {
                             rs1[0].followed.push(e_followed);
                             rs[0].save(function (err, post) {
                             });
-                            rs1[0].save(function (err, post) {
-                              
-                            });
+                           
                             let result = {
                                 code: 1000,
                                 message: "OK",
@@ -66,6 +64,7 @@ module.exports = function (app, profile,device) {
                             }
                             for(var i =0; i < rs1[0].followed.length; i++){
                                 if(rs1[0].followed[i].id_user === rs[0].id_user){
+                                    console.log("da vao ")
                                     rs1[0].followed.splice(i,1);
                                 }
                             }
