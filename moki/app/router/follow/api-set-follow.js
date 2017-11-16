@@ -40,6 +40,7 @@ module.exports = function (app, profile,device) {
                                 message:rs[0].username +" đã follow bạn",
                                 url: rs[0].avatar,
                                 view:"0",
+                                id_user:rs[0].id_user,
                               }
 
                             device.find({id_user : req.body.id_user},(err, rs2)=>{

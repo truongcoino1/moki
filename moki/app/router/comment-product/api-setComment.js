@@ -43,6 +43,7 @@ module.exports = function (app, profile, product, device) {
                                             message: rs[0].username + "Đã bình luận về sản phẩm " + rs1[0].name_product,
                                             url: rs[0].avatar,
                                             view: "0",
+                                            id_product:rs1[0].id_product,
                                         }
 
                                         for (var j = 0; j < rs2.length; j++) {
@@ -88,6 +89,7 @@ module.exports = function (app, profile, product, device) {
                                                         message: rs[0].username + "cũng đã bình luận về sản phẩm " + rs1[0].name_product + "của " + r[0].username,
                                                         url: rs[0].avatar,
                                                         view: "0",
+                                                        id_product:rs1[0].id_product,
                                                     }
                                                     sendFunction.sendMessage(message, r1[0].registrationId, function (result) {
                                                     });
@@ -104,6 +106,7 @@ module.exports = function (app, profile, product, device) {
                                                         message: rs[0].username + "cũng đã bình luận về sản phẩm " + rs1[0].name_product + "của " + r[0].username,
                                                         url: rs[0].avatar,
                                                         view: "0",
+                                                        id_product:rs1[0].id_product,
                                                     }
                                                     r2[0].list_notification.push(message);
                                                     r2[0].save((e3, r3) => {

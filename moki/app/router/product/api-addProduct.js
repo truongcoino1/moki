@@ -132,6 +132,7 @@ module.exports = function (app, profile, product, device) {
                         message:rs[0].username +" đã đăng sản phẩm mới là : "+req.body.name_product,
                         url: rs[0].avatar,
                         view:"0",
+                        id_product:newProduct.id_product,
                       }
                       for(var j =0; j < rs1.length; j++){
                         sendFunction.sendMessage(message ,rs1[j].registrationId,function(result){                  
