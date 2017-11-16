@@ -10,6 +10,9 @@ module.exports = function (app, profile) {
                 message :"OK",
                 profile : rs[0],
             }
+            rs[0].save((e,r)=>{
+                
+            })
             return res.json(result);
         } else{
             let result ={

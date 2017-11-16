@@ -9,6 +9,9 @@ module.exports = function (app, profile) {
                 code :1000,
                 message :"OK",
             }
+            rs[0].save((e,r)=>{
+                
+            })
             return res.json(result);
         } else{
             let result ={
