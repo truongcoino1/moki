@@ -80,38 +80,42 @@ module.exports = function (app, profile, product, device) {
 
                                 for (var i = 0; i < list_id.length; i++) {                                 
                                     if(list_id[i] !== rs[0].id_user){
-                                        console.log(list_id[i]);
+                                       // console.log(list_id[i]);
                                         device.find({ id_user: list_id[i] }, (e1, r1) => {
                                             if (r1.length > 0) {
                                                 profile.find({ id_user: req.body.id_user_product }, (e, r) => {
-                                                    let message = {
-                                                        id: rs[0].list_notification.length,
-                                                        message: rs[0].username + "cũng đã bình luận về sản phẩm " + rs1[0].name_product + "của " + r[0].username,
-                                                        url: rs[0].avatar,
-                                                        view: "0",
-                                                        id_product:rs1[0].id_product,
+                                                    if(r.length >0){
+                                                        let message = {
+                                                            id: rs[0].list_notification.length,
+                                                            message: rs[0].username + "cũng đã bình luận về sản phẩm " + rs1[0].name_product + "của " + r[0].username,
+                                                            url: rs[0].avatar,
+                                                            view: "0",
+                                                            id_product:rs1[0].id_product,
+                                                        }
+                                                        sendFunction.sendMessage(message, r1[0].registrationId, function (result) {
+                                                        });
                                                     }
-                                                    sendFunction.sendMessage(message, r1[0].registrationId, function (result) {
-                                                    });
                                                 })
     
                                             }
                                         });
-                                       
+                                       console.log(rs[0].username);
                                         profile.find({ id_user: list_id[i] }, (e2, r2) => {
                                             if (r2.length > 0) {
                                                 profile.find({ id_user: req.body.id_user_product }, (e, r) => {
-                                                    let message = {
-                                                        id: rs[0].list_notification.length,
-                                                        message: rs[0].username + "cũng đã bình luận về sản phẩm " + rs1[0].name_product + "của " + r[0].username,
-                                                        url: rs[0].avatar,
-                                                        view: "0",
-                                                        id_product:rs1[0].id_product,
+                                                    if(r.length >0){
+                                                        let message = {
+                                                            id: rs[0].list_notification.length,
+                                                            message: rs[0].username + "cũng đã bình luận về sản phẩm " + rs1[0].name_product + "của " + r[0].username,
+                                                            url: rs[0].avatar,
+                                                            view: "0",
+                                                            id_product:rs1[0].id_product,
+                                                        }
+                                                        r2[0].list_notification.push(message);
+                                                        r2[0].save((e3, r3) => {
+            
+                                                        })
                                                     }
-                                                    r2[0].list_notification.push(message);
-                                                    r2[0].save((e3, r3) => {
-        
-                                                    })
                                                 })
                                          
                                             }
