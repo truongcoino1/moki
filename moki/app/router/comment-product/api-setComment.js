@@ -38,12 +38,14 @@ module.exports = function (app, profile, product, device) {
                                 device.find({ id_user: req.body.id_user_product }, (err, rs2) => {
                                     //console.log(rs2);
                                     if (rs2.length > 0) {
+                                        let m1 = moment();
                                         let message = {
                                             id: rs[0].list_notification.length,
                                             message: rs[0].username + "Đã bình luận về sản phẩm " + rs1[0].name_product,
                                             url: rs[0].avatar,
                                             view: "0",
                                             id_product:rs1[0].id_product,
+                                            time :m1.toString(),
                                         }
 
                                         for (var j = 0; j < rs2.length; j++) {
@@ -85,12 +87,14 @@ module.exports = function (app, profile, product, device) {
                                             if (r1.length > 0) {
                                                 profile.find({ id_user: req.body.id_user_product }, (e, r) => {
                                                     if(r.length >0){
+                                                        let m1 = moment();
                                                         let message = {
                                                             id: rs[0].list_notification.length,
                                                             message: rs[0].username + "cũng đã bình luận về sản phẩm " + rs1[0].name_product + "của " + r[0].username,
                                                             url: rs[0].avatar,
                                                             view: "0",
                                                             id_product:rs1[0].id_product,
+                                                            time :m1.toString(),
                                                         }
                                                         sendFunction.sendMessage(message, r1[0].registrationId, function (result) {
                                                         });
@@ -104,12 +108,14 @@ module.exports = function (app, profile, product, device) {
                                             if (r2.length > 0) {
                                                 profile.find({ id_user: req.body.id_user_product }, (e, r) => {
                                                     if(r.length >0){
+                                                        let m1 = moment();
                                                         let message = {
                                                             id: rs[0].list_notification.length,
                                                             message: rs[0].username + "cũng đã bình luận về sản phẩm " + rs1[0].name_product + "của " + r[0].username,
                                                             url: rs[0].avatar,
                                                             view: "0",
                                                             id_product:rs1[0].id_product,
+                                                            time :m1.toString(),
                                                         }
                                                         r2[0].list_notification.push(message);
                                                         r2[0].save((e3, r3) => {

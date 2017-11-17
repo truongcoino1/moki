@@ -1,5 +1,5 @@
 
-
+var moment = require('moment');
 var sendFunction = require('../push-notification/functions/send-message');
 
 module.exports = function (app, profile,device) {
@@ -35,12 +35,15 @@ module.exports = function (app, profile,device) {
                                 code: 1000,
                                 message: "OK",
                             }
+
+                            let m = moment();
                             let message ={
                                 id: rs[0].list_notification.length,
                                 message:rs[0].username +" đã follow bạn",
                                 url: rs[0].avatar,
                                 view:"0",
                                 id_user:rs[0].id_user,
+                                time : m.toString(),
                               }
 
                             device.find({id_user : req.body.id_user},(err, rs2)=>{
