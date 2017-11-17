@@ -45,5 +45,6 @@ require('./app/router/follow/follow')(app,dbMongo);
 require('./app/router/conversation/conversation')(app,dbMongo);
 require('./app/router/address/address')(app,dbMongo);
 require('./app/router/push-notification/routes/routes')(app,socket);
-require('./app/router/message/api-create-room-chat')(app);
+//require('./app/router/message/api-create-room-chat')(app);
+require('./app/router/message/api-chat')(app,dbMongo);
 
