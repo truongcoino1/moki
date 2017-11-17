@@ -41,7 +41,7 @@ module.exports = function (app, profile, product, device) {
                                         let m1 = moment();
                                         let message = {
                                             id: rs[0].list_notification.length,
-                                            message: rs[0].username + "Đã bình luận về sản phẩm " + rs1[0].name_product,
+                                            message: rs[0].username + " đã bình luận về sản phẩm " + rs1[0].name_product,
                                             url: rs[0].avatar,
                                             view: "0",
                                             id_product:rs1[0].id_product,
@@ -90,7 +90,7 @@ module.exports = function (app, profile, product, device) {
                                                         let m1 = moment();
                                                         let message = {
                                                             id: rs[0].list_notification.length,
-                                                            message: rs[0].username + "cũng đã bình luận về sản phẩm " + rs1[0].name_product + "của " + r[0].username,
+                                                            message: rs[0].username + " cũng đã bình luận về sản phẩm " + rs1[0].name_product + "của " + r[0].username,
                                                             url: rs[0].avatar,
                                                             view: "0",
                                                             id_product:rs1[0].id_product,
@@ -111,7 +111,7 @@ module.exports = function (app, profile, product, device) {
                                                         let m1 = moment();
                                                         let message = {
                                                             id: rs[0].list_notification.length,
-                                                            message: rs[0].username + "cũng đã bình luận về sản phẩm " + rs1[0].name_product + "của " + r[0].username,
+                                                            message: rs[0].username + " cũng đã bình luận về sản phẩm " + rs1[0].name_product + "của " + r[0].username,
                                                             url: rs[0].avatar,
                                                             view: "0",
                                                             id_product:rs1[0].id_product,
