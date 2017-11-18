@@ -53,6 +53,8 @@ module.exports = function (app, profile, product, device) {
                                             });
                                         }
                                         profile.find({ id_user: req.body.id_user_product }, (err, rs4) => {
+                                                console.log("da sssvao");
+                                            
                                             if (rs4.length > 0) {
                                                 let message = {
                                                     id: rs4[0].list_notification.length,
